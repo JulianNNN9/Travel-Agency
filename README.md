@@ -17,4 +17,4 @@ mvn clean javafx:run
 
 ---
 
-Universidad del Quindío 💚 - Ingeniería de sistemas y computación - 2023-2
+Universidad del Quindío - Ingeniería de sistemas y computación - 2023-2
