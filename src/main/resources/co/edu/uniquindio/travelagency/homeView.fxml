@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Pane prefHeight="615.0" prefWidth="950.0" style="-fx-background-color: #383838" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.travelagency.controllers.HomeViewController">
+    <Label layoutX="59.0" layoutY="96.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="¿Quienes Somos?"><font><Font size="60" /></font></Label>
+    <Label layoutX="59.0" layoutY="219.0" style="-fx-text-fill: #D07943FF; -fx-font-family: 'Segoe UI Semibold'" text="Una agencia de viajes"><font><Font size="25" /></font></Label>
+    <Label layoutX="59.0" layoutY="299.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="Un pequeña frase sobre la empresa"><font><Font size="12" /></font></Label>
+    <Button layoutX="59.0" layoutY="408.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="271.0" style="-fx-border-radius: 35; -fx-background-radius: 35; -fx-border-style: none; -fx-border-color: #a26740; -fx-background-color: #d07943; -fx-font-family: 'Segoe UI Semibold'; -fx-font-size: 15" text="conoceNuestroPaquetesButton" />
+</Pane>

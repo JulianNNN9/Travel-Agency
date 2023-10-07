@@ -14,4 +14,5 @@ module co.edu.uniquindio.travelagency {
     exports co.edu.uniquindio.travelagency.app;
     exports co.edu.uniquindio.travelagency.controllers;
     exports co.edu.uniquindio.travelagency.model;
+    exports co.edu.uniquindio.travelagency.exceptions;
 }
