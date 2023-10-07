@@ -19,11 +19,11 @@ public class archiveUtils {
         }
     }
 
-    public static List<Object> deserializerObjet(String ruta) {
+    public static Object deserializerObjet(String ruta) {
         try (FileInputStream fileInputStream = new FileInputStream(ruta);
              ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream)){
 
-            return (List<Object>) objectInputStream.readObject();
+            return objectInputStream.readObject();
 
         } catch (IOException | ClassNotFoundException e) {
             log.severe(e.getMessage());
