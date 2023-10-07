@@ -11,16 +11,18 @@ import javafx.stage.StageStyle;
 import java.io.File;
 import java.io.IOException;
 
-public class HelloApplication extends Application {
+public class TravelAgencyApp extends Application {
     @Override
     public void start(Stage stage) throws IOException {
 
-        File url = new File("src/main/resources/co/edu/uniquindio/travelagency/hello-view.fxml");
+        File url = new File("src/main/resources/co/edu/uniquindio/travelagency/LogInView.fxml");
         FXMLLoader loader = new FXMLLoader(url.toURL());
         Parent parent = loader.load();
 
         Scene scene = new Scene(parent);
         stage.setScene(scene);
+        stage.initStyle(StageStyle.TRANSPARENT);
+        scene.setFill(Color.TRANSPARENT);
         stage.show();
     }
 

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="356.0" prefWidth="287.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Pane layoutX="65.0" layoutY="251.0" prefHeight="25.0" prefWidth="157.0">
+         <children>
+            <Button layoutX="40.0" mnemonicParsing="false" text="botonLogin" />
+         </children>
+      </Pane>
+      <Pane layoutX="65.0" layoutY="306.0" prefHeight="25.0" prefWidth="157.0">
+         <children>
+            <Button layoutX="1.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="157.0" text="botonRegistrarse" />
+         </children>
+      </Pane>
+      <Label layoutX="58.0" layoutY="75.0" text="idLabel" />
+      <Label layoutX="58.0" layoutY="154.0" text="contrasenaLabel" />
+      <TextField fx:id="txtFldID" layoutX="57.0" layoutY="99.0" prefHeight="25.0" prefWidth="180.0" style="-fx-background-color: #fff; -fx-border-width: 1; -fx-border-style: hidden none solid none;" />
+      <TextField fx:id="txtFldPassword" layoutX="57.0" layoutY="178.0" prefHeight="25.0" prefWidth="180.0" style="-fx-background-color: #fff; -fx-border-width: 1; -fx-border-style: hidden none solid none;"/>
+      <Button layoutX="206.0" layoutY="2.0" mnemonicParsing="false" text="botonCerrar" />
+   </children>
+</Pane>
