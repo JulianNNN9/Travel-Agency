@@ -15,5 +15,6 @@ public class TouristGuide {
     private String fullName;
     private List<String> languages;
     private String experience;
+    private Integer rating;
 
 }

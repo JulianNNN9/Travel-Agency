@@ -1,0 +1,1 @@
+txtField subrayado = style="-fx-background-color: #fff; -fx-border-width: 2; -fx-border-style: hidden none solid none;"

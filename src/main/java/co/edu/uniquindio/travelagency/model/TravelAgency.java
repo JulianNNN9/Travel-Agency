@@ -16,6 +16,7 @@ public class TravelAgency {
 
     List<TouristGuide> touristGuides;
     List<Reservation> reservations;
+    List<TouristPackage> touristPackages;
 
     @Getter
     private final ResourceBundle resourceBundle;
@@ -38,6 +39,7 @@ public class TravelAgency {
 
         this.touristGuides = new ArrayList<>();
         this.reservations = new ArrayList<>();
+        this.touristPackages = new ArrayList<>();
 
     }
 
