@@ -4,13 +4,12 @@ import co.edu.uniquindio.travelagency.exceptions.*;
 import javafx.scene.control.Alert;
 import lombok.Getter;
 import lombok.extern.java.Log;
-
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.FileHandler;
 import java.util.logging.SimpleFormatter;
+import co.edu.uniquindio.travelagency.utils.*;
 
 @Log @Getter
 
@@ -19,6 +18,7 @@ public class TravelAgency {
     List<TouristGuide> touristGuides;
     List<Reservation> reservations;
     List<TouristPackage> touristPackages;
+    List<Destination> destinations;
     List<Client> clients;
     List<Admin> admins;
 
@@ -41,11 +41,12 @@ public class TravelAgency {
             log.severe(e.getMessage());
         }
 
-        this.touristGuides = new ArrayList<>();
-        this.reservations = new ArrayList<>();
-        this.touristPackages = new ArrayList<>();
-        this.clients = new ArrayList<>();
-        this.admins = new ArrayList<>();
+        this.touristGuides = (List<TouristGuide>) archiveUtils.deserializerObjet("src/main/resources/persistencia/touristGuides.txt");
+        this.reservations = (List<Reservation>) archiveUtils.deserializerObjet("src/main/resources/persistencia/revervations.txt");
+        this.touristPackages = (List<TouristPackage>) archiveUtils.deserializerObjet("src/main/resources/persistencia/touristPackages.txt");
+        this.destinations = (List<Destination>) archiveUtils.deserializerObjet("src/main/resources/persistencia/destinations.txt");
+        this.clients = (List<Client>) archiveUtils.deserializerObjet("src/main/resources/persistencia/clients.txt");
+        this.admins = (List<Admin>) archiveUtils.deserializerObjet("src/main/resources/persistencia/admins.txt");
 
     }
 

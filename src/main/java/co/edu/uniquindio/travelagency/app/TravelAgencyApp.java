@@ -18,7 +18,6 @@ public class TravelAgencyApp extends Application {
     private double xOffset = 0, yOffset = 0;
     @Override
     public void start(Stage stage) throws IOException {
-
           File url = new File("src/main/resources/co/edu/uniquindio/travelagency/home2View.fxml");
         FXMLLoader loader = new FXMLLoader(url.toURL());
         Parent parent = loader.load();

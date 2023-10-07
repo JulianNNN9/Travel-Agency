@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="615.0" prefWidth="950.0" style="-fx-background-color: #383838" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.travelagency.controllers.AdminViewController">
+
+    <Pane fx:id="principalPane" layoutX="7.0" prefHeight="615.0" prefWidth="950.0">
+
+        <Label layoutX="59.0" layoutY="131.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="Has iniciado sesión como administrador"><font><Font size="45" /></font></Label>
+        <Label layoutX="361.0" layoutY="272.0" style="-fx-text-fill: #D07943FF; -fx-font-family: 'Segoe UI Semibold'" text="¿Qué desea hacer?"><font><Font size="25" /></font></Label>
+
+       <Pane layoutX="366.0" layoutY="327.0" prefHeight="226.0" prefWidth="200.0">
+             <Button fx:id="manageDestinationsButton" contentDisplay="CENTER" layoutX="26.0" layoutY="14.0" mnemonicParsing="false" style="-fx-border-radius: 35; -fx-background-radius: 35; -fx-border-style: none; -fx-border-color: #a26740; -fx-background-color: #d07943; -fx-font-family: 'Segoe UI Semibold';" text="gestionarDestinosButton" textAlignment="CENTER" />
+             <Button fx:id="managePackagesButton" layoutX="24.0" layoutY="72.0" mnemonicParsing="false" style="-fx-border-radius: 35; -fx-background-radius: 35; -fx-border-style: none; -fx-border-color: #a26740; -fx-background-color: #d07943; -fx-font-family: 'Segoe UI Semibold';" text="gestionarPaquetesButton" />
+             <Button fx:id="manageGuidesButton" layoutX="33.0" layoutY="129.0" mnemonicParsing="false" style="-fx-border-radius: 35; -fx-background-radius: 35; -fx-border-style: none; -fx-border-color: #a26740; -fx-background-color: #d07943; -fx-font-family: 'Segoe UI Semibold';" text="gestionarGuiasButton" />
+             <Button fx:id="statisticsButton" layoutX="44.0" layoutY="185.0" mnemonicParsing="false" style="-fx-border-radius: 35; -fx-background-radius: 35; -fx-border-style: none; -fx-border-color: #a26740; -fx-background-color: #d07943; -fx-font-family: 'Segoe UI Semibold';" text="estadisticasButton" />
+       </Pane>
+
+      <ImageView fx:id="imgViewExitButton" fitHeight="36.0" fitWidth="37.0" layoutX="899.0" layoutY="14.0" onMouseClicked="#onExitButtonClick" pickOnBounds="true" preserveRatio="true" />
+
+    </Pane>
+
+    <Pane fx:id="manageDestinationsPane" prefHeight="615.0" prefWidth="950.0" visible="false">
+
+        <TableView fx:id="destinationsTable" layoutX="61.0" layoutY="236.0" prefHeight="335.0" prefWidth="815.0">
+            <columns>
+                <TableColumn fx:id="nameDestinationCol" prefWidth="109.0" text="Name" />
+                <TableColumn fx:id="cityCol" prefWidth="87.0" text="City" />
+                <TableColumn fx:id="descriptionCol" prefWidth="511.0" text="Description" />
+                <TableColumn fx:id="weatherCol" minWidth="0.0" prefWidth="103.0" text="Weather" />
+            </columns>
+        </TableView>
+
+        <ImageView fx:id="imgViewBackDestinationsButton" fitHeight="36.0" fitWidth="37.0" layoutX="899.0" layoutY="14.0" onMouseClicked="#onBackButtonClick" pickOnBounds="true" preserveRatio="true" />
+
+        <Button fx:id="addButtonDestination" layoutX="61.0" layoutY="184.0" mnemonicParsing="false" text="addButton" />
+        <Button fx:id="modifyButtonDestination" layoutX="145.0" layoutY="184.0" mnemonicParsing="false" text="modifyButton" />
+        <Button fx:id="deleteButtonDestination" layoutX="246.0" layoutY="184.0" mnemonicParsing="false" text="deleteButton" />
+
+        <Label layoutX="61.0" layoutY="32.0" prefHeight="17.0" prefWidth="63.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="nameLabel" />
+        <TextField fx:id="txtFldName" layoutX="172.0" layoutY="28.0" />
+        <Label layoutX="61.0" layoutY="82.0" prefHeight="17.0" prefWidth="63.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="cityLabel" />
+        <TextField fx:id="txtFldCity" layoutX="172.0" layoutY="78.0" />
+        <Label layoutX="61.0" layoutY="134.0" prefHeight="17.0" prefWidth="84.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="weatherLabel" />
+        <TextField fx:id="txtFldWeather" layoutX="172.0" layoutY="130.0" />
+        <Label layoutX="364.0" layoutY="32.0" prefHeight="17.0" prefWidth="98.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="descriptionLabel" />
+        <TextField fx:id="txtFldDescription" layoutX="462.0" layoutY="27.0" prefHeight="128.0" prefWidth="210.0" />
+
+    </Pane>
+
+    <Pane fx:id="managePackagesPane" prefHeight="615.0" prefWidth="950.0" visible="false">
+
+        <TableView fx:id="packagesTable" layoutX="61.0" layoutY="236.0" prefHeight="335.0" prefWidth="815.0">
+            <columns>
+                <TableColumn fx:id="namePackageCol" prefWidth="136.0" text="Name" />
+                <TableColumn fx:id="priceCol" prefWidth="105.0" text="Price" />
+                <TableColumn fx:id="quotaCol" prefWidth="141.0" text="Quota" />
+                <TableColumn fx:id="startDateCol" minWidth="0.0" prefWidth="144.0" text="Start date" />
+                <TableColumn fx:id="durationCol" minWidth="0.0" prefWidth="146.0" text="Duration" />
+                <TableColumn fx:id="clientIdCol" minWidth="0.0" prefWidth="137.0" text="Client id" />
+            </columns>
+        </TableView>
+
+        <ImageView fx:id="imgViewBackPackagesButton" fitHeight="36.0" fitWidth="37.0" layoutX="899.0" layoutY="14.0" onMouseClicked="#onBackButtonClick" pickOnBounds="true" preserveRatio="true" />
+
+        <Button fx:id="addButtonPackages" layoutX="61.0" layoutY="184.0" mnemonicParsing="false" text="addButton" />
+        <Button fx:id="modifyButtonPackages" layoutX="145.0" layoutY="184.0" mnemonicParsing="false" text="modifyButton" />
+        <Button fx:id="deleteButtonPackages" layoutX="246.0" layoutY="184.0" mnemonicParsing="false" text="deleteButton" />
+
+        <Label layoutX="61.0" layoutY="32.0" prefHeight="17.0" prefWidth="72.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="nameLabel" />
+        <TextField fx:id="txtFldPackageName" layoutX="172.0" layoutY="28.0" />
+        <Label layoutX="61.0" layoutY="82.0" prefHeight="17.0" prefWidth="63.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="priceLabel" />
+        <TextField fx:id="txtFldPrice" layoutX="172.0" layoutY="78.0" />
+        <Label layoutX="61.0" layoutY="134.0" prefHeight="17.0" prefWidth="84.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="quotaLabel" />
+        <TextField fx:id="txtFldQuota" layoutX="172.0" layoutY="130.0" />
+        <Label layoutX="364.0" layoutY="32.0" prefHeight="17.0" prefWidth="72.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="startDate" />
+        <DatePicker fx:id="datePckrStartDate" layoutX="475.0" layoutY="28.0" />
+        <Label layoutX="364.0" layoutY="82.0" prefHeight="17.0" prefWidth="84.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="durationLabel" />
+        <TextField fx:id="txtFldDuration" layoutX="475.0" layoutY="78.0" />
+        <Label layoutX="364.0" layoutY="134.0" prefHeight="17.0" prefWidth="84.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="clientIDLabel" />
+        <TextField fx:id="txtFldClientID" layoutX="475.0" layoutY="130.0" />
+
+    </Pane>
+
+    <Pane fx:id="manageGuidesPane" prefHeight="615.0" prefWidth="950.0" visible="false">
+
+        <TableView fx:id="guidesTable" layoutX="217.0" layoutY="237.0" prefHeight="335.0" prefWidth="491.0">
+            <columns>
+                <TableColumn fx:id="idGuideCol" prefWidth="109.0" text="Id" />
+                <TableColumn fx:id="fullNameGuideCol" prefWidth="104.0" text="Full name" />
+                <TableColumn fx:id="experienceCol" minWidth="0.0" prefWidth="133.0" text="Experience" />
+                <TableColumn fx:id="ratingCol" minWidth="0.0" prefWidth="140.0" text="Rating" />
+            </columns>
+        </TableView>
+
+        <ImageView fx:id="imgViewBackGuidesButton" fitHeight="36.0" fitWidth="37.0" layoutX="899.0" layoutY="14.0" onMouseClicked="#onBackButtonClick" pickOnBounds="true" preserveRatio="true" />
+
+        <Button fx:id="addButtonGuides" layoutX="61.0" layoutY="184.0" mnemonicParsing="false" text="addButton" />
+        <Button fx:id="modifyButtonGuides" layoutX="145.0" layoutY="184.0" mnemonicParsing="false" text="modifyButton" />
+        <Button fx:id="deleteButtonGuide" layoutX="246.0" layoutY="184.0" mnemonicParsing="false" text="deleteButton" />
+
+        <Label layoutX="61.0" layoutY="32.0" prefHeight="17.0" prefWidth="78.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="idGuideLabel" />
+        <TextField fx:id="txtFldGuideId" layoutX="172.0" layoutY="28.0" />
+        <Label layoutX="61.0" layoutY="82.0" prefHeight="17.0" prefWidth="84.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="fullNameLabel" />
+        <TextField fx:id="txtFldFullNameGuide" layoutX="172.0" layoutY="78.0" />
+        <Label layoutX="61.0" layoutY="134.0" prefHeight="17.0" prefWidth="98.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="experienceLabel" />
+        <TextField fx:id="txtFldExperience" layoutX="172.0" layoutY="130.0" />
+        <Label layoutX="364.0" layoutY="32.0" prefHeight="17.0" prefWidth="98.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="ratingLabel" />
+        <TextField fx:id="txtFldRating" layoutX="469.0" layoutY="28.0" prefHeight="25.0" prefWidth="210.0" />
+
+    </Pane>
+
+    <Pane prefHeight="615.0" prefWidth="957.0" visible="false">
+        <Label layoutX="306.0" layoutY="14.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="estadisticasLabelPrincipal"><font><Font size="30" /></font></Label>
+    </Pane>
+    
+</AnchorPane>
