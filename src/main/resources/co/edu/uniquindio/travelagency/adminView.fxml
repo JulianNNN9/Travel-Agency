@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
@@ -14,18 +15,18 @@
 
        <Pane layoutX="366.0" layoutY="327.0" prefHeight="226.0" prefWidth="200.0">
 
-                <Button fx:id="manageDestinationsButton" layoutX="26.0" layoutY="15.0" mnemonicParsing="false" onMouseClicked="#handleButtonAction" style="-fx-border-radius: 35; -fx-background-radius: 35; -fx-border-color: #a26740; -fx-background-color: #d07943; -fx-font-family: 'Segoe UI Semibold';" text="gestionarDestinosButton" />
-                <Button fx:id="managePackagesButton" layoutX="25.0" layoutY="66.0" mnemonicParsing="false" onMouseClicked="#handleButtonAction" style="-fx-border-radius: 35; -fx-background-radius: 35; -fx-border-color: #a26740; -fx-background-color: #d07943; -fx-font-family: 'Segoe UI Semibold';" text="gestionarPaquetesButton" />
-                <Button fx:id="manageGuidesButton" layoutX="32.0" layoutY="119.0" mnemonicParsing="false" onMouseClicked="#handleButtonAction" style="-fx-border-radius: 35; -fx-background-radius: 35; -fx-border-color: #a26740; -fx-background-color: #d07943; -fx-font-family: 'Segoe UI Semibold';" text="gestionarGuiasButton" />
-                <Button fx:id="statisticsButton" layoutX="43.0" layoutY="168.0" mnemonicParsing="false" onMouseClicked="#handleButtonAction" style="-fx-border-radius: 35; -fx-background-radius: 35; -fx-border-color: #a26740; -fx-background-color: #d07943; -fx-font-family: 'Segoe UI Semibold';" text="estadisticasButton" />
+                <Button fx:id="managePackagesButton" layoutX="25.0" layoutY="66.0" mnemonicParsing="false" onMouseClicked="#handleButtonAction" style="-fx-border-radius: 35; -fx-background-radius: 35; -fx-border-color: #a26740; -fx-background-color: #d07943; -fx-font-family: 'Segoe UI Semibold';" text="gestionarPaquetesButton"><cursor><Cursor fx:constant="HAND" /></cursor></Button>
+                <Button fx:id="manageGuidesButton" layoutX="32.0" layoutY="119.0" mnemonicParsing="false" onMouseClicked="#handleButtonAction" style="-fx-border-radius: 35; -fx-background-radius: 35; -fx-border-color: #a26740; -fx-background-color: #d07943; -fx-font-family: 'Segoe UI Semibold';" text="gestionarGuiasButton"><cursor><Cursor fx:constant="HAND" /></cursor></Button>
+                <Button fx:id="statisticsButton" layoutX="43.0" layoutY="168.0" mnemonicParsing="false" onMouseClicked="#handleButtonAction" style="-fx-border-radius: 35; -fx-background-radius: 35; -fx-border-color: #a26740; -fx-background-color: #d07943; -fx-font-family: 'Segoe UI Semibold';" text="estadisticasButton"><cursor><Cursor fx:constant="HAND" /></cursor></Button>
+                <Button fx:id="manageDestinationsButton" layoutX="26.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#handleButtonAction" style="-fx-border-radius: 35; -fx-background-radius: 35; -fx-border-color: #a26740; -fx-background-color: #d07943; -fx-font-family: 'Segoe UI Semibold';" text="gestionarDestinosButton" textAlignment="CENTER"><cursor><Cursor fx:constant="HAND" /></cursor></Button>
 
        </Pane>
 
-      <ImageView fx:id="imgViewExitButton" fitHeight="36.0" fitWidth="37.0" layoutX="899.0" layoutY="14.0" onMouseClicked="#onExitButtonClick" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="imgViewExitButton" fitHeight="36.0" fitWidth="37.0" layoutX="899.0" layoutY="14.0" onMouseClicked="#onExitButtonClick" pickOnBounds="true" preserveRatio="true"><cursor><Cursor fx:constant="HAND" /></cursor></ImageView>
 
     </Pane>
 
-    <Pane fx:id="manageDestinationsPane" prefHeight="615.0" prefWidth="950.0" visible="false" style="-fx-background-radius: 15; -fx-border-radius: 15" >
+    <Pane fx:id="manageDestinationsPane" prefHeight="615.0" prefWidth="950.0" style="-fx-background-radius: 15; -fx-border-radius: 15" visible="false">
 
         <Label contentDisplay="CENTER" layoutX="315.0" layoutY="14.0" prefHeight="45.0" prefWidth="308.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'; -fx-font-size: 25" text="gestionDeDestinosLabel" textAlignment="CENTER" />
 
@@ -38,7 +39,7 @@
             </columns>
         </TableView>
 
-        <ImageView fx:id="imgViewBackDestinationsButton" fitHeight="36.0" fitWidth="37.0" layoutX="899.0" layoutY="14.0" onMouseClicked="#onBackButtonClick" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="imgViewBackDestinationsButton" fitHeight="36.0" fitWidth="37.0" layoutX="899.0" layoutY="14.0" onMouseClicked="#onBackButtonClick" pickOnBounds="true" preserveRatio="true" ><cursor><Cursor fx:constant="HAND" /></cursor></ImageView>
 
         <Button fx:id="addButtonDestination" layoutX="57.0" layoutY="267.0" mnemonicParsing="false" text="addButton" />
         <Button fx:id="modifyButtonDestination" layoutX="145.0" layoutY="267.0" mnemonicParsing="false" text="modifyButton" />
@@ -55,7 +56,7 @@
 
     </Pane>
 
-    <Pane fx:id="managePackagesPane" prefHeight="615.0" prefWidth="950.0" visible="false" style="-fx-background-radius: 15; -fx-border-radius: 15">
+    <Pane fx:id="managePackagesPane" prefHeight="615.0" prefWidth="950.0" style="-fx-background-radius: 15; -fx-border-radius: 15" visible="false">
 
         <Label contentDisplay="CENTER" layoutX="321.0" layoutY="10.0" prefHeight="45.0" prefWidth="308.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'; -fx-font-size: 25" text="gestionDePaquetesLabel" textAlignment="CENTER" />
 
@@ -70,7 +71,7 @@
             </columns>
         </TableView>
 
-        <ImageView fx:id="imgViewBackPackagesButton" fitHeight="36.0" fitWidth="37.0" layoutX="899.0" layoutY="14.0" onMouseClicked="#onBackButtonClick" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="imgViewBackPackagesButton" fitHeight="36.0" fitWidth="37.0" layoutX="899.0" layoutY="14.0" onMouseClicked="#onBackButtonClick" pickOnBounds="true" preserveRatio="true" ><cursor><Cursor fx:constant="HAND" /></cursor></ImageView>
 
         <Button fx:id="addButtonPackages" layoutX="61.0" layoutY="260.0" mnemonicParsing="false" text="addButton" />
         <Button fx:id="modifyButtonPackages" layoutX="145.0" layoutY="260.0" mnemonicParsing="false" text="modifyButton" />
@@ -91,7 +92,7 @@
 
     </Pane>
 
-    <Pane fx:id="manageGuidesPane" prefHeight="615.0" prefWidth="950.0" visible="false" style="-fx-background-radius: 15; -fx-border-radius: 15">
+    <Pane fx:id="manageGuidesPane" prefHeight="615.0" prefWidth="950.0" style="-fx-background-radius: 15; -fx-border-radius: 15" visible="false">
 
         <Label contentDisplay="CENTER" layoutX="315.0" layoutY="14.0" prefHeight="45.0" prefWidth="308.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'; -fx-font-size: 25" text="gestionDeGuiasLabel" textAlignment="CENTER" />
 
@@ -104,7 +105,7 @@
             </columns>
         </TableView>
 
-        <ImageView fx:id="imgViewBackGuidesButton" fitHeight="36.0" fitWidth="37.0" layoutX="899.0" layoutY="14.0" onMouseClicked="#onBackButtonClick" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="imgViewBackGuidesButton" fitHeight="36.0" fitWidth="37.0" layoutX="899.0" layoutY="14.0" onMouseClicked="#onBackButtonClick" pickOnBounds="true" preserveRatio="true" ><cursor><Cursor fx:constant="HAND" /></cursor></ImageView>
 
         <Button fx:id="addButtonGuides" layoutX="64.0" layoutY="274.0" mnemonicParsing="false" text="addButton" />
         <Button fx:id="modifyButtonGuides" layoutX="145.0" layoutY="274.0" mnemonicParsing="false" text="modifyButton" />
@@ -121,10 +122,11 @@
 
     </Pane>
 
-    <Pane fx:id="statisticsPane" prefHeight="615.0" prefWidth="950.0" visible="false" style="-fx-background-radius: 15; -fx-border-radius: 15">
+    <Pane fx:id="statisticsPane" prefHeight="615.0" prefWidth="950.0" style="-fx-background-radius: 15; -fx-border-radius: 15" visible="false">
 
         <Label layoutX="306.0" layoutY="14.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="estadisticasLabelPrincipal"><font><Font size="30" /></font></Label>
-        <ImageView fx:id="imgViewBackStatisticsButton" fitHeight="36.0" fitWidth="37.0" layoutX="899.0" layoutY="14.0" onMouseClicked="#onBackButtonClick" pickOnBounds="true" preserveRatio="true" />
+
+        <ImageView fx:id="imgViewBackStatisticsButton" fitHeight="36.0" fitWidth="37.0" layoutX="899.0" layoutY="14.0" onMouseClicked="#onBackButtonClick" pickOnBounds="true" preserveRatio="true" ><cursor><Cursor fx:constant="HAND" /></cursor></ImageView>
 
     </Pane>
     
