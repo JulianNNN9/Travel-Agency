@@ -25,6 +25,7 @@
             <Separator prefHeight="5.0" prefWidth="10.0" visible="false" />
              <ImageView fx:id="cerrarVentanaImgv" fitHeight="48.0" fitWidth="52.0" pickOnBounds="true" preserveRatio="true">
                  <Image url="@../../../../icons/cerrarVentana.png" />
+                 <cursor><Cursor fx:constant="HAND" /></cursor>
              </ImageView>
             <Separator prefHeight="0.0" prefWidth="11.0" visible="false" />
          </children></HBox>
@@ -35,7 +36,8 @@
           <Button layoutX="59.0" layoutY="408.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="271.0" style="-fx-border-radius: 35; -fx-background-radius: 35; -fx-border-style: none; -fx-border-color: #a26740; -fx-background-color: #d07943; -fx-font-family: 'Segoe UI Semibold'; -fx-font-size: 15" text="conoceNuestroPaquetesButton" />
          <cursor>
             <Cursor fx:constant="DEFAULT" />
-         </cursor></AnchorPane>
+         </cursor>
+      </AnchorPane>
       <AnchorPane fx:id="nuestrosPaquetesPane" layoutY="89.0" prefHeight="615.0" prefWidth="950.0" style="-fx-background-color: #383838; -fx-background-radius: 15;" visible="false">
          <children>
             <Label layoutX="358.0" layoutY="25.0" text="Paquetes Pane" textFill="#ebebeb">
@@ -84,7 +86,6 @@
                      <Button fx:id="btnRegister" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="144.0" layoutY="271.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="112.0" style="-fx-background-color: transparent; -fx-border-color: transparent; -fx-effect: inherit; -fx-underline: true; -fx-alignment: center; -fx-font-family: Constantia" text="botonRegistrarse" textAlignment="CENTER" />
                  </children>
              </Pane>
-            <ImageView fitHeight="60.0" fitWidth="63.0" layoutX="886.0" pickOnBounds="true" preserveRatio="true" />
          </children></AnchorPane>
    </children>
 </AnchorPane>
