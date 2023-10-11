@@ -7,7 +7,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
-public class Home2Controller  {
+public class HomeController {
 
     @FXML
     private ImageView cerrarVentanaImgv;
@@ -41,11 +41,13 @@ public class Home2Controller  {
     }
 
     public void visibilities(boolean pane1, boolean pane2 , boolean pane3, boolean pane4, boolean pane5 ){
+
         homePane.setVisible(pane1);
         nuestrosPaquetesPane.setVisible(pane2);
         nuestrosGuiasPane.setVisible(pane3);
         ayudaPane.setVisible(pane4);
         iniciarsesionPane.setVisible(pane5);
+
     }
 
 
