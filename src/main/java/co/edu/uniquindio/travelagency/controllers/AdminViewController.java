@@ -11,7 +11,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-public class Admin2ViewController {
+public class AdminViewController {
 
     private final TravelAgency travelAgency = TravelAgency.getInstance();
 
@@ -102,7 +102,7 @@ public class Admin2ViewController {
         this.weatherCol.setCellValueFactory(new PropertyValueFactory<>("weather"));
 
         destinationsTable.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
-            
+
         });
 
         //Lista de paquetes
@@ -161,11 +161,13 @@ public class Admin2ViewController {
     }
 
     public void visibilities(boolean pane1, boolean pane2 , boolean pane3, boolean pane4, boolean pane5 ){
+
         principalPane.setVisible(pane1);
         manageDestinationsPane.setVisible(pane2);
         managePackagesPane.setVisible(pane3);
         manageGuidesPane.setVisible(pane4);
         statisticsPane.setVisible(pane5);
+
     }
 
     public void onBackButtonClick(MouseEvent mouseEvent) {
@@ -183,8 +185,10 @@ public class Admin2ViewController {
     }
 
     public void onExitButtonClick() {
+
         Stage stage = (Stage) imgViewExitButton.getScene().getWindow();
         stage.close();
+
     }
 
 }

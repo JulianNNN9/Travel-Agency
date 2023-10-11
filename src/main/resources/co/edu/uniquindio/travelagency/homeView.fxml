@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="698.0" prefWidth="949.0" style="-fx-background-radius: 15; -fx-background-color: transparent;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.travelagency.controllers.Home2Controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="950.0" style="-fx-background-radius: 15; -fx-background-color: transparent;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.travelagency.controllers.HomeController">
    <children>
       <HBox alignment="CENTER" prefHeight="60.0" prefWidth="949.0" style="-fx-background-color: linear-gradient(to bottom, #d0986a, #888282); -fx-background-radius: 15;">
          <children>
@@ -28,7 +28,7 @@
              </ImageView>
             <Separator prefHeight="0.0" prefWidth="11.0" visible="false" />
          </children></HBox>
-      <AnchorPane fx:id="homePane" layoutY="89.0" prefHeight="612.0" prefWidth="949.0" style="-fx-background-color: #383838; -fx-background-radius: 15;">
+      <AnchorPane fx:id="homePane" layoutY="85.0" prefHeight="615.0" prefWidth="950.0" style="-fx-background-color: #383838; -fx-background-radius: 15;">
           <Label layoutX="59.0" layoutY="96.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="¿Quienes Somos?"><font><Font size="60" /></font></Label>
           <Label layoutX="59.0" layoutY="219.0" style="-fx-text-fill: #D07943FF; -fx-font-family: 'Segoe UI Semibold'" text="Una agencia de viajes"><font><Font size="25" /></font></Label>
           <Label layoutX="59.0" layoutY="299.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="Un pequeña frase sobre la empresa"><font><Font size="12" /></font></Label>
@@ -36,7 +36,7 @@
          <cursor>
             <Cursor fx:constant="DEFAULT" />
          </cursor></AnchorPane>
-      <AnchorPane fx:id="nuestrosPaquetesPane" layoutY="89.0" prefHeight="612.0" prefWidth="949.0" style="-fx-background-color: #383838; -fx-background-radius: 15;" visible="false">
+      <AnchorPane fx:id="nuestrosPaquetesPane" layoutY="89.0" prefHeight="615.0" prefWidth="950.0" style="-fx-background-color: #383838; -fx-background-radius: 15;" visible="false">
          <children>
             <Label layoutX="358.0" layoutY="25.0" text="Paquetes Pane" textFill="#ebebeb">
                <font>
@@ -44,7 +44,7 @@
                </font>
             </Label>
          </children></AnchorPane>
-      <AnchorPane fx:id="nuestrosGuiasPane" layoutY="89.0" prefHeight="612.0" prefWidth="949.0" style="-fx-background-color: #383838; -fx-background-radius: 15;" visible="false">
+      <AnchorPane fx:id="nuestrosGuiasPane" layoutY="89.0" prefHeight="615.0" prefWidth="950.0" style="-fx-background-color: #383838; -fx-background-radius: 15;" visible="false">
          <children>
             <Label layoutX="387.0" layoutY="33.0" text="Guias pane" textFill="#eeeaea">
                <font>
@@ -52,7 +52,7 @@
                </font>
             </Label>
          </children></AnchorPane>
-      <AnchorPane fx:id="ayudaPane" layoutY="89.0" prefHeight="612.0" prefWidth="949.0" style="-fx-background-color: #383838; -fx-background-radius: 15;" visible="false">
+      <AnchorPane fx:id="ayudaPane" layoutY="89.0" prefHeight="615.0" prefWidth="950.0" style="-fx-background-color: #383838; -fx-background-radius: 15;" visible="false">
          <children>
             <Label layoutX="346.0" layoutY="29.0" prefHeight="64.0" prefWidth="258.0" text="Ayuda Pane" textFill="#eeeded">
                <font>
@@ -60,7 +60,7 @@
                </font>
             </Label>
          </children></AnchorPane>
-      <AnchorPane fx:id="iniciarsesionPane" layoutY="89.0" prefHeight="612.0" prefWidth="949.0" style="-fx-background-color: #383838; -fx-background-radius: 15;" visible="false">
+      <AnchorPane fx:id="iniciarsesionPane" layoutY="89.0" prefHeight="615.0" prefWidth="950.0" style="-fx-background-color: #383838; -fx-background-radius: 15;" visible="false">
          <children>
              <Pane layoutX="346.0" layoutY="141.0" prefHeight="333.0" prefWidth="258.0" style="-fx-background-color: linear-gradient(to bottom, #d0986a, #888282); -fx-background-radius: 15">
                  <children>
