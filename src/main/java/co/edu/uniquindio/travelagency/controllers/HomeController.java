@@ -6,6 +6,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 public class HomeController {
 
@@ -50,5 +51,11 @@ public class HomeController {
 
     }
 
+    public void onExitButtonClick() {
+
+        Stage stage = (Stage) cerrarVentanaImgv.getScene().getWindow();
+        stage.close();
+
+    }
 
 }
