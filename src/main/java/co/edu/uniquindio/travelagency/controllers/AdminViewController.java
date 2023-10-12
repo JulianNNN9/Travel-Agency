@@ -150,7 +150,7 @@ public class AdminViewController {
 
         if(event.getTarget() == manageDestinationsButton){
             visibilities(false,true,false,false,false);
-        }else if (event.getTarget() == managePackagesPane){
+        }else if (event.getTarget() == managePackagesButton){
             visibilities(false,false,true,false,false);
         } else if (event.getTarget() == manageGuidesButton) {
             visibilities(false,false,false,true,false);
