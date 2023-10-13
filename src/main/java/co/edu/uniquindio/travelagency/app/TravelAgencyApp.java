@@ -15,7 +15,7 @@ public class TravelAgencyApp extends Application {
     @Override
     public void start(Stage stage) throws IOException {
 
-        File url = new File("src/main/resources/co/edu/uniquindio/travelagency/adminView.fxml");
+        File url = new File("src/main/resources/views/adminView.fxml");
         FXMLLoader loader = new FXMLLoader(url.toURL());
         Parent parent = loader.load();
 
