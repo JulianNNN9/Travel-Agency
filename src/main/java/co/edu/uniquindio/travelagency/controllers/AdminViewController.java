@@ -3,13 +3,21 @@ package co.edu.uniquindio.travelagency.controllers;
 import co.edu.uniquindio.travelagency.model.*;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+
+import java.io.File;
+import java.io.IOException;
 
 public class AdminViewController {
 
@@ -184,10 +192,22 @@ public class AdminViewController {
 
     }
 
-    public void onExitButtonClick() {
+    public void onExitButtonClick() throws IOException {
 
-        Stage stage = (Stage) imgViewExitButton.getScene().getWindow();
-        stage.close();
+        File url = new File("src/main/resources/co/edu/uniquindio/travelagency/homeView.fxml");
+        FXMLLoader loader = new FXMLLoader(url.toURL());
+        Parent parent = loader.load();
+
+        Scene scene = new Scene(parent);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.initStyle(StageStyle.TRANSPARENT);
+        scene.setFill(Color.TRANSPARENT);
+        stage.setResizable(false);
+        stage.show();
+
+        Stage stage1 = (Stage) imgViewExitButton.getScene().getWindow();
+        stage1.close();
 
     }
 

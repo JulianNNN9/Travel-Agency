@@ -25,7 +25,7 @@
             <Button fx:id="iniciaSecionBtn" alignment="CENTER" contentDisplay="CENTER" layoutX="768.0" layoutY="18.0" mnemonicParsing="false" onMousePressed="#handleButtonAction" prefHeight="70.0" prefWidth="100.0" style="-fx-border-radius: 35; -fx-background-radius: 35; -fx-border-style: none; -fx-border-color: transparent; -fx-background-color: transparent; -fx-font-family: 'Segoe UI Semibold'; -fx-font-size: 15;" text="IniciarSecion" textAlignment="CENTER"><cursor><Cursor fx:constant="HAND" /></cursor></Button>
 
             <Separator prefHeight="5.0" prefWidth="10.0" visible="false" />
-             <ImageView fx:id="cerrarVentanaImgv" fitHeight="35.0" fitWidth="43.0" onMouseClicked="#onExitButtonClick" pickOnBounds="true" preserveRatio="true">
+             <ImageView fx:id="cerrarVentanaImgv" fitHeight="35.0" fitWidth="38.0" onMouseClicked="#onExitButtonClick" pickOnBounds="true" preserveRatio="true">
                  <Image url="@../../../../icons/cerrarVentana.png" />
                  <cursor><Cursor fx:constant="HAND" /></cursor>
              </ImageView>
@@ -68,24 +68,25 @@
          <children>
              <Pane layoutX="346.0" layoutY="141.0" prefHeight="333.0" prefWidth="258.0" style="-fx-background-color: linear-gradient(to bottom, #d0986a, #888282); -fx-background-radius: 15">
                  <children>
-                     <Label layoutX="41.0" layoutY="61.0" text="idLabel">
+                     <Label layoutX="36.0" layoutY="31.0" text="idLabel">
                          <font>
                              <Font name="Constantia" size="13.0" />
                          </font>
                      </Label>
-                     <TextField fx:id="txtFldID" layoutX="36.0" layoutY="85.0" prefHeight="25.0" prefWidth="180.0" style="-fx-background-color: transparent; -fx-border-width: 1; -fx-border-style: hidden none solid none;" />
-                     <Label layoutX="36.0" layoutY="152.0" text="contrasenaLabel">
+                     <TextField fx:id="txtFldID" layoutX="36.0" layoutY="61.0" prefHeight="25.0" prefWidth="180.0" style="-fx-background-color: transparent; -fx-border-width: 1; -fx-border-style: hidden none solid none;" />
+                     <Label layoutX="36.0" layoutY="117.0" text="contrasenaLabel">
                          <font>
                              <Font name="Constantia" size="13.0" />
                          </font>
                      </Label>
-                     <TextField fx:id="txtFldPassword" layoutX="36.0" layoutY="175.0" prefHeight="25.0" prefWidth="180.0" style="-fx-background-color: transparent; -fx-border-width: 1; -fx-border-style: hidden none solid none;" />
+                     <TextField fx:id="txtFldPassword" layoutX="36.0" layoutY="153.0" prefHeight="25.0" prefWidth="180.0" style="-fx-background-color: transparent; -fx-border-width: 1; -fx-border-style: hidden none solid none;" />
                      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="21.0" layoutY="277.0" text="noTienesCuentaLabel" textAlignment="CENTER">
                          <font>
                              <Font name="Constantia" size="13.0" />
                          </font>
                      </Label>
                      <Button fx:id="btnRegister" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="144.0" layoutY="271.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="112.0" style="-fx-background-color: transparent; -fx-border-color: transparent; -fx-effect: inherit; -fx-underline: true; -fx-alignment: center; -fx-font-family: Constantia" text="botonRegistrarse" textAlignment="CENTER" />
+                  <Button fx:id="btnLogIn" layoutX="103.0" layoutY="223.0" mnemonicParsing="false" onAction="#onLogInButtonClick" style="-fx-border-radius: 35; -fx-background-radius: 35; -fx-border-color: #a26740; -fx-background-color: #d07943; -fx-font-family: 'Segoe UI Semibold';" text="Log in" />
                  </children>
              </Pane>
          </children></AnchorPane>

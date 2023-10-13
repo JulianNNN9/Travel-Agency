@@ -5,7 +5,9 @@ import javafx.scene.control.Alert;
 import lombok.Getter;
 import lombok.extern.java.Log;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.logging.FileHandler;
 import java.util.logging.SimpleFormatter;
@@ -41,12 +43,36 @@ public class TravelAgency {
             log.severe(e.getMessage());
         }
 
-        this.touristGuides = (List<TouristGuide>) archiveUtils.deserializerObjet("src/main/resources/persistencia/touristGuides.txt");
-        this.reservations = (List<Reservation>) archiveUtils.deserializerObjet("src/main/resources/persistencia/revervations.txt");
-        this.touristPackages = (List<TouristPackage>) archiveUtils.deserializerObjet("src/main/resources/persistencia/touristPackages.txt");
-        this.destinations = (List<Destination>) archiveUtils.deserializerObjet("src/main/resources/persistencia/destinations.txt");
-        this.clients = (List<Client>) archiveUtils.deserializerObjet("src/main/resources/persistencia/clients.txt");
-        this.admins = (List<Admin>) archiveUtils.deserializerObjet("src/main/resources/persistencia/admins.txt");
+        ArrayList<TouristGuide> aux5 = (ArrayList<TouristGuide> ) archiveUtils.deserializerObjet("src/main/resources/persistencia/touristGuides.ser");
+
+        this.touristGuides = Objects.requireNonNullElseGet(aux5, ArrayList::new);
+
+        ArrayList<Reservation> aux4 = (ArrayList<Reservation> ) archiveUtils.deserializerObjet("src/main/resources/persistencia/reservations.ser");
+
+        this.reservations = Objects.requireNonNullElseGet(aux4, ArrayList::new);
+
+        ArrayList<TouristPackage> aux3 = (ArrayList<TouristPackage> ) archiveUtils.deserializerObjet("src/main/resources/persistencia/touristPackeages.ser");
+
+        this.touristPackages = Objects.requireNonNullElseGet(aux3, ArrayList::new);
+
+        ArrayList<Destination> aux2 = (ArrayList<Destination> ) archiveUtils.deserializerObjet("src/main/resources/persistencia/destinations.ser");
+
+        this.destinations = Objects.requireNonNullElseGet(aux2, ArrayList::new);
+
+        ArrayList<Client> aux1 = (ArrayList<Client> ) archiveUtils.deserializerObjet("src/main/resources/persistencia/clients.ser");
+
+        this.clients = Objects.requireNonNullElseGet(aux1, ArrayList::new);
+
+        ArrayList<Admin> aux = (ArrayList<Admin> ) archiveUtils.deserializerObjet("src/main/resources/persistencia/admins.ser");
+
+        this.admins = Objects.requireNonNullElseGet(aux, ArrayList::new);
+
+        Admin admin = Admin.builder()
+                .userId("admin")
+                .password("123")
+                .build();
+
+        admins.add(admin);
 
     }
 
@@ -70,11 +96,51 @@ public class TravelAgency {
             throw new emptyAttributeException(this.getResourceBundle().getString("textoAtributoVacioException"));
         }
 
-        validateLogInData(id, password, 0);
+        if (clients.stream().anyMatch(client -> client.getUserId().equals(id))){
+            validateLogInDataUser(id, password, 0);
+        }
+
+        validateLogInDataAdmin(id, password, 0);
+
+
 
     }
 
-    public void validateLogInData(String id, String password, int i) throws userNoExistingException, wrongPasswordException {
+    private void validateLogInDataAdmin(String id, String password, int i) throws userNoExistingException, wrongPasswordException {
+
+        if (i >= admins.size()) {
+
+            createAlertError(this.getResourceBundle().getString("textTitleAlertErrorNoExistingException"), this.getResourceBundle().getString("textContentAlertErrorNoExistingException"));
+            log.info("Se ha hecho un intento de registro con informacion incorrecta.");
+            throw new userNoExistingException(this.getResourceBundle().getString("textUserNoExistingException"));
+
+        }
+
+        Admin currentAdmin = admins.get(i);
+
+        if (currentAdmin.getUserId().equals(id)) {
+
+            if (currentAdmin.getPassword().equals(password)) {
+
+                log.info("El admin con el id " + id + " ha hecho un inicio de sesión.");
+
+            } else {
+
+                createAlertError(travelAgency.getResourceBundle().getString("textTitleAlertErrorWrongPasswordException"), travelAgency.getResourceBundle().getString("textContentAlertErrorWrongPasswordException"));
+                log.info("Se ha intentado un inicio de sesión con contraseña incorrecta.");
+                throw new wrongPasswordException(travelAgency.getResourceBundle().getString("textWrongPasswordException"));
+
+            }
+
+        } else {
+
+            validateLogInDataAdmin(id, password, ++i);
+        }
+
+    }
+
+    public void validateLogInDataUser(String id, String password, int i) throws userNoExistingException, wrongPasswordException {
+
         if (i >= clients.size()) {
 
             createAlertError(this.getResourceBundle().getString("textTitleAlertErrorNoExistingException"), this.getResourceBundle().getString("textContentAlertErrorNoExistingException"));
@@ -94,7 +160,7 @@ public class TravelAgency {
                 throw new wrongPasswordException(travelAgency.getResourceBundle().getString("textWrongPasswordException"));
             }
         } else {
-            validateLogInData(id, password, ++i);
+            validateLogInDataUser(id, password, ++i);
         }
 
     }
