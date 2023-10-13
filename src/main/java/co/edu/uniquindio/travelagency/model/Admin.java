@@ -1,12 +1,10 @@
 package co.edu.uniquindio.travelagency.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 @EqualsAndHashCode(callSuper = true)
-@Data
+@Data @SuperBuilder
 
 public class Admin extends User{
 
