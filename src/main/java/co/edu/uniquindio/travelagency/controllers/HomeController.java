@@ -13,7 +13,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -43,19 +42,13 @@ public class HomeController {
     }
 
     @FXML
-    private void handleButtonAction(MouseEvent event){
+    private void handleButtonAction(ActionEvent event){
 
-        if(event.getTarget() == homeBtn){
-           visibilities(true,false,false,false,false);
-        }else if (event.getTarget() == paquetesBtn){
-            visibilities(false,true,false,false,false);
-        } else if (event.getTarget() == guiasBtn) {
-            visibilities(false,false,true,false,false);
-        } else if (event.getTarget() == ayudasBtn) {
-            visibilities(false,false,false,true,false);
-        } else if (event.getTarget() == iniciaSecionBtn) {
-            visibilities(false,false,false,false,true);
-        }
+        if (event.getTarget() == homeBtn){visibilities(true,false,false,false,false);}
+        if (event.getTarget() == paquetesBtn){visibilities(false,true,false,false,false);}
+        if (event.getTarget() == guiasBtn) {visibilities(false,false,true,false,false);}
+        if (event.getTarget() == ayudasBtn) {visibilities(false, false, false, true, false);}
+        if (event.getTarget() == iniciaSecionBtn) {visibilities(false,false,false,false,true);}
 
     }
 
@@ -80,7 +73,7 @@ public class HomeController {
 
         travelAgency.LogIn(txtFldID.getText(), txtFldPassword.getText());
 
-        File url = new File("src/main/resources/co/edu/uniquindio/travelagency/adminView.fxml");
+        File url = new File("src/main/resources/views/adminView.fxml");
         FXMLLoader loader = new FXMLLoader(url.toURL());
         Parent parent = loader.load();
 

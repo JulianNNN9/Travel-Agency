@@ -9,13 +9,14 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
 
 public class TravelAgencyApp extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
 
-        File url = new File("src/main/resources/co/edu/uniquindio/travelagency/homeView.fxml");
+        File url = new File("src/main/resources/views/homeView.fxml");
         FXMLLoader loader = new FXMLLoader(url.toURL());
         Parent parent = loader.load();
 

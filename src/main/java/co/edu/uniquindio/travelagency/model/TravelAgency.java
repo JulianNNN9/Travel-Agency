@@ -43,29 +43,29 @@ public class TravelAgency {
             log.severe(e.getMessage());
         }
 
-        ArrayList<TouristGuide> aux5 = (ArrayList<TouristGuide> ) archiveUtils.deserializerObjet("src/main/resources/persistencia/touristGuides.ser");
+        ArrayList<TouristGuide> aux = (ArrayList<TouristGuide>) archiveUtils.deserializerObjet("src/main/resources/persistencia/touristGuides.ser");
 
-        this.touristGuides = Objects.requireNonNullElseGet(aux5, ArrayList::new);
+        this.touristGuides = Objects.requireNonNullElseGet(aux, ArrayList::new);
 
-        ArrayList<Reservation> aux4 = (ArrayList<Reservation> ) archiveUtils.deserializerObjet("src/main/resources/persistencia/reservations.ser");
+        ArrayList<Reservation> aux1 = (ArrayList<Reservation>) archiveUtils.deserializerObjet("src/main/resources/persistencia/reservations.ser");
 
-        this.reservations = Objects.requireNonNullElseGet(aux4, ArrayList::new);
+        this.reservations = Objects.requireNonNullElseGet(aux1, ArrayList::new);
 
-        ArrayList<TouristPackage> aux3 = (ArrayList<TouristPackage> ) archiveUtils.deserializerObjet("src/main/resources/persistencia/touristPackeages.ser");
+        ArrayList<TouristPackage> aux2 = (ArrayList<TouristPackage>) archiveUtils.deserializerObjet("src/main/resources/persistencia/touristPackages.ser");
 
-        this.touristPackages = Objects.requireNonNullElseGet(aux3, ArrayList::new);
+        this.touristPackages = Objects.requireNonNullElseGet(aux2, ArrayList::new);
 
-        ArrayList<Destination> aux2 = (ArrayList<Destination> ) archiveUtils.deserializerObjet("src/main/resources/persistencia/destinations.ser");
+        ArrayList<Destination> aux3 = (ArrayList<Destination>) archiveUtils.deserializerObjet("src/main/resources/persistencia/destinations.ser");
 
-        this.destinations = Objects.requireNonNullElseGet(aux2, ArrayList::new);
+        this.destinations = Objects.requireNonNullElseGet(aux3, ArrayList::new);
 
-        ArrayList<Client> aux1 = (ArrayList<Client> ) archiveUtils.deserializerObjet("src/main/resources/persistencia/clients.ser");
+        ArrayList<Client> aux4 = (ArrayList<Client>) archiveUtils.deserializerObjet("src/main/resources/persistencia/clients.ser");
 
-        this.clients = Objects.requireNonNullElseGet(aux1, ArrayList::new);
+        this.clients = Objects.requireNonNullElseGet(aux4, ArrayList::new);
 
-        ArrayList<Admin> aux = (ArrayList<Admin> ) archiveUtils.deserializerObjet("src/main/resources/persistencia/admins.ser");
+        ArrayList<Admin> aux5 = (ArrayList<Admin>) archiveUtils.deserializerObjet("src/main/resources/persistencia/admins.ser");
 
-        this.admins = Objects.requireNonNullElseGet(aux, ArrayList::new);
+        this.admins = Objects.requireNonNullElseGet(aux5, ArrayList::new);
 
         Admin admin = Admin.builder()
                 .userId("admin")
