@@ -1,5 +1,6 @@
 package co.edu.uniquindio.travelagency.model;
 
+import co.edu.uniquindio.travelagency.enums.Weather;
 import co.edu.uniquindio.travelagency.exceptions.*;
 import javafx.scene.control.Alert;
 import lombok.Getter;
@@ -58,6 +59,23 @@ public class TravelAgency {
         ArrayList<Destination> aux3 = (ArrayList<Destination>) archiveUtils.deserializerObjet("src/main/resources/persistencia/destinations.ser");
 
         this.destinations = Objects.requireNonNullElseGet(aux3, ArrayList::new);
+
+        Destination destination = Destination.builder()
+                .name("AAA")
+                .city("AAA")
+                .description("AAA")
+                .weather(Weather.TEMPLATE)
+                .build();
+
+        Destination destination1 = Destination.builder()
+                .name("BBB")
+                .city("BBB")
+                .description("BBB")
+                .weather(Weather.TEMPLATE)
+                .build();
+
+        destinations.add(destination);
+        destinations.add(destination1);
 
         ArrayList<Client> aux4 = (ArrayList<Client>) archiveUtils.deserializerObjet("src/main/resources/persistencia/clients.ser");
 

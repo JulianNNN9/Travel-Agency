@@ -1,5 +1,6 @@
 package co.edu.uniquindio.travelagency.controllers;
 
+import co.edu.uniquindio.travelagency.enums.Weather;
 import co.edu.uniquindio.travelagency.model.*;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -16,9 +17,10 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-
 import java.io.File;
 import java.io.IOException;
+
+import static co.edu.uniquindio.travelagency.enums.Weather.*;
 
 public class AdminViewController {
 
@@ -43,6 +45,7 @@ public class AdminViewController {
     public TextField txtFldName, txtFldCity, txtFldWeather, txtFldDescription;
     @FXML
     public TableView<Destination> destinationsTable;
+    ObservableList<Destination> destinationObservableList;
     @FXML
     public TableColumn<Destination, Destination> nameDestinationCol, cityCol, descriptionCol,weatherCol;
     @FXML
@@ -54,6 +57,7 @@ public class AdminViewController {
     public Pane managePackagesPane;
     @FXML
     public TableView<TouristPackage> packagesTable;
+    ObservableList<TouristPackage> packageObservableList;
     @FXML
     public TableColumn<TouristPackage, TouristPackage> namePackageCol, priceCol, quotaCol, startDateCol, durationCol, clientIdCol;
     @FXML
@@ -99,7 +103,7 @@ public class AdminViewController {
 
         //Lista de destinos
 
-        ObservableList<Destination> destinationObservableList = destinationsTable.getItems();
+        destinationObservableList = destinationsTable.getItems();
 
         if (travelAgency.getDestinations() != null) {
             destinationObservableList.addAll(travelAgency.getDestinations());
@@ -110,13 +114,18 @@ public class AdminViewController {
         this.descriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));
         this.weatherCol.setCellValueFactory(new PropertyValueFactory<>("weather"));
 
-        destinationsTable.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
-
+        destinationsTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                txtFldName.setText(newSelection.getName());
+                txtFldCity.setText(newSelection.getCity());
+                txtFldWeather.setText(String.valueOf(newSelection.getWeather()));
+                txtFldDescription.setText(newSelection.getDescription());
+            }
         });
 
         //Lista de paquetes
 
-        ObservableList<TouristPackage> packageObservableList = packagesTable.getItems();
+        packageObservableList = packagesTable.getItems();
 
         if (travelAgency.getTouristPackages() != null) {
             packageObservableList.addAll(travelAgency.getTouristPackages());
@@ -129,8 +138,14 @@ public class AdminViewController {
         this.durationCol.setCellValueFactory(new PropertyValueFactory<>("duration"));
         this.clientIdCol.setCellValueFactory(new PropertyValueFactory<>("clientID"));
 
-        destinationsTable.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
-
+        packagesTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                txtFldPackageName.setText(newSelection.getName());
+                txtFldPrice.setText(String.valueOf(newSelection.getPrice()));
+                txtFldQuota.setText(String.valueOf(newSelection.getQuota()));
+                txtFldDuration.setText(newSelection.getDuration());
+                txtFldClientID.setText(newSelection.getClientID());
+            }
         });
 
         //Lista de guias
@@ -150,9 +165,114 @@ public class AdminViewController {
 
         });
 
-        //
+    }
+
+    //----------------------------Destinations-----------------------------
+
+    @FXML
+    private void agregarElementoDestinations(ActionEvent event) {
+
+        Weather clima;
+
+        if (txtFldWeather.getText().equals(String.valueOf(TEMPLATE))) {
+            clima = TEMPLATE;
+        } else if (txtFldWeather.getText().equals(String.valueOf(COLD))){
+            clima = COLD;
+        } else {
+            clima = WARM;
+        }
+
+        Destination nuevoDestino = Destination.builder()
+                .name(txtFldName.getText())
+                .city(txtFldCity.getText())
+                .description(txtFldDescription.getText())
+                .weather(clima)
+                .build();
+
+        destinationObservableList.add(nuevoDestino);
+        limpiarCamposDestinations();
+    }
+
+    @FXML
+    private void modificarElementoDestinations(ActionEvent event) {
+        if (destinationsTable.getSelectionModel().getSelectedIndex() >= 0) {
+            Destination selectedDestination = destinationsTable.getSelectionModel().getSelectedItem();
+            selectedDestination.setName(txtFldName.getText());
+            selectedDestination.setCity(txtFldCity.getText());
+            selectedDestination.setWeather(Weather.valueOf(txtFldWeather.getText()));
+            selectedDestination.setDescription(txtFldDescription.getText());
+            limpiarCamposDestinations();
+            destinationsTable.refresh();
+        }
 
     }
+
+    @FXML
+    private void eliminarElementoDestinations(ActionEvent event) {
+        if (destinationsTable.getSelectionModel().getSelectedIndex() >= 0) {
+            Destination selectedDestination = destinationsTable.getSelectionModel().getSelectedItem();
+            destinationObservableList.remove(selectedDestination);
+            limpiarCamposDestinations();
+        }
+    }
+
+    private void limpiarCamposDestinations() {
+        txtFldName.clear();
+        txtFldCity.clear();
+        txtFldWeather.clear();
+        txtFldDescription.clear();
+    }
+
+    //----------------------------Packages-----------------------------
+
+    @FXML
+    private void agregarElementoPackages(ActionEvent event) {
+
+        TouristPackage nuevoPaquete = TouristPackage.builder()
+                .name(txtFldPackageName.getText())
+                .price(Double.parseDouble(txtFldPrice.getText()))
+                .quota(Integer.parseInt(txtFldQuota.getText()))
+                .duration(txtFldDuration.getText())
+                .clientID(txtFldClientID.getText())
+                .build();
+
+        packageObservableList.add(nuevoPaquete);
+        limpiarCamposPackages();
+    }
+
+    @FXML
+    private void modificarElementoPackages(ActionEvent event) {
+        if (destinationsTable.getSelectionModel().getSelectedIndex() >= 0) {
+            TouristPackage selectedPackage = packagesTable.getSelectionModel().getSelectedItem();
+            selectedPackage.setName(txtFldPackageName.getText());
+            selectedPackage.setPrice(Double.parseDouble(txtFldPrice.getText()));
+            selectedPackage.setQuota(Integer.parseInt(txtFldQuota.getText()));
+            selectedPackage.setDuration(txtFldDuration.getText());
+            selectedPackage.setClientID(txtFldClientID.getText());
+            limpiarCamposPackages();
+            destinationsTable.refresh();
+        }
+
+    }
+
+    @FXML
+    private void eliminarElementoPackages(ActionEvent event) {
+        if (destinationsTable.getSelectionModel().getSelectedIndex() >= 0) {
+            TouristPackage selectedPackage = packagesTable.getSelectionModel().getSelectedItem();
+            packageObservableList.remove(selectedPackage);
+            limpiarCamposPackages();
+        }
+    }
+
+    private void limpiarCamposPackages() {
+        txtFldName.clear();
+        txtFldCity.clear();
+        txtFldWeather.clear();
+        txtFldDescription.clear();
+    }
+
+    //----------------------------Guides-----------------------------
+
 
     @FXML
     private void handleButtonAction(ActionEvent event){

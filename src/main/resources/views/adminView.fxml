@@ -63,9 +63,9 @@
 
         <ImageView fx:id="imgViewBackDestinationsButton" fitHeight="36.0" fitWidth="37.0" layoutX="899.0" layoutY="14.0" onMouseClicked="#onBackButtonClick" pickOnBounds="true" preserveRatio="true"><cursor><Cursor fx:constant="HAND" /></cursor></ImageView>
 
-        <Button fx:id="addButtonDestination" layoutX="57.0" layoutY="267.0" mnemonicParsing="false" text="addButton" />
-        <Button fx:id="modifyButtonDestination" layoutX="145.0" layoutY="267.0" mnemonicParsing="false" text="modifyButton" />
-        <Button fx:id="deleteButtonDestination" layoutX="246.0" layoutY="267.0" mnemonicParsing="false" text="deleteButton" />
+        <Button fx:id="addButtonDestination" onAction="#agregarElementoDestinations" layoutX="57.0" layoutY="267.0" mnemonicParsing="false" text="addButton" />
+        <Button fx:id="modifyButtonDestination" onAction="#modificarElementoDestinations" layoutX="145.0" layoutY="267.0" mnemonicParsing="false" text="modifyButton" />
+        <Button fx:id="deleteButtonDestination" onAction="#eliminarElementoDestinations" layoutX="246.0" layoutY="267.0" mnemonicParsing="false" text="deleteButton" />
 
         <Label layoutX="61.0" layoutY="95.0" prefHeight="17.0" prefWidth="63.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="nameLabel" />
         <TextField fx:id="txtFldName" layoutX="172.0" layoutY="91.0" />
@@ -95,9 +95,9 @@
 
         <ImageView fx:id="imgViewBackPackagesButton" fitHeight="36.0" fitWidth="37.0" layoutX="899.0" layoutY="14.0" onMouseClicked="#onBackButtonClick" pickOnBounds="true" preserveRatio="true"><cursor><Cursor fx:constant="HAND" /></cursor></ImageView>
 
-        <Button fx:id="addButtonPackages" layoutX="61.0" layoutY="260.0" mnemonicParsing="false" text="addButton" />
-        <Button fx:id="modifyButtonPackages" layoutX="145.0" layoutY="260.0" mnemonicParsing="false" text="modifyButton" />
-        <Button fx:id="deleteButtonPackages" layoutX="246.0" layoutY="260.0" mnemonicParsing="false" text="deleteButton" />
+        <Button fx:id="addButtonPackages" onAction="#agregarElementoPackages" layoutX="61.0" layoutY="260.0" mnemonicParsing="false" text="addButton" />
+        <Button fx:id="modifyButtonPackages" onAction="#modificarElementoPackages" layoutX="145.0" layoutY="260.0" mnemonicParsing="false" text="modifyButton" />
+        <Button fx:id="deleteButtonPackages" onAction="#eliminarElementoPackages" layoutX="246.0" layoutY="260.0" mnemonicParsing="false" text="deleteButton" />
 
         <Label layoutX="67.0" layoutY="103.0" prefHeight="17.0" prefWidth="72.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="nameLabel" />
         <TextField fx:id="txtFldPackageName" layoutX="172.0" layoutY="99.0" />
