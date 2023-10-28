@@ -1,8 +1,8 @@
 package co.edu.uniquindio.travelagency.controllers;
 
-import co.edu.uniquindio.travelagency.exceptions.emptyAttributeException;
-import co.edu.uniquindio.travelagency.exceptions.userNoExistingException;
-import co.edu.uniquindio.travelagency.exceptions.wrongPasswordException;
+import co.edu.uniquindio.travelagency.exceptions.EmptyAttributeException;
+import co.edu.uniquindio.travelagency.exceptions.UserNoExistingException;
+import co.edu.uniquindio.travelagency.exceptions.WrongPasswordException;
 import co.edu.uniquindio.travelagency.model.TravelAgency;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -69,7 +69,7 @@ public class HomeController {
 
     }
 
-    public void onLogInButtonClick() throws userNoExistingException, wrongPasswordException, emptyAttributeException, IOException {
+    public void onLogInButtonClick() throws UserNoExistingException, WrongPasswordException, EmptyAttributeException, IOException {
 
         travelAgency.LogIn(txtFldID.getText(), txtFldPassword.getText());
 

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.collections.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
@@ -8,7 +10,7 @@
 
 <AnchorPane prefHeight="615.0" prefWidth="950.0" style="-fx-background-color: #383838; -fx-background-radius: 15; -fx-border-radius: 15" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.travelagency.controllers.AdminViewController">
 
-    <Pane fx:id="principalPane" prefHeight="615.0" prefWidth="950.0" style="-fx-background-radius: 15; -fx-border-radius: 15">
+    <Pane fx:id="principalPane" prefHeight="615.0" prefWidth="950.0" style="-fx-background-radius: 15; -fx-border-radius: 15" visible="false">
 
         <Label layoutX="59.0" layoutY="131.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="Has iniciado sesión como administrador"><font><Font size="45" /></font></Label>
         <Label layoutX="361.0" layoutY="272.0" style="-fx-text-fill: #D07943FF; -fx-font-family: 'Segoe UI Semibold'" text="¿Qué desea hacer?"><font><Font size="25" /></font></Label>
@@ -63,22 +65,30 @@
 
         <ImageView fx:id="imgViewBackDestinationsButton" fitHeight="36.0" fitWidth="37.0" layoutX="899.0" layoutY="14.0" onMouseClicked="#onBackButtonClick" pickOnBounds="true" preserveRatio="true"><cursor><Cursor fx:constant="HAND" /></cursor></ImageView>
 
-        <Button fx:id="addButtonDestination" onAction="#agregarElementoDestinations" layoutX="57.0" layoutY="267.0" mnemonicParsing="false" text="addButton" />
-        <Button fx:id="modifyButtonDestination" onAction="#modificarElementoDestinations" layoutX="145.0" layoutY="267.0" mnemonicParsing="false" text="modifyButton" />
-        <Button fx:id="deleteButtonDestination" onAction="#eliminarElementoDestinations" layoutX="246.0" layoutY="267.0" mnemonicParsing="false" text="deleteButton" />
+        <Button fx:id="addButtonDestination" layoutX="57.0" layoutY="267.0" mnemonicParsing="false" onAction="#agregarElementoDestinations" text="addButton" />
+        <Button fx:id="modifyButtonDestination" layoutX="145.0" layoutY="267.0" mnemonicParsing="false" onAction="#modificarElementoDestinations" text="modifyButton" />
+        <Button fx:id="deleteButtonDestination" layoutX="246.0" layoutY="267.0" mnemonicParsing="false" onAction="#eliminarElementoDestinations" text="deleteButton" />
 
         <Label layoutX="61.0" layoutY="95.0" prefHeight="17.0" prefWidth="63.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="nameLabel" />
         <TextField fx:id="txtFldName" layoutX="172.0" layoutY="91.0" />
         <Label layoutX="61.0" layoutY="151.0" prefHeight="17.0" prefWidth="63.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="cityLabel" />
         <TextField fx:id="txtFldCity" layoutX="172.0" layoutY="147.0" />
         <Label layoutX="61.0" layoutY="203.0" prefHeight="17.0" prefWidth="84.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="weatherLabel" />
-        <TextField fx:id="txtFldWeather" layoutX="172.0" layoutY="199.0" />
         <Label layoutX="354.0" layoutY="95.0" prefHeight="17.0" prefWidth="98.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="descriptionLabel" />
         <TextField fx:id="txtFldDescription" layoutX="469.0" layoutY="95.0" prefHeight="130.0" prefWidth="210.0" />
+        <ChoiceBox fx:id="choiceBoxClima" layoutX="171.0" layoutY="199.0" prefWidth="150.0">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                <String fx:value="TEMPLADO" />
+                <String fx:value="CALIDO" />
+                <String fx:value="FRIO" />
+            </FXCollections>
+            </items>
+        </ChoiceBox>
 
     </Pane>
 
-    <Pane fx:id="managePackagesPane" prefHeight="615.0" prefWidth="950.0" style="-fx-background-radius: 15; -fx-border-radius: 15" visible="false">
+    <Pane fx:id="managePackagesPane" prefHeight="615.0" prefWidth="950.0" style="-fx-background-radius: 15; -fx-border-radius: 15">
 
         <Label contentDisplay="CENTER" layoutX="321.0" layoutY="10.0" prefHeight="45.0" prefWidth="308.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'; -fx-font-size: 25" text="gestionDePaquetesLabel" textAlignment="CENTER" />
 
@@ -95,9 +105,9 @@
 
         <ImageView fx:id="imgViewBackPackagesButton" fitHeight="36.0" fitWidth="37.0" layoutX="899.0" layoutY="14.0" onMouseClicked="#onBackButtonClick" pickOnBounds="true" preserveRatio="true"><cursor><Cursor fx:constant="HAND" /></cursor></ImageView>
 
-        <Button fx:id="addButtonPackages" onAction="#agregarElementoPackages" layoutX="61.0" layoutY="260.0" mnemonicParsing="false" text="addButton" />
-        <Button fx:id="modifyButtonPackages" onAction="#modificarElementoPackages" layoutX="145.0" layoutY="260.0" mnemonicParsing="false" text="modifyButton" />
-        <Button fx:id="deleteButtonPackages" onAction="#eliminarElementoPackages" layoutX="246.0" layoutY="260.0" mnemonicParsing="false" text="deleteButton" />
+        <Button fx:id="addButtonPackages" layoutX="61.0" layoutY="260.0" mnemonicParsing="false" onAction="#agregarElementoPackages" text="addButton" />
+        <Button fx:id="modifyButtonPackages" layoutX="145.0" layoutY="260.0" mnemonicParsing="false" onAction="#modificarElementoPackages" text="modifyButton" />
+        <Button fx:id="deleteButtonPackages" layoutX="246.0" layoutY="260.0" mnemonicParsing="false" onAction="#eliminarElementoPackages" text="deleteButton" />
 
         <Label layoutX="67.0" layoutY="103.0" prefHeight="17.0" prefWidth="72.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="nameLabel" />
         <TextField fx:id="txtFldPackageName" layoutX="172.0" layoutY="99.0" />
@@ -105,12 +115,13 @@
         <TextField fx:id="txtFldPrice" layoutX="172.0" layoutY="151.0" />
         <Label layoutX="61.0" layoutY="211.0" prefHeight="17.0" prefWidth="84.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="quotaLabel" />
         <TextField fx:id="txtFldQuota" layoutX="172.0" layoutY="199.0" />
-        <Label layoutX="376.0" layoutY="103.0" prefHeight="17.0" prefWidth="72.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="startDate" />
-        <DatePicker fx:id="datePckrStartDate" layoutX="475.0" layoutY="99.0" />
-        <Label layoutX="370.0" layoutY="155.0" prefHeight="17.0" prefWidth="84.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="durationLabel" />
-        <TextField fx:id="txtFldDuration" layoutX="475.0" layoutY="151.0" />
+        <Label layoutX="370.0" layoutY="103.0" prefHeight="17.0" prefWidth="72.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="startDate" />
+        <DatePicker fx:id="datePckrStartDate" layoutX="475.0" layoutY="99.0" prefHeight="25.0" prefWidth="149.0" />
+        <Label layoutX="370.0" layoutY="155.0" prefHeight="17.0" prefWidth="84.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="endDate" />
+        <DatePicker fx:id="datePckrEndDate" layoutX="475.0" layoutY="151.0" prefHeight="25.0" prefWidth="149.0" />
         <Label layoutX="370.0" layoutY="203.0" prefHeight="17.0" prefWidth="84.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="clientIDLabel" />
         <TextField fx:id="txtFldClientID" layoutX="475.0" layoutY="199.0" />
+
 
     </Pane>
 

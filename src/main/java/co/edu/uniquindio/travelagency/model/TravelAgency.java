@@ -1,11 +1,12 @@
 package co.edu.uniquindio.travelagency.model;
 
-import co.edu.uniquindio.travelagency.enums.Weather;
 import co.edu.uniquindio.travelagency.exceptions.*;
+import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import lombok.Getter;
 import lombok.extern.java.Log;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -21,7 +22,7 @@ public class TravelAgency {
     List<TouristGuide> touristGuides;
     List<Reservation> reservations;
     List<TouristPackage> touristPackages;
-    List<Destination> destinations;
+    List<Destino> destinos;
     List<Client> clients;
     List<Admin> admins;
 
@@ -37,10 +38,10 @@ public class TravelAgency {
         try {
 
             FileHandler fh = new FileHandler("logs.log", true);
-            fh.setFormatter( new SimpleFormatter());
+            fh.setFormatter(new SimpleFormatter());
             log.addHandler(fh);
 
-        }catch (IOException e){
+        } catch (IOException e) {
             log.severe(e.getMessage());
         }
 
@@ -56,26 +57,43 @@ public class TravelAgency {
 
         this.touristPackages = Objects.requireNonNullElseGet(aux2, ArrayList::new);
 
-        ArrayList<Destination> aux3 = (ArrayList<Destination>) archiveUtils.deserializerObjet("src/main/resources/persistencia/destinations.ser");
+        List<String> dest = new ArrayList<>();
+        dest.add("AAA");
+        dest.add("BBB");
 
-        this.destinations = Objects.requireNonNullElseGet(aux3, ArrayList::new);
+        TouristPackage touristPackage = TouristPackage.builder()
+                .destinosName(dest)
+                .name("AAA")
+                .price(1.0)
+                .quota(2)
+                .startDate(LocalDate.now())
+                .endDate(LocalDate.of(2024, 12, 1))
+                .duration(1000L)
+                .clientID("456")
+                .build();
 
-        Destination destination = Destination.builder()
+        touristPackages.add(touristPackage);
+
+        ArrayList<Destino> aux3 = (ArrayList<Destino>) archiveUtils.deserializerObjet("src/main/resources/persistencia/destinos.ser");
+
+        this.destinos = Objects.requireNonNullElseGet(aux3, ArrayList::new);
+
+        Destino destino = Destino.builder()
                 .name("AAA")
                 .city("AAA")
                 .description("AAA")
-                .weather(Weather.TEMPLATE)
+                .weather("TEMPLADO")
                 .build();
 
-        Destination destination1 = Destination.builder()
+        Destino destino1 = Destino.builder()
                 .name("BBB")
                 .city("BBB")
                 .description("BBB")
-                .weather(Weather.TEMPLATE)
+                .weather("TEMPLADO")
                 .build();
 
-        destinations.add(destination);
-        destinations.add(destination1);
+        destinos.add(destino);
+        destinos.add(destino1);
 
         ArrayList<Client> aux4 = (ArrayList<Client>) archiveUtils.deserializerObjet("src/main/resources/persistencia/clients.ser");
 
@@ -106,12 +124,49 @@ public class TravelAgency {
 
     }
 
-    public void LogIn(String id, String password) throws emptyAttributeException, wrongPasswordException, userNoExistingException {
+
+    public void agregarPaquete(ObservableList<TouristPackage> packageObservableList, TouristPackage nuevoPaquete) {
+
+    }
+
+    public void agregarDestino(ObservableList<Destino> destinoObservableList, Destino nuevoDestino) throws RepeatedInformationException, AtributoVacioException {
+
+        if (!nuevoDestino.getName().isEmpty() ||
+                !nuevoDestino.getCity().isEmpty() ||
+                !nuevoDestino.getDescription().isEmpty() ||
+                !nuevoDestino.getWeather().isEmpty()){
+
+
+            if (destinoObservableList.stream().noneMatch(destination -> destination.getName().equals(nuevoDestino.getName()))){
+
+                destinoObservableList.add(nuevoDestino);
+                travelAgency.destinos.add(nuevoDestino);
+                archiveUtils.serializerObjet("src/main/resources/persistencia/destinos.ser", destinos);
+
+                log.info("Se ha creado un nuevo destino.");
+
+            } else {
+                createAlertError("Destino existente", "El destino que trataba de agregar ya se encuentra registrado.");
+                log.severe("Se ha intentado crear un Destino existente.");
+                throw new RepeatedInformationException("Se ha intentado crear un Destino existente.");
+            }
+
+
+        } else {
+            createAlertError("Campos obligatorios", "Los campos marcados con (*) son oblogatorios");
+            log.info("Se ha intentado agregar un destino con campos vacios.");
+            throw new AtributoVacioException("Se ha intentado agregar un destino con campos vacios.");
+        }
+
+
+    }
+
+    public void LogIn(String id, String password) throws EmptyAttributeException, WrongPasswordException, UserNoExistingException {
 
         if (id == null || id.isBlank() || password == null || password.isBlank()){
             createAlertError(this.getResourceBundle().getString("textoTituloAlertaErrorAtributoVacio"), this.getResourceBundle().getString("textoContenidoAlertaErrorAtributoVacio"));
             log.info("Se ha hecho un intento de registro de cliente con campos vacios.");
-            throw new emptyAttributeException(this.getResourceBundle().getString("textoAtributoVacioException"));
+            throw new EmptyAttributeException(this.getResourceBundle().getString("textoAtributoVacioException"));
         }
 
         if (clients.stream().anyMatch(client -> client.getUserId().equals(id))){
@@ -124,13 +179,13 @@ public class TravelAgency {
 
     }
 
-    private void validateLogInDataAdmin(String id, String password, int i) throws userNoExistingException, wrongPasswordException {
+    private void validateLogInDataAdmin(String id, String password, int i) throws UserNoExistingException, WrongPasswordException {
 
         if (i >= admins.size()) {
 
             createAlertError(this.getResourceBundle().getString("textTitleAlertErrorNoExistingException"), this.getResourceBundle().getString("textContentAlertErrorNoExistingException"));
             log.info("Se ha hecho un intento de registro con informacion incorrecta.");
-            throw new userNoExistingException(this.getResourceBundle().getString("textUserNoExistingException"));
+            throw new UserNoExistingException(this.getResourceBundle().getString("textUserNoExistingException"));
 
         }
 
@@ -146,7 +201,7 @@ public class TravelAgency {
 
                 createAlertError(travelAgency.getResourceBundle().getString("textTitleAlertErrorWrongPasswordException"), travelAgency.getResourceBundle().getString("textContentAlertErrorWrongPasswordException"));
                 log.info("Se ha intentado un inicio de sesión con contraseña incorrecta.");
-                throw new wrongPasswordException(travelAgency.getResourceBundle().getString("textWrongPasswordException"));
+                throw new WrongPasswordException(travelAgency.getResourceBundle().getString("textWrongPasswordException"));
 
             }
 
@@ -157,13 +212,13 @@ public class TravelAgency {
 
     }
 
-    public void validateLogInDataUser(String id, String password, int i) throws userNoExistingException, wrongPasswordException {
+    public void validateLogInDataUser(String id, String password, int i) throws UserNoExistingException, WrongPasswordException {
 
         if (i >= clients.size()) {
 
             createAlertError(this.getResourceBundle().getString("textTitleAlertErrorNoExistingException"), this.getResourceBundle().getString("textContentAlertErrorNoExistingException"));
             log.info("Se ha hecho un intento de registro con informacion incorrecta.");
-            throw new userNoExistingException(this.getResourceBundle().getString("textUserNoExistingException"));
+            throw new UserNoExistingException(this.getResourceBundle().getString("textUserNoExistingException"));
 
         }
 
@@ -175,7 +230,7 @@ public class TravelAgency {
             } else {
                 createAlertError(travelAgency.getResourceBundle().getString("textTitleAlertErrorWrongPasswordException"), travelAgency.getResourceBundle().getString("textContentAlertErrorWrongPasswordException"));
                 log.info("Se ha intentado un inicio de sesión con contraseña incorrecta.");
-                throw new wrongPasswordException(travelAgency.getResourceBundle().getString("textWrongPasswordException"));
+                throw new WrongPasswordException(travelAgency.getResourceBundle().getString("textWrongPasswordException"));
             }
         } else {
             validateLogInDataUser(id, password, ++i);

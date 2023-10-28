@@ -1,6 +1,7 @@
 package co.edu.uniquindio.travelagency.controllers;
 
-import co.edu.uniquindio.travelagency.enums.Weather;
+import co.edu.uniquindio.travelagency.exceptions.AtributoVacioException;
+import co.edu.uniquindio.travelagency.exceptions.RepeatedInformationException;
 import co.edu.uniquindio.travelagency.model.*;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -19,8 +20,6 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import java.io.File;
 import java.io.IOException;
-
-import static co.edu.uniquindio.travelagency.enums.Weather.*;
 
 public class AdminViewController {
 
@@ -42,12 +41,14 @@ public class AdminViewController {
     @FXML
     public ImageView imgViewBackDestinationsButton;
     @FXML
-    public TextField txtFldName, txtFldCity, txtFldWeather, txtFldDescription;
+    public TextField txtFldName, txtFldCity, txtFldDescription;
     @FXML
-    public TableView<Destination> destinationsTable;
-    ObservableList<Destination> destinationObservableList;
+    public ChoiceBox<String> choiceBoxClima;
     @FXML
-    public TableColumn<Destination, Destination> nameDestinationCol, cityCol, descriptionCol,weatherCol;
+    public TableView<Destino> destinationsTable;
+    ObservableList<Destino> destinoObservableList;
+    @FXML
+    public TableColumn<Destino, Destino> nameDestinationCol, cityCol, descriptionCol,weatherCol;
     @FXML
     public Button deleteButtonDestination, modifyButtonDestination, addButtonDestination;
 
@@ -65,9 +66,9 @@ public class AdminViewController {
     @FXML
     public Button addButtonPackages, modifyButtonPackages, deleteButtonPackages;
     @FXML
-    public TextField txtFldPackageName,txtFldPrice, txtFldQuota, txtFldDuration, txtFldClientID;
+    public TextField txtFldPackageName,txtFldPrice, txtFldQuota, txtFldClientID;
     @FXML
-    public DatePicker datePckrStartDate;
+    public DatePicker datePckrStartDate, datePckrEndDate;
 
     //Ventana gestionar guias
     @FXML
@@ -101,12 +102,12 @@ public class AdminViewController {
         Image exitButton = new Image("https://cdn-icons-png.flaticon.com/128/5735/5735775.png");
         imgViewExitButton.setImage(exitButton);
 
-        //Lista de destinos
+        //------------------------DESTINOS----------------------------
 
-        destinationObservableList = destinationsTable.getItems();
+        destinoObservableList = destinationsTable.getItems();
 
-        if (travelAgency.getDestinations() != null) {
-            destinationObservableList.addAll(travelAgency.getDestinations());
+        if (travelAgency.getDestinos() != null) {
+            destinoObservableList.addAll(travelAgency.getDestinos());
         }
 
         this.nameDestinationCol.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -118,12 +119,12 @@ public class AdminViewController {
             if (newSelection != null) {
                 txtFldName.setText(newSelection.getName());
                 txtFldCity.setText(newSelection.getCity());
-                txtFldWeather.setText(String.valueOf(newSelection.getWeather()));
                 txtFldDescription.setText(newSelection.getDescription());
+                choiceBoxClima.setValue(newSelection.getWeather());
             }
         });
 
-        //Lista de paquetes
+        //------------------------PAQUETES----------------------------
 
         packageObservableList = packagesTable.getItems();
 
@@ -143,12 +144,13 @@ public class AdminViewController {
                 txtFldPackageName.setText(newSelection.getName());
                 txtFldPrice.setText(String.valueOf(newSelection.getPrice()));
                 txtFldQuota.setText(String.valueOf(newSelection.getQuota()));
-                txtFldDuration.setText(newSelection.getDuration());
+                datePckrStartDate.setValue(newSelection.getStartDate());
+                datePckrEndDate.setValue(newSelection.getEndDate());
                 txtFldClientID.setText(newSelection.getClientID());
             }
         });
 
-        //Lista de guias
+        //------------------------GUIAS----------------------------
 
         ObservableList<TouristGuide> touristGuideObservableList = guidesTable.getItems();
 
@@ -170,37 +172,28 @@ public class AdminViewController {
     //----------------------------Destinations-----------------------------
 
     @FXML
-    private void agregarElementoDestinations(ActionEvent event) {
+    private void agregarElementoDestinations(ActionEvent event) throws RepeatedInformationException, AtributoVacioException {
 
-        Weather clima;
-
-        if (txtFldWeather.getText().equals(String.valueOf(TEMPLATE))) {
-            clima = TEMPLATE;
-        } else if (txtFldWeather.getText().equals(String.valueOf(COLD))){
-            clima = COLD;
-        } else {
-            clima = WARM;
-        }
-
-        Destination nuevoDestino = Destination.builder()
+        Destino nuevoDestino = Destino.builder()
                 .name(txtFldName.getText())
                 .city(txtFldCity.getText())
                 .description(txtFldDescription.getText())
-                .weather(clima)
+                .weather(choiceBoxClima.getValue())
                 .build();
 
-        destinationObservableList.add(nuevoDestino);
+        travelAgency.agregarDestino(destinoObservableList, nuevoDestino);
+
         limpiarCamposDestinations();
     }
 
     @FXML
     private void modificarElementoDestinations(ActionEvent event) {
         if (destinationsTable.getSelectionModel().getSelectedIndex() >= 0) {
-            Destination selectedDestination = destinationsTable.getSelectionModel().getSelectedItem();
-            selectedDestination.setName(txtFldName.getText());
-            selectedDestination.setCity(txtFldCity.getText());
-            selectedDestination.setWeather(Weather.valueOf(txtFldWeather.getText()));
-            selectedDestination.setDescription(txtFldDescription.getText());
+            Destino selectedDestino = destinationsTable.getSelectionModel().getSelectedItem();
+            selectedDestino.setName(txtFldName.getText());
+            selectedDestino.setCity(txtFldCity.getText());
+            selectedDestino.setDescription(txtFldDescription.getText());
+            selectedDestino.setWeather(choiceBoxClima.getValue());
             limpiarCamposDestinations();
             destinationsTable.refresh();
         }
@@ -210,8 +203,8 @@ public class AdminViewController {
     @FXML
     private void eliminarElementoDestinations(ActionEvent event) {
         if (destinationsTable.getSelectionModel().getSelectedIndex() >= 0) {
-            Destination selectedDestination = destinationsTable.getSelectionModel().getSelectedItem();
-            destinationObservableList.remove(selectedDestination);
+            Destino selectedDestino = destinationsTable.getSelectionModel().getSelectedItem();
+            destinoObservableList.remove(selectedDestino);
             limpiarCamposDestinations();
         }
     }
@@ -219,7 +212,7 @@ public class AdminViewController {
     private void limpiarCamposDestinations() {
         txtFldName.clear();
         txtFldCity.clear();
-        txtFldWeather.clear();
+        choiceBoxClima.setValue(null);
         txtFldDescription.clear();
     }
 
@@ -228,15 +221,20 @@ public class AdminViewController {
     @FXML
     private void agregarElementoPackages(ActionEvent event) {
 
+        long duration = 0L;
+
         TouristPackage nuevoPaquete = TouristPackage.builder()
                 .name(txtFldPackageName.getText())
                 .price(Double.parseDouble(txtFldPrice.getText()))
                 .quota(Integer.parseInt(txtFldQuota.getText()))
-                .duration(txtFldDuration.getText())
+                .startDate(datePckrStartDate.getValue())
+                .endDate(datePckrEndDate.getValue())
+                .duration(duration)
                 .clientID(txtFldClientID.getText())
                 .build();
 
-        packageObservableList.add(nuevoPaquete);
+        travelAgency.agregarPaquete(packageObservableList, nuevoPaquete);
+
         limpiarCamposPackages();
     }
 
@@ -247,7 +245,8 @@ public class AdminViewController {
             selectedPackage.setName(txtFldPackageName.getText());
             selectedPackage.setPrice(Double.parseDouble(txtFldPrice.getText()));
             selectedPackage.setQuota(Integer.parseInt(txtFldQuota.getText()));
-            selectedPackage.setDuration(txtFldDuration.getText());
+            selectedPackage.setStartDate(datePckrStartDate.getValue());
+            selectedPackage.setEndDate(datePckrEndDate.getValue());
             selectedPackage.setClientID(txtFldClientID.getText());
             limpiarCamposPackages();
             destinationsTable.refresh();
@@ -257,7 +256,7 @@ public class AdminViewController {
 
     @FXML
     private void eliminarElementoPackages(ActionEvent event) {
-        if (destinationsTable.getSelectionModel().getSelectedIndex() >= 0) {
+        if (packagesTable.getSelectionModel().getSelectedIndex() >= 0) {
             TouristPackage selectedPackage = packagesTable.getSelectionModel().getSelectedItem();
             packageObservableList.remove(selectedPackage);
             limpiarCamposPackages();
@@ -266,9 +265,11 @@ public class AdminViewController {
 
     private void limpiarCamposPackages() {
         txtFldName.clear();
-        txtFldCity.clear();
-        txtFldWeather.clear();
-        txtFldDescription.clear();
+        txtFldPrice.clear();
+        txtFldQuota.clear();
+        txtFldClientID.clear();
+        datePckrEndDate.setValue(null);
+        datePckrStartDate.setValue(null);
     }
 
     //----------------------------Guides-----------------------------

@@ -12,12 +12,13 @@ import java.util.List;
 
 public class TouristPackage {
 
-    private List<Destination> destinations;
+    private List<String> destinosName;
     private String name;
     private Double price;
     private Integer quota;
     private LocalDate startDate;
-    private String duration;
+    private LocalDate endDate;
+    private Long duration;
     private String clientID;
 
 }
