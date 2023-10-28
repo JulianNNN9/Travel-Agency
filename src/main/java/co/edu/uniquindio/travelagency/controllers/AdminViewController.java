@@ -2,6 +2,7 @@ package co.edu.uniquindio.travelagency.controllers;
 
 import co.edu.uniquindio.travelagency.model.*;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -154,17 +155,12 @@ public class AdminViewController {
     }
 
     @FXML
-    private void handleButtonAction(MouseEvent event){
+    private void handleButtonAction(ActionEvent event){
 
-        if(event.getTarget() == manageDestinationsButton){
-            visibilities(false,true,false,false,false);
-        }else if (event.getTarget() == managePackagesButton){
-            visibilities(false,false,true,false,false);
-        } else if (event.getTarget() == manageGuidesButton) {
-            visibilities(false,false,false,true,false);
-        } else if (event.getTarget() == statisticsButton) {
-            visibilities(false,false,false,false,true);
-        }
+        if (event.getTarget() == manageDestinationsButton){visibilities(false,true,false,false,false);}
+        if (event.getTarget() == managePackagesButton){visibilities(false,false,true,false,false);}
+        if (event.getTarget() == manageGuidesButton) {visibilities(false,false,false,true,false);}
+        if (event.getTarget() == statisticsButton) {visibilities(false,false,false,false,true);}
 
     }
 
@@ -180,21 +176,16 @@ public class AdminViewController {
 
     public void onBackButtonClick(MouseEvent mouseEvent) {
 
-        if (mouseEvent.getTarget() == imgViewBackDestinationsButton){
-            visibilities(true, false, false, false, false);
-        }if (mouseEvent.getTarget() == imgViewBackPackagesButton){
-            visibilities(true, false, false, false, false);
-        }if (mouseEvent.getTarget() == imgViewBackGuidesButton){
-            visibilities(true, false, false, false, false);
-        }if (mouseEvent.getTarget() == imgViewBackStatisticsButton){
-            visibilities(true, false, false, false, false);
-        }
+        if (mouseEvent.getTarget() == imgViewBackDestinationsButton){visibilities(true, false, false, false, false);}
+        if (mouseEvent.getTarget() == imgViewBackPackagesButton){visibilities(true, false, false, false, false);}
+        if (mouseEvent.getTarget() == imgViewBackGuidesButton){visibilities(true, false, false, false, false);}
+        if (mouseEvent.getTarget() == imgViewBackStatisticsButton){visibilities(true, false, false, false, false);}
 
     }
 
     public void onExitButtonClick() throws IOException {
 
-        File url = new File("src/main/resources/co/edu/uniquindio/travelagency/homeView.fxml");
+        File url = new File("src/main/resources/views/homeView.fxml");
         FXMLLoader loader = new FXMLLoader(url.toURL());
         Parent parent = loader.load();
 
