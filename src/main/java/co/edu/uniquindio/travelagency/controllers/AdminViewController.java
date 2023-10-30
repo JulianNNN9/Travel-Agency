@@ -20,13 +20,16 @@ import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.net.MalformedURLException;
+import java.time.Period;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.concurrent.atomic.AtomicReference;
+import java.util.concurrent.TimeUnit;
 
 public class AdminViewController {
 
@@ -106,15 +109,19 @@ public class AdminViewController {
     @FXML
     public ImageView imgViewBackStatisticsButton;
 
-    public void initialize() {
+    public void initialize(){
 
-        Image backButton = new Image("https://cdn-icons-png.flaticon.com/128/4103/4103083.png");
+        File file = new File("src/main/resources/icons/4103083.png");
+        Image backButton = new Image(String.valueOf(file.toURI()));
+
         imgViewBackDestinationsButton.setImage(backButton);
         imgViewBackPackagesButton.setImage(backButton);
         imgViewBackGuidesButton.setImage(backButton);
         imgViewBackStatisticsButton.setImage(backButton);
 
-        Image exitButton = new Image("https://cdn-icons-png.flaticon.com/128/5735/5735775.png");
+        File file1 = new File("src/main/resources/icons/cerrarVentana.png");
+        Image exitButton = new Image(String.valueOf(file1.toURI()));
+
         imgViewExitButton.setImage(exitButton);
 
         //------------------------DESTINOS----------------------------
@@ -126,7 +133,9 @@ public class AdminViewController {
         rutaText.setDisable(true);
 
         destinationsTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+
             boolean seleccionado = newValue != null;
+
             imagesRoutesTable.setDisable(!seleccionado);
             examinarRutaButton.setDisable(!seleccionado);
             addButtonImageDestination.setDisable(!seleccionado);
@@ -136,11 +145,11 @@ public class AdminViewController {
             observableListRutas = imagesRoutesTable.getItems();
 
             if (Objects.requireNonNull(newValue).getImagesHTTPS() != null){
+                observableListRutas.clear();
                 observableListRutas.addAll(newValue.getImagesHTTPS());
             }
 
             this.rutasCol.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue()));
-
 
         });
 
@@ -225,28 +234,38 @@ public class AdminViewController {
         travelAgency.agregarDestino(destinoObservableList, nuevoDestino);
 
         limpiarCamposDestinations();
+
         imagesRoutesTable.setDisable(true);
         examinarRutaButton.setDisable(true);
         addButtonImageDestination.setDisable(true);
         deleteButtonImageDestination.setDisable(true);
         rutaText.setDisable(true);
+
+        imagesRoutesTable.setItems(null);
     }
 
     @FXML
     private void modificarElementoDestinations(ActionEvent event) {
         if (destinationsTable.getSelectionModel().getSelectedIndex() >= 0) {
+
             Destino selectedDestino = destinationsTable.getSelectionModel().getSelectedItem();
+
             selectedDestino.setName(txtFldName.getText());
             selectedDestino.setCity(txtFldCity.getText());
             selectedDestino.setDescription(txtFldDescription.getText());
             selectedDestino.setWeather(choiceBoxClima.getValue());
+
             limpiarCamposDestinations();
+
             destinationsTable.refresh();
+
             imagesRoutesTable.setDisable(true);
             examinarRutaButton.setDisable(true);
             addButtonImageDestination.setDisable(true);
             deleteButtonImageDestination.setDisable(true);
             rutaText.setDisable(true);
+
+            imagesRoutesTable.setItems(null);
         }
 
     }
@@ -254,14 +273,19 @@ public class AdminViewController {
     @FXML
     private void eliminarElementoDestinations(ActionEvent event) {
         if (destinationsTable.getSelectionModel().getSelectedIndex() >= 0) {
+
             Destino selectedDestino = destinationsTable.getSelectionModel().getSelectedItem();
             destinoObservableList.remove(selectedDestino);
+
             limpiarCamposDestinations();
+
             imagesRoutesTable.setDisable(true);
             examinarRutaButton.setDisable(true);
             addButtonImageDestination.setDisable(true);
             deleteButtonImageDestination.setDisable(true);
             rutaText.setDisable(true);
+
+            imagesRoutesTable.setItems(null);
         }
     }
 
@@ -291,13 +315,33 @@ public class AdminViewController {
                 .findFirst();
 
         travelAgency.agregarImagenDestino(observableListRutas, rutaText.getText(), destinoSeleccionadoOpcional.get());
+
+        rutaText.clear();
     }
 
     public void eliminarRutaImagenDestinations(ActionEvent actionEvent) {
+
         if (imagesRoutesTable.getSelectionModel().getSelectedIndex() >= 0) {
             String selectedRuta = imagesRoutesTable.getSelectionModel().getSelectedItem();
             observableListRutas.remove(selectedRuta);
+
+            String destinoName = txtFldName.getText();
+
+            Optional<Destino> destinoSeleccionadoOpcional = travelAgency.getDestinos().stream()
+                    .filter(destino -> destino.getName().equals(destinoName))
+                    .findFirst();
+
+            eliminarRuta(destinoSeleccionadoOpcional, selectedRuta);
         }
+
+        rutaText.clear();
+    }
+
+    public void eliminarRuta(Optional<Destino> destino, String rutaABorrar){
+        List<String> rutasSinEliminar = destino.get().getImagesHTTPS().stream().filter(s -> !s.equals(rutaABorrar)).toList();
+
+        destino.get().getImagesHTTPS().clear();
+        destino.get().getImagesHTTPS().addAll(rutasSinEliminar);
     }
 
 
@@ -313,7 +357,7 @@ public class AdminViewController {
     @FXML
     private void agregarElementoPackages(ActionEvent event) {
 
-        long duration = 0L;
+        Period duration = datePckrStartDate.getValue().until(datePckrEndDate.getValue());
 
         TouristPackage nuevoPaquete = TouristPackage.builder()
                 .name(txtFldPackageName.getText())
@@ -321,7 +365,7 @@ public class AdminViewController {
                 .quota(Integer.parseInt(txtFldQuota.getText()))
                 .startDate(datePckrStartDate.getValue())
                 .endDate(datePckrEndDate.getValue())
-                .duration(duration)
+                .duration(duration.getDays())
                 .clientID(txtFldClientID.getText())
                 .build();
 

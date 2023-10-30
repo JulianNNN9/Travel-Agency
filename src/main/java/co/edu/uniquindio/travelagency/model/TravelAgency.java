@@ -68,7 +68,7 @@ public class TravelAgency {
                 .quota(2)
                 .startDate(LocalDate.now())
                 .endDate(LocalDate.of(2024, 12, 1))
-                .duration(1000L)
+                .duration(10)
                 .clientID("456")
                 .build();
 
@@ -85,6 +85,8 @@ public class TravelAgency {
                 .description("AAA")
                 .weather("TEMPLADO")
                 .build();
+
+        destino.getImagesHTTPS().add("AAA");
 
         Destino destino1 = Destino.builder()
                 .name("BBB")
@@ -159,7 +161,9 @@ public class TravelAgency {
 
     public void agregarImagenDestino(ObservableList<String> observableListRutas, String ruta, Destino destino) {
 
-        observableListRutas.add(ruta);
+        if (observableListRutas != null){
+            observableListRutas.add(ruta);
+        }
 
         for (Destino d : destinos) {
             if (d.equals(destino)) {
