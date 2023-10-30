@@ -50,24 +50,24 @@
 
     </Pane>
 
-    <Pane fx:id="manageDestinationsPane" prefHeight="615.0" prefWidth="950.0" style="-fx-background-radius: 15; -fx-border-radius: 15" visible="false">
+    <Pane fx:id="manageDestinationsPane" prefHeight="615.0" prefWidth="950.0" style="-fx-background-radius: 15; -fx-border-radius: 15">
 
         <Label contentDisplay="CENTER" layoutX="315.0" layoutY="14.0" prefHeight="45.0" prefWidth="308.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'; -fx-font-size: 25" text="gestionDeDestinosLabel" textAlignment="CENTER" />
 
-        <TableView fx:id="destinationsTable" layoutX="61.0" layoutY="301.0" prefHeight="270.0" prefWidth="815.0">
+        <TableView fx:id="destinationsTable" layoutX="61.0" layoutY="301.0" prefHeight="270.0" prefWidth="530.0">
             <columns>
                 <TableColumn fx:id="nameDestinationCol" prefWidth="109.0" text="Name" />
                 <TableColumn fx:id="cityCol" prefWidth="87.0" text="City" />
-                <TableColumn fx:id="descriptionCol" prefWidth="511.0" text="Description" />
-                <TableColumn fx:id="weatherCol" minWidth="0.0" prefWidth="103.0" text="Weather" />
+                <TableColumn fx:id="descriptionCol" prefWidth="209.0" text="Description" />
+                <TableColumn fx:id="weatherCol" minWidth="0.0" prefWidth="118.0" text="Weather" />
             </columns>
         </TableView>
 
         <ImageView fx:id="imgViewBackDestinationsButton" fitHeight="36.0" fitWidth="37.0" layoutX="899.0" layoutY="14.0" onMouseClicked="#onBackButtonClick" pickOnBounds="true" preserveRatio="true"><cursor><Cursor fx:constant="HAND" /></cursor></ImageView>
 
-        <Button fx:id="addButtonDestination" layoutX="57.0" layoutY="267.0" mnemonicParsing="false" onAction="#agregarElementoDestinations" text="addButton" />
-        <Button fx:id="modifyButtonDestination" layoutX="145.0" layoutY="267.0" mnemonicParsing="false" onAction="#modificarElementoDestinations" text="modifyButton" />
-        <Button fx:id="deleteButtonDestination" layoutX="246.0" layoutY="267.0" mnemonicParsing="false" onAction="#eliminarElementoDestinations" text="deleteButton" />
+        <Button fx:id="addButtonDestination" layoutX="165.0" layoutY="255.0" mnemonicParsing="false" onAction="#agregarElementoDestinations" text="addButton" />
+        <Button fx:id="modifyButtonDestination" layoutX="261.0" layoutY="255.0" mnemonicParsing="false" onAction="#modificarElementoDestinations" text="modifyButton" />
+        <Button fx:id="deleteButtonDestination" layoutX="377.0" layoutY="255.0" mnemonicParsing="false" onAction="#eliminarElementoDestinations" text="deleteButton" />
 
         <Label layoutX="61.0" layoutY="95.0" prefHeight="17.0" prefWidth="63.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="nameLabel" />
         <TextField fx:id="txtFldName" layoutX="172.0" layoutY="91.0" />
@@ -75,7 +75,7 @@
         <TextField fx:id="txtFldCity" layoutX="172.0" layoutY="147.0" />
         <Label layoutX="61.0" layoutY="203.0" prefHeight="17.0" prefWidth="84.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="weatherLabel" />
         <Label layoutX="354.0" layoutY="95.0" prefHeight="17.0" prefWidth="98.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="descriptionLabel" />
-        <TextField fx:id="txtFldDescription" layoutX="469.0" layoutY="95.0" prefHeight="130.0" prefWidth="210.0" />
+        <TextField fx:id="txtFldDescription" alignment="TOP_LEFT" layoutX="350.0" layoutY="124.0" prefHeight="98.0" prefWidth="238.0" />
         <ChoiceBox fx:id="choiceBoxClima" layoutX="171.0" layoutY="199.0" prefWidth="150.0">
             <items>
                 <FXCollections fx:factory="observableArrayList">
@@ -86,9 +86,21 @@
             </items>
         </ChoiceBox>
 
+
+        <Label layoutX="617.0" layoutY="95.0" prefHeight="17.0" prefWidth="84.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="rutaLabel" />
+          <TableView fx:id="imagesRoutesTable" layoutX="637.0" layoutY="301.0" prefHeight="270.0" prefWidth="277.0">
+            <columns>
+              <TableColumn fx:id="rutasCol" prefWidth="270.0" text="Rutas" />
+            </columns>
+          </TableView>
+        <Button fx:id="addButtonImageDestination" layoutX="704.0" layoutY="256.0" mnemonicParsing="false" onAction="#agregarRutaImagenDestinations" text="addButton" />
+        <Button fx:id="deleteButtonImageDestination" layoutX="793.0" layoutY="255.0" mnemonicParsing="false" onAction="#eliminarRutaImagenDestinations" text="deleteButton" />
+        <Button fx:id="examinarRutaButton" layoutX="754.0" layoutY="135.0" mnemonicParsing="false" onAction="#seleccionarImagen" text="examinarButon" />
+      <TextArea fx:id="rutaText" layoutX="676.0" layoutY="85.0" prefHeight="37.0" prefWidth="265.0" />
+
     </Pane>
 
-    <Pane fx:id="managePackagesPane" prefHeight="615.0" prefWidth="950.0" style="-fx-background-radius: 15; -fx-border-radius: 15">
+    <Pane fx:id="managePackagesPane" prefHeight="615.0" prefWidth="950.0" style="-fx-background-radius: 15; -fx-border-radius: 15" visible="false">
 
         <Label contentDisplay="CENTER" layoutX="321.0" layoutY="10.0" prefHeight="45.0" prefWidth="308.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'; -fx-font-size: 25" text="gestionDePaquetesLabel" textAlignment="CENTER" />
 
