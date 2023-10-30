@@ -3,6 +3,7 @@ package co.edu.uniquindio.travelagency.controllers;
 import co.edu.uniquindio.travelagency.exceptions.AtributoVacioException;
 import co.edu.uniquindio.travelagency.exceptions.RepeatedInformationException;
 import co.edu.uniquindio.travelagency.model.*;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,10 +17,16 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class AdminViewController {
 
@@ -45,12 +52,20 @@ public class AdminViewController {
     @FXML
     public ChoiceBox<String> choiceBoxClima;
     @FXML
+    public TextArea rutaText;
+    @FXML
+    ObservableList<String> observableListRutas;
+    @FXML
+    public TableView<String> imagesRoutesTable;
+    @FXML
+    public TableColumn<String, String> rutasCol;
+    @FXML
     public TableView<Destino> destinationsTable;
+    @FXML
     ObservableList<Destino> destinoObservableList;
     @FXML
     public TableColumn<Destino, Destino> nameDestinationCol, cityCol, descriptionCol,weatherCol;
-    @FXML
-    public Button deleteButtonDestination, modifyButtonDestination, addButtonDestination;
+    public Button examinarRutaButton, deleteButtonDestination, modifyButtonDestination, addButtonDestination, deleteButtonImageDestination, addButtonImageDestination;
 
     //Ventana gestionar paquetes
 
@@ -103,6 +118,31 @@ public class AdminViewController {
         imgViewExitButton.setImage(exitButton);
 
         //------------------------DESTINOS----------------------------
+
+        imagesRoutesTable.setDisable(true);
+        examinarRutaButton.setDisable(true);
+        addButtonImageDestination.setDisable(true);
+        deleteButtonImageDestination.setDisable(true);
+        rutaText.setDisable(true);
+
+        destinationsTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            boolean seleccionado = newValue != null;
+            imagesRoutesTable.setDisable(!seleccionado);
+            examinarRutaButton.setDisable(!seleccionado);
+            addButtonImageDestination.setDisable(!seleccionado);
+            deleteButtonImageDestination.setDisable(!seleccionado);
+            rutaText.setDisable(!seleccionado);
+
+            observableListRutas = imagesRoutesTable.getItems();
+
+            if (Objects.requireNonNull(newValue).getImagesHTTPS() != null){
+                observableListRutas.addAll(newValue.getImagesHTTPS());
+            }
+
+            this.rutasCol.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue()));
+
+
+        });
 
         destinoObservableList = destinationsTable.getItems();
 
@@ -177,6 +217,7 @@ public class AdminViewController {
         Destino nuevoDestino = Destino.builder()
                 .name(txtFldName.getText())
                 .city(txtFldCity.getText())
+                .imagesHTTPS(new ArrayList<>())
                 .description(txtFldDescription.getText())
                 .weather(choiceBoxClima.getValue())
                 .build();
@@ -184,6 +225,11 @@ public class AdminViewController {
         travelAgency.agregarDestino(destinoObservableList, nuevoDestino);
 
         limpiarCamposDestinations();
+        imagesRoutesTable.setDisable(true);
+        examinarRutaButton.setDisable(true);
+        addButtonImageDestination.setDisable(true);
+        deleteButtonImageDestination.setDisable(true);
+        rutaText.setDisable(true);
     }
 
     @FXML
@@ -196,6 +242,11 @@ public class AdminViewController {
             selectedDestino.setWeather(choiceBoxClima.getValue());
             limpiarCamposDestinations();
             destinationsTable.refresh();
+            imagesRoutesTable.setDisable(true);
+            examinarRutaButton.setDisable(true);
+            addButtonImageDestination.setDisable(true);
+            deleteButtonImageDestination.setDisable(true);
+            rutaText.setDisable(true);
         }
 
     }
@@ -206,8 +257,49 @@ public class AdminViewController {
             Destino selectedDestino = destinationsTable.getSelectionModel().getSelectedItem();
             destinoObservableList.remove(selectedDestino);
             limpiarCamposDestinations();
+            imagesRoutesTable.setDisable(true);
+            examinarRutaButton.setDisable(true);
+            addButtonImageDestination.setDisable(true);
+            deleteButtonImageDestination.setDisable(true);
+            rutaText.setDisable(true);
         }
     }
+
+    public void seleccionarImagen(ActionEvent actionEvent) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Imágenes", "*.jpg", "*.jpeg", "*.png", "*.gif", "*.bmp")
+        );
+
+        File imagenSeleccionada = fileChooser.showOpenDialog(getStage());
+        if (imagenSeleccionada != null) {
+            String rutaImagen = imagenSeleccionada.getAbsolutePath();
+            rutaText.setText(rutaImagen);
+        }
+    }
+    private Stage getStage() {
+        return (Stage) rutaText.getScene().getWindow();
+    }
+
+
+    public void agregarRutaImagenDestinations(ActionEvent actionEvent) {
+
+        String destinoName = txtFldName.getText();
+
+        Optional<Destino> destinoSeleccionadoOpcional = travelAgency.getDestinos().stream()
+                .filter(destino -> destino.getName().equals(destinoName))
+                .findFirst();
+
+        travelAgency.agregarImagenDestino(observableListRutas, rutaText.getText(), destinoSeleccionadoOpcional.get());
+    }
+
+    public void eliminarRutaImagenDestinations(ActionEvent actionEvent) {
+        if (imagesRoutesTable.getSelectionModel().getSelectedIndex() >= 0) {
+            String selectedRuta = imagesRoutesTable.getSelectionModel().getSelectedItem();
+            observableListRutas.remove(selectedRuta);
+        }
+    }
+
 
     private void limpiarCamposDestinations() {
         txtFldName.clear();
@@ -278,29 +370,29 @@ public class AdminViewController {
     @FXML
     private void handleButtonAction(ActionEvent event){
 
-        if (event.getTarget() == manageDestinationsButton){visibilities(false,true,false,false,false);}
-        if (event.getTarget() == managePackagesButton){visibilities(false,false,true,false,false);}
-        if (event.getTarget() == manageGuidesButton) {visibilities(false,false,false,true,false);}
-        if (event.getTarget() == statisticsButton) {visibilities(false,false,false,false,true);}
+        if (event.getTarget() == manageDestinationsButton){visibilities(false,true,false,false,false,false);}
+        if (event.getTarget() == managePackagesButton){visibilities(false,false,false,true,false,false);}
+        if (event.getTarget() == manageGuidesButton) {visibilities(false,false,false,false,true,false);}
+        if (event.getTarget() == statisticsButton) {visibilities(false,false,false,false,false,true);}
 
     }
 
-    public void visibilities(boolean pane1, boolean pane2 , boolean pane3, boolean pane4, boolean pane5 ){
+    public void visibilities(boolean pane1, boolean pane2 , boolean pane3, boolean pane4, boolean pane5, boolean pane6 ){
 
         principalPane.setVisible(pane1);
         manageDestinationsPane.setVisible(pane2);
-        managePackagesPane.setVisible(pane3);
-        manageGuidesPane.setVisible(pane4);
-        statisticsPane.setVisible(pane5);
+        managePackagesPane.setVisible(pane4);
+        manageGuidesPane.setVisible(pane5);
+        statisticsPane.setVisible(pane6);
 
     }
 
     public void onBackButtonClick(MouseEvent mouseEvent) {
 
-        if (mouseEvent.getTarget() == imgViewBackDestinationsButton){visibilities(true, false, false, false, false);}
-        if (mouseEvent.getTarget() == imgViewBackPackagesButton){visibilities(true, false, false, false, false);}
-        if (mouseEvent.getTarget() == imgViewBackGuidesButton){visibilities(true, false, false, false, false);}
-        if (mouseEvent.getTarget() == imgViewBackStatisticsButton){visibilities(true, false, false, false, false);}
+        if (mouseEvent.getTarget() == imgViewBackDestinationsButton){visibilities(true, false, false, false, false, false);}
+        if (mouseEvent.getTarget() == imgViewBackPackagesButton){visibilities(true, false,false, false, false, false);}
+        if (mouseEvent.getTarget() == imgViewBackGuidesButton){visibilities(true, false,false, false, false, false);}
+        if (mouseEvent.getTarget() == imgViewBackStatisticsButton){visibilities(true, false,false, false, false, false);}
 
     }
 

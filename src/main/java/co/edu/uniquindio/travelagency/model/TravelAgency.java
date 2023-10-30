@@ -81,6 +81,7 @@ public class TravelAgency {
         Destino destino = Destino.builder()
                 .name("AAA")
                 .city("AAA")
+                .imagesHTTPS(new ArrayList<>())
                 .description("AAA")
                 .weather("TEMPLADO")
                 .build();
@@ -88,6 +89,7 @@ public class TravelAgency {
         Destino destino1 = Destino.builder()
                 .name("BBB")
                 .city("BBB")
+                .imagesHTTPS(new ArrayList<>())
                 .description("BBB")
                 .weather("TEMPLADO")
                 .build();
@@ -131,33 +133,40 @@ public class TravelAgency {
 
     public void agregarDestino(ObservableList<Destino> destinoObservableList, Destino nuevoDestino) throws RepeatedInformationException, AtributoVacioException {
 
-        if (!nuevoDestino.getName().isEmpty() ||
-                !nuevoDestino.getCity().isEmpty() ||
-                !nuevoDestino.getDescription().isEmpty() ||
-                !nuevoDestino.getWeather().isEmpty()){
+        if (nuevoDestino.getName().isEmpty() ||
+                nuevoDestino.getCity().isEmpty() ||
+                nuevoDestino.getDescription().isEmpty() ||
+                nuevoDestino.getWeather().isEmpty()) {
 
+            createAlertError("Campos obligatorios", "Los campos marcados con (*) son oblogatorios");
+            log.info("Se ha intentado agregar un destino con campos vacios.");
+            throw new AtributoVacioException("Se ha intentado agregar un destino con campos vacios.");
+        }
+            if (destinoObservableList.stream().anyMatch(destination -> destination.getName().equals(nuevoDestino.getName()))){
 
-            if (destinoObservableList.stream().noneMatch(destination -> destination.getName().equals(nuevoDestino.getName()))){
-
-                destinoObservableList.add(nuevoDestino);
-                travelAgency.destinos.add(nuevoDestino);
-                archiveUtils.serializerObjet("src/main/resources/persistencia/destinos.ser", destinos);
-
-                log.info("Se ha creado un nuevo destino.");
-
-            } else {
                 createAlertError("Destino existente", "El destino que trataba de agregar ya se encuentra registrado.");
                 log.severe("Se ha intentado crear un Destino existente.");
                 throw new RepeatedInformationException("Se ha intentado crear un Destino existente.");
             }
 
+        destinoObservableList.add(nuevoDestino);
+        travelAgency.destinos.add(nuevoDestino);
+        archiveUtils.serializerObjet("src/main/resources/persistencia/destinos.ser", destinos);
 
-        } else {
-            createAlertError("Campos obligatorios", "Los campos marcados con (*) son oblogatorios");
-            log.info("Se ha intentado agregar un destino con campos vacios.");
-            throw new AtributoVacioException("Se ha intentado agregar un destino con campos vacios.");
+        log.info("Se ha creado un nuevo destino.");
+
         }
 
+    public void agregarImagenDestino(ObservableList<String> observableListRutas, String ruta, Destino destino) {
+
+        observableListRutas.add(ruta);
+
+        for (Destino d : destinos) {
+            if (d.equals(destino)) {
+                d.getImagesHTTPS().add(ruta);
+                break;
+            }
+        }
 
     }
 
@@ -252,5 +261,4 @@ public class TravelAgency {
         alert.setContentText(contentError);
         alert.show();
     }
-
 }
