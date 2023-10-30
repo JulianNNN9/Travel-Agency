@@ -18,7 +18,7 @@ public class TouristPackage {
     private Integer quota;
     private LocalDate startDate;
     private LocalDate endDate;
-    private Long duration;
+    private int duration;
     private String clientID;
 
 }

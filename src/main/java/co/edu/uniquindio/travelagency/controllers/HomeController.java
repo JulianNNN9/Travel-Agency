@@ -36,7 +36,9 @@ public class HomeController {
 
     public void initialize() {
 
-        Image exitButton = new Image("https://cdn-icons-png.flaticon.com/128/5735/5735775.png");
+        File file1 = new File("src/main/resources/icons/cerrarVentana.png");
+        Image exitButton = new Image(String.valueOf(file1.toURI()));
+
         cerrarVentanaImgv.setImage(exitButton);
 
     }
