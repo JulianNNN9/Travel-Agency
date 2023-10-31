@@ -10,7 +10,7 @@
 
 <AnchorPane prefHeight="615.0" prefWidth="950.0" style="-fx-background-color: #383838; -fx-background-radius: 15; -fx-border-radius: 15" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.travelagency.controllers.AdminViewController">
 
-    <Pane fx:id="principalPane" prefHeight="615.0" prefWidth="950.0" style="-fx-background-radius: 15; -fx-border-radius: 15">
+    <Pane fx:id="principalPane" prefHeight="615.0" prefWidth="950.0" style="-fx-background-radius: 15; -fx-border-radius: 15" visible="false">
 
         <Label layoutX="59.0" layoutY="131.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="Has iniciado sesión como administrador"><font><Font size="45" /></font></Label>
         <Label layoutX="361.0" layoutY="272.0" style="-fx-text-fill: #D07943FF; -fx-font-family: 'Segoe UI Semibold'" text="¿Qué desea hacer?"><font><Font size="25" /></font></Label>
@@ -52,7 +52,7 @@
 
     <Pane fx:id="manageDestinationsPane" prefHeight="615.0" prefWidth="950.0" style="-fx-background-radius: 15; -fx-border-radius: 15" visible="false">
 
-        <Label contentDisplay="CENTER" layoutX="315.0" layoutY="14.0" prefHeight="45.0" prefWidth="308.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'; -fx-font-size: 25" text="gestionDeDestinosLabel" textAlignment="CENTER" />
+        <Label contentDisplay="CENTER" layoutX="42.0" layoutY="14.0" prefHeight="45.0" prefWidth="308.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'; -fx-font-size: 25" text="gestionDeDestinosLabel" textAlignment="CENTER" />
 
         <TableView fx:id="destinationsTable" layoutX="61.0" layoutY="301.0" prefHeight="270.0" prefWidth="530.0">
             <columns>
@@ -87,7 +87,7 @@
         </ChoiceBox>
 
 
-        <Label layoutX="617.0" layoutY="95.0" prefHeight="17.0" prefWidth="84.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="rutaLabel" />
+        <Label layoutX="637.0" layoutY="95.0" prefHeight="17.0" prefWidth="72.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="rutaLabel" />
           <TableView fx:id="imagesRoutesTable" layoutX="637.0" layoutY="301.0" prefHeight="270.0" prefWidth="277.0">
             <columns>
               <TableColumn fx:id="rutasCol" prefWidth="270.0" text="Rutas" />
@@ -95,23 +95,23 @@
           </TableView>
         <Button fx:id="addButtonImageDestination" layoutX="704.0" layoutY="256.0" mnemonicParsing="false" onAction="#agregarRutaImagenDestinations" text="addButton" />
         <Button fx:id="deleteButtonImageDestination" layoutX="793.0" layoutY="255.0" mnemonicParsing="false" onAction="#eliminarRutaImagenDestinations" text="deleteButton" />
-        <Button fx:id="examinarRutaButton" layoutX="754.0" layoutY="135.0" mnemonicParsing="false" onAction="#seleccionarImagen" text="examinarButon" />
-      <TextArea fx:id="rutaText" layoutX="676.0" layoutY="85.0" prefHeight="37.0" prefWidth="265.0" />
+        <Button fx:id="examinarRutaButton" layoutX="766.0" layoutY="124.0" mnemonicParsing="false" onAction="#seleccionarImagen" text="examinarButon" />
+      <TextField fx:id="txtFldRuta" layoutX="702.0" layoutY="91.0" prefHeight="25.0" prefWidth="224.0" />
 
     </Pane>
 
-    <Pane fx:id="managePackagesPane" prefHeight="615.0" prefWidth="950.0" style="-fx-background-radius: 15; -fx-border-radius: 15" visible="false">
+    <Pane fx:id="managePackagesPane" prefHeight="615.0" prefWidth="950.0" style="-fx-background-radius: 15; -fx-border-radius: 15">
 
         <Label contentDisplay="CENTER" layoutX="321.0" layoutY="10.0" prefHeight="45.0" prefWidth="308.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'; -fx-font-size: 25" text="gestionDePaquetesLabel" textAlignment="CENTER" />
 
-        <TableView fx:id="packagesTable" layoutX="61.0" layoutY="312.0" prefHeight="259.0" prefWidth="815.0">
+        <TableView fx:id="packagesTable" layoutX="61.0" layoutY="312.0" prefHeight="259.0" prefWidth="561.0">
             <columns>
-                <TableColumn fx:id="namePackageCol" prefWidth="136.0" text="Name" />
-                <TableColumn fx:id="priceCol" prefWidth="105.0" text="Price" />
-                <TableColumn fx:id="quotaCol" prefWidth="141.0" text="Quota" />
-                <TableColumn fx:id="startDateCol" minWidth="0.0" prefWidth="144.0" text="Start date" />
-                <TableColumn fx:id="durationCol" minWidth="0.0" prefWidth="146.0" text="Duration" />
-                <TableColumn fx:id="clientIdCol" minWidth="0.0" prefWidth="137.0" text="Client id" />
+                <TableColumn fx:id="namePackageCol" prefWidth="83.0" text="Name" />
+                <TableColumn fx:id="priceCol" prefWidth="76.0" text="Price" />
+                <TableColumn fx:id="quotaCol" prefWidth="52.0" text="Quota" />
+                <TableColumn fx:id="startDateCol" minWidth="0.0" prefWidth="124.0" text="Start date" />
+                <TableColumn fx:id="durationCol" minWidth="0.0" prefWidth="61.0" text="Duration" />
+                <TableColumn fx:id="clientIdCol" minWidth="0.0" prefWidth="151.0" text="Client id" />
             </columns>
         </TableView>
 
@@ -133,6 +133,16 @@
         <DatePicker fx:id="datePckrEndDate" layoutX="475.0" layoutY="151.0" prefHeight="25.0" prefWidth="149.0" />
         <Label layoutX="370.0" layoutY="203.0" prefHeight="17.0" prefWidth="84.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="clientIDLabel" />
         <TextField fx:id="txtFldClientID" layoutX="475.0" layoutY="199.0" />
+
+      <TableView fx:id="destinationsNameTable" layoutX="680.0" layoutY="312.0" prefHeight="259.0" prefWidth="238.0">
+        <columns>
+          <TableColumn fx:id="destinosNameCol" prefWidth="231.0" text="Destinos" />
+        </columns>
+      </TableView>
+      <Button fx:id="addButtonDestinationName" layoutX="717.0" layoutY="260.0" mnemonicParsing="false" onAction="#agregarDestinoEnPaquete" text="addButton" />
+      <Button fx:id="deleteButtonDestinationName" layoutX="814.0" layoutY="260.0" mnemonicParsing="false" onAction="#eliminarDestinoEnPaquete" text="deleteButton" />
+      <ChoiceBox fx:id="choiceBoxDestinationName" layoutX="724.0" layoutY="143.0" prefWidth="150.0" />
+      <Label layoutX="731.0" layoutY="116.0" prefHeight="17.0" prefWidth="137.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="seleccionarDestinoLabel" />
 
 
     </Pane>

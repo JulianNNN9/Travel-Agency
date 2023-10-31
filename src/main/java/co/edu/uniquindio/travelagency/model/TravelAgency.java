@@ -129,7 +129,33 @@ public class TravelAgency {
     }
 
 
-    public void agregarPaquete(ObservableList<TouristPackage> packageObservableList, TouristPackage nuevoPaquete) {
+    public void agregarPaquete(ObservableList<TouristPackage> packageObservableList, TouristPackage nuevoPaquete) throws AtributoVacioException, RepeatedInformationException {
+
+        if ( nuevoPaquete.getName() == null || nuevoPaquete.getName().isEmpty() ||
+                nuevoPaquete.getPrice() == null ||
+                nuevoPaquete.getQuota() == null ||
+                nuevoPaquete.getStartDate() == null ||
+                nuevoPaquete.getEndDate() == null ||
+                nuevoPaquete.getDuration() < 0 ||
+                nuevoPaquete.getClientID().isEmpty()){
+
+            createAlertError("Campos obligatorios", "Los campos marcados con (*) son oblogatorios");
+            log.info("Se ha intentado agregar un destino con campos vacios.");
+            throw new AtributoVacioException("Se ha intentado agregar un destino con campos vacios.");
+        }
+
+        if (packageObservableList.stream().anyMatch(destination -> destination.getName().equals(nuevoPaquete.getName()))){
+
+            createAlertError("Paquete existente", "El paquete que trataba de agregar ya se encuentra registrado.");
+            log.severe("Se ha intentado crear un paquete existente.");
+            throw new RepeatedInformationException("Se ha intentado crear un paquete existente.");
+        }
+
+        packageObservableList.add(nuevoPaquete);
+        travelAgency.touristPackages.add(nuevoPaquete);
+        archiveUtils.serializerObjet("src/main/resources/persistencia/touristPackages.ser", touristPackages);
+
+        log.info("Se ha creado un nuevo paquete.");
 
     }
 
@@ -144,12 +170,13 @@ public class TravelAgency {
             log.info("Se ha intentado agregar un destino con campos vacios.");
             throw new AtributoVacioException("Se ha intentado agregar un destino con campos vacios.");
         }
-            if (destinoObservableList.stream().anyMatch(destination -> destination.getName().equals(nuevoDestino.getName()))){
 
-                createAlertError("Destino existente", "El destino que trataba de agregar ya se encuentra registrado.");
-                log.severe("Se ha intentado crear un Destino existente.");
-                throw new RepeatedInformationException("Se ha intentado crear un Destino existente.");
-            }
+        if (destinoObservableList.stream().anyMatch(destination -> destination.getName().equals(nuevoDestino.getName()))){
+
+            createAlertError("Destino existente", "El destino que trataba de agregar ya se encuentra registrado.");
+            log.severe("Se ha intentado crear un Destino existente.");
+            throw new RepeatedInformationException("Se ha intentado crear un Destino existente.");
+        }
 
         destinoObservableList.add(nuevoDestino);
         travelAgency.destinos.add(nuevoDestino);
@@ -172,6 +199,20 @@ public class TravelAgency {
             }
         }
 
+    }
+
+    public void agregarDestinoEnPaquete(ObservableList<String> observableListDestinationName, String selectedItem, TouristPackage touristPackage) {
+
+        if (observableListDestinationName != null){
+            observableListDestinationName.add(selectedItem);
+        }
+
+        for (TouristPackage t : touristPackages) {
+            if (t.equals(touristPackage)) {
+                t.getDestinosName().add(selectedItem);
+                break;
+            }
+        }
     }
 
     public void LogIn(String id, String password) throws EmptyAttributeException, WrongPasswordException, UserNoExistingException {
@@ -265,4 +306,5 @@ public class TravelAgency {
         alert.setContentText(contentError);
         alert.show();
     }
+
 }
