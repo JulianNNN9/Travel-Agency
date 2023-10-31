@@ -3,6 +3,7 @@
 <?import java.lang.*?>
 <?import javafx.collections.*?>
 <?import javafx.scene.*?>
+<?import javafx.scene.chart.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
@@ -100,7 +101,7 @@
 
     </Pane>
 
-    <Pane fx:id="managePackagesPane" prefHeight="615.0" prefWidth="950.0" style="-fx-background-radius: 15; -fx-border-radius: 15">
+    <Pane fx:id="managePackagesPane" prefHeight="615.0" prefWidth="950.0" style="-fx-background-radius: 15; -fx-border-radius: 15" visible="false">
 
         <Label contentDisplay="CENTER" layoutX="321.0" layoutY="10.0" prefHeight="45.0" prefWidth="308.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'; -fx-font-size: 25" text="gestionDePaquetesLabel" textAlignment="CENTER" />
 
@@ -151,20 +152,20 @@
 
         <Label contentDisplay="CENTER" layoutX="315.0" layoutY="14.0" prefHeight="45.0" prefWidth="308.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'; -fx-font-size: 25" text="gestionDeGuiasLabel" textAlignment="CENTER" />
 
-        <TableView fx:id="guidesTable" layoutX="217.0" layoutY="336.0" prefHeight="236.0" prefWidth="491.0">
+        <TableView fx:id="guidesTable" layoutX="54.0" layoutY="331.0" prefHeight="236.0" prefWidth="577.0">
             <columns>
                 <TableColumn fx:id="idGuideCol" prefWidth="109.0" text="Id" />
-                <TableColumn fx:id="fullNameGuideCol" prefWidth="104.0" text="Full name" />
-                <TableColumn fx:id="experienceCol" minWidth="0.0" prefWidth="133.0" text="Experience" />
-                <TableColumn fx:id="ratingCol" minWidth="0.0" prefWidth="140.0" text="Rating" />
+                <TableColumn fx:id="fullNameGuideCol" prefWidth="161.0" text="Full name" />
+                <TableColumn fx:id="experienceCol" minWidth="0.0" prefWidth="153.0" text="Experience" />
+                <TableColumn fx:id="ratingCol" minWidth="0.0" prefWidth="147.0" text="Rating" />
             </columns>
         </TableView>
 
         <ImageView fx:id="imgViewBackGuidesButton" fitHeight="36.0" fitWidth="37.0" layoutX="899.0" layoutY="14.0" onMouseClicked="#onBackButtonClick" pickOnBounds="true" preserveRatio="true"><cursor><Cursor fx:constant="HAND" /></cursor></ImageView>
 
-        <Button fx:id="addButtonGuides" layoutX="64.0" layoutY="274.0" mnemonicParsing="false" text="addButton" />
-        <Button fx:id="modifyButtonGuides" layoutX="145.0" layoutY="274.0" mnemonicParsing="false" text="modifyButton" />
-        <Button fx:id="deleteButtonGuide" layoutX="246.0" layoutY="274.0" mnemonicParsing="false" text="deleteButton" />
+        <Button fx:id="addButtonGuides" layoutX="60.0" layoutY="283.0" mnemonicParsing="false" text="addButton" />
+        <Button fx:id="modifyButtonGuides" layoutX="145.0" layoutY="283.0" mnemonicParsing="false" text="modifyButton" />
+        <Button fx:id="deleteButtonGuide" layoutX="246.0" layoutY="283.0" mnemonicParsing="false" text="deleteButton" />
 
         <Label layoutX="54.0" layoutY="113.0" prefHeight="17.0" prefWidth="78.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="idGuideLabel" />
         <TextField fx:id="txtFldGuideId" layoutX="172.0" layoutY="109.0" />
@@ -173,15 +174,62 @@
         <Label layoutX="54.0" layoutY="220.0" prefHeight="17.0" prefWidth="98.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="experienceLabel" />
         <TextField fx:id="txtFldExperience" layoutX="172.0" layoutY="216.0" />
         <Label layoutX="365.0" layoutY="113.0" prefHeight="17.0" prefWidth="98.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="ratingLabel" />
-        <TextField fx:id="txtFldRating" layoutX="475.0" layoutY="109.0" prefHeight="25.0" prefWidth="149.0" />
+        <TextField fx:id="txtFldRating" layoutX="450.0" layoutY="109.0" prefHeight="25.0" prefWidth="149.0" />
+
+
+      <TableView fx:id="guidesLenguajeTable" layoutX="680.0" layoutY="331.0" prefHeight="236.0" prefWidth="238.0">
+        <columns>
+          <TableColumn fx:id="lenguajeCol" prefWidth="192.0" text="C1" />
+        </columns>
+      </TableView>
+      <Button fx:id="addLenguajeButton" layoutX="716.0" layoutY="283.0" mnemonicParsing="false" text="addButton" />
+      <Button fx:id="deleteLenguajeButton" layoutX="814.0" layoutY="283.0" mnemonicParsing="false" text="deleteButton" />
+      <TextField fx:id="txtFldLenguaje" layoutX="782.0" layoutY="216.0" />
+      <Label layoutX="680.0" layoutY="220.0" prefHeight="17.0" prefWidth="89.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="lenguajeLabel" />
 
     </Pane>
 
-    <Pane fx:id="statisticsPane" prefHeight="615.0" prefWidth="950.0" style="-fx-background-radius: 15; -fx-border-radius: 15" visible="false">
+    <Pane fx:id="statisticsPane" prefHeight="615.0" prefWidth="950.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-background-color: #989898">
 
         <Label layoutX="306.0" layoutY="14.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="estadisticasLabelPrincipal"><font><Font size="30" /></font></Label>
 
         <ImageView fx:id="imgViewBackStatisticsButton" fitHeight="36.0" fitWidth="37.0" layoutX="899.0" layoutY="14.0" onMouseClicked="#onBackButtonClick" pickOnBounds="true" preserveRatio="true"><cursor><Cursor fx:constant="HAND" /></cursor></ImageView>
+
+        <HBox alignment="CENTER" layoutY="94.0" prefHeight="413.0" prefWidth="948.0" spacing="20">
+
+            <VBox alignment="CENTER" spacing="10">
+                <BarChart fx:id="destinationsChart" prefHeight="260.0" prefWidth="290.0">
+                    <xAxis>
+                        <CategoryAxis fx:id="destinationsXAxis" />
+                    </xAxis>
+                    <yAxis>
+                        <NumberAxis fx:id="destinationsYAxis" />
+                    </yAxis>
+                </BarChart>
+            </VBox>
+
+            <VBox alignment="CENTER" spacing="10">
+                <BarChart fx:id="guidesChart" prefHeight="260.0" prefWidth="290.0">
+                    <xAxis>
+                        <CategoryAxis fx:id="guidesXAxis" />
+                    </xAxis>
+                    <yAxis>
+                        <NumberAxis fx:id="guidesYAxis" />
+                    </yAxis>
+                </BarChart>
+            </VBox>
+
+            <VBox alignment="CENTER" spacing="10">
+                <BarChart fx:id="packagesChart" prefHeight="260.0" prefWidth="290.0">
+                    <xAxis>
+                        <CategoryAxis fx:id="packagesXAxis" />
+                    </xAxis>
+                    <yAxis>
+                        <NumberAxis fx:id="packagesYAxis" />
+                    </yAxis>
+                </BarChart>
+            </VBox>
+        </HBox>
 
     </Pane>
     
