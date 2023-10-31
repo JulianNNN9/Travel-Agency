@@ -153,7 +153,7 @@ public class TravelAgency {
 
         packageObservableList.add(nuevoPaquete);
         travelAgency.touristPackages.add(nuevoPaquete);
-        archiveUtils.serializerObjet("src/main/resources/persistencia/touristPackages.ser", touristPackages);
+        //archiveUtils.serializerObjet("src/main/resources/persistencia/touristPackages.ser", touristPackages);
 
         log.info("Se ha creado un nuevo paquete.");
 
@@ -180,7 +180,7 @@ public class TravelAgency {
 
         destinoObservableList.add(nuevoDestino);
         travelAgency.destinos.add(nuevoDestino);
-        archiveUtils.serializerObjet("src/main/resources/persistencia/destinos.ser", destinos);
+        //archiveUtils.serializerObjet("src/main/resources/persistencia/destinos.ser", destinos);
 
         log.info("Se ha creado un nuevo destino.");
 
