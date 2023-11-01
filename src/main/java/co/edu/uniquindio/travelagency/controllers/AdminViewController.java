@@ -27,12 +27,8 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Array;
-import java.net.MalformedURLException;
-import java.time.Period;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 public class AdminViewController {
@@ -188,9 +184,10 @@ public class AdminViewController {
             modifyButtonDestination.setDisable(!seleccionado);
 
             if (seleccionado) {
-                observableListRutas.clear(); // Borra el contenido
                 if (Objects.requireNonNull(newValue).getImagesHTTPS() != null) {
-                    observableListRutas.addAll(newValue.getImagesHTTPS());
+                    observableListRutas.setAll(newValue.getImagesHTTPS());
+                } else {
+                    observableListRutas.clear();
                 }
             }
 
@@ -248,9 +245,10 @@ public class AdminViewController {
             modifyButtonPackages.setDisable(!seleccionado);
 
             if (seleccionado) {
-                observableListDestinationName.clear();
                 if (Objects.requireNonNull(newValue).getDestinosName() != null) {
-                    observableListDestinationName.addAll(newValue.getDestinosName());
+                    observableListDestinationName.setAll(newValue.getDestinosName());
+                } else {
+                    observableListDestinationName.clear();
                 }
             }
 
@@ -301,9 +299,10 @@ public class AdminViewController {
             txtFldLenguaje.setDisable(!seleccionado);
 
             if (seleccionado) {
-                observableListLenguajes.clear(); // Borra el contenido
                 if (Objects.requireNonNull(newValue).getLanguages() != null) {
-                    observableListLenguajes.addAll(newValue.getLanguages());
+                    observableListLenguajes.setAll(newValue.getLanguages());
+                } else {
+                    observableListLenguajes.clear();
                 }
             }
 
@@ -333,11 +332,36 @@ public class AdminViewController {
 
         //------------------------ESTADISTICAS-------------------------
 
-        // Simula datos (debes obtener los datos de tus singletons)
-        ObservableList<String> destinations = FXCollections.observableArrayList(
-                "Destino 1", "Destino 2", "Destino 3", "Destino 4");
-        ObservableList<Integer> reservationCounts = FXCollections.observableArrayList(
-                50, 80, 60, 120);
+        // Obtener las reservas desde travelAgency
+        List<Reservation> reservations = travelAgency.getReservations();
+
+        // Crear un mapa para contar las repeticiones de los nombres de destinos
+        Map<String, Integer> cuentaReservasPorDestino = new HashMap<>();
+
+        for (Reservation reservation : reservations) {
+            List<TouristPackage> touristPackages = reservation.getTouristPackages();
+            for (TouristPackage touristPackage : touristPackages) {
+                List<String> destinos = touristPackage.getDestinosName();
+                for (String destino : destinos) {
+                    cuentaReservasPorDestino.put(destino, cuentaReservasPorDestino.getOrDefault(destino, 0) + 1);
+                }
+            }
+        }
+
+        // Ordenar el mapa por la cantidad de reservas en orden descendente
+        List<Map.Entry<String, Integer>> listaOrdenada = cuentaReservasPorDestino.entrySet()
+                .stream()
+                .sorted((entry1, entry2) -> entry2.getValue().compareTo(entry1.getValue()))
+                .toList();
+
+        // Crear listas observables a partir de los datos ordenados
+        ObservableList<String> destinations = FXCollections.observableArrayList();
+        ObservableList<Integer> reservationCounts = FXCollections.observableArrayList();
+
+        for (Map.Entry<String, Integer> entry : listaOrdenada) {
+            destinations.add(entry.getKey());
+            reservationCounts.add(entry.getValue());
+        }
 
         // Configura el gráfico de destinos más reservados
         XYChart.Series<String, Number> series = new XYChart.Series<>();
@@ -369,16 +393,8 @@ public class AdminViewController {
 
 
 
-        // Crear un mapa para contabilizar las reservas por nombre de paquete
-        Map<String, Integer> packageReservationCounts = new HashMap<>();
-
-        for (Reservation reservation : reservations) {
-            List<TouristPackage> packages = reservation.getTouristPackages();
-            for (TouristPackage aPackage : packages) {
-                String packageName = aPackage.getName();
-                packageReservationCounts.put(packageName, packageReservationCounts.getOrDefault(packageName, 0) + 1);
-            }
-        }
+        //Crear un mapa para contabilizar las reservas por nombre de paquete
+        Map<String, Integer> packageReservationCounts = getStringIntegerMap();
 
         // Convertir el mapa en una lista de pares (nombre del paquete, número de reservas)
         ObservableList<XYChart.Data<String, Number>> packageData = FXCollections.observableArrayList();
@@ -395,6 +411,19 @@ public class AdminViewController {
         packagesChart.setTitle("Paquetes Más Reservados");
         packagesXAxis.setLabel("Paquetes");
         packagesYAxis.setLabel("Número de Reservas");
+    }
+
+    private Map<String, Integer> getStringIntegerMap() {
+        Map<String, Integer> packageReservationCounts = new HashMap<>();
+
+        for (Reservation reservation : reservations) {
+            List<TouristPackage> packages = reservation.getTouristPackages();
+            for (TouristPackage aPackage : packages) {
+                String packageName = aPackage.getName();
+                packageReservationCounts.put(packageName, packageReservationCounts.getOrDefault(packageName, 0) + 1);
+            }
+        }
+        return packageReservationCounts;
     }
 
     //----------------------------Destinations-----------------------------
@@ -421,7 +450,7 @@ public class AdminViewController {
         txtFldRuta.setDisable(true);
         modifyButtonDestination.setDisable(true);
 
-        imagesRoutesTable.setItems(null);
+        imagesRoutesTable.refresh();
     }
 
     @FXML
@@ -446,7 +475,9 @@ public class AdminViewController {
             txtFldRuta.setDisable(true);
             modifyButtonDestination.setDisable(true);
 
-            imagesRoutesTable.setItems(null);
+            imagesRoutesTable.refresh();
+
+            System.out.println(selectedDestino);
         }
 
     }
@@ -467,7 +498,7 @@ public class AdminViewController {
             txtFldRuta.setDisable(true);
             modifyButtonDestination.setDisable(true);
 
-            imagesRoutesTable.setItems(null);
+            imagesRoutesTable.refresh();
         }
     }
 
@@ -488,7 +519,7 @@ public class AdminViewController {
     }
 
 
-    public void agregarRutaImagenDestinations(ActionEvent actionEvent) {
+    public void agregarRutaImagenDestinations(ActionEvent actionEvent) throws RepeatedInformationException, AtributoVacioException {
 
         String destinoName = txtFldName.getText();
 
@@ -496,7 +527,22 @@ public class AdminViewController {
                 .filter(destino -> destino.getName().equals(destinoName))
                 .findFirst();
 
-        travelAgency.agregarImagenDestino(observableListRutas, txtFldRuta.getText(), destinoSeleccionadoOpcional.get());
+        if (destinoSeleccionadoOpcional.isPresent()) {
+            travelAgency.agregarImagenDestino(observableListRutas, txtFldRuta.getText(), destinoSeleccionadoOpcional.get());
+        } else {
+
+            Destino nuevoDestino = Destino.builder()
+                    .name(txtFldName.getText())
+                    .city(txtFldCity.getText())
+                    .imagesHTTPS(new ArrayList<>())
+                    .description(txtFldDescription.getText())
+                    .weather(choiceBoxClima.getValue())
+                    .build();
+
+            travelAgency.agregarImagenDestino(observableListRutas, txtFldRuta.getText(), nuevoDestino);
+
+            travelAgency.agregarDestino(destinoObservableList, nuevoDestino);
+        }
 
         txtFldRuta.clear();
     }
@@ -515,6 +561,7 @@ public class AdminViewController {
                     .findFirst();
 
             eliminarRuta(destinoSeleccionadoOpcional, selectedRuta);
+
         }
 
         txtFldRuta.clear();
@@ -573,7 +620,7 @@ public class AdminViewController {
         choiceBoxDestinationName.setDisable(true);
         modifyButtonPackages.setDisable(true);
 
-        destinationsNameTable.setItems(null);
+        destinationsNameTable.refresh();
     }
 
     @FXML
@@ -598,7 +645,9 @@ public class AdminViewController {
             choiceBoxDestinationName.setDisable(true);
             modifyButtonPackages.setDisable(true);
 
-            destinationsNameTable.setItems(null);
+            destinationsNameTable.refresh();
+
+            System.out.println(selectedPackage);
         }
 
     }
@@ -615,11 +664,11 @@ public class AdminViewController {
             choiceBoxDestinationName.setDisable(true);
             modifyButtonPackages.setDisable(true);
 
-            destinationsNameTable.setItems(null);
+            destinationsNameTable.refresh();
         }
     }
 
-    public void agregarDestinoEnPaquete(ActionEvent actionEvent) {
+    public void agregarDestinoEnPaquete(ActionEvent actionEvent) throws RepeatedInformationException, AtributoVacioException {
 
         String paqueteName = txtFldPackageName.getText();
 
@@ -627,9 +676,32 @@ public class AdminViewController {
                 .filter(touristPackage -> touristPackage.getName().equals(paqueteName))
                 .findFirst();
 
-        travelAgency.agregarDestinoEnPaquete(observableListDestinationName, choiceBoxDestinationName.getSelectionModel().getSelectedItem(), paqueteSeleccionadoOpcional.get());
+        if (paqueteSeleccionadoOpcional.isPresent()){
+            travelAgency.agregarDestinoEnPaquete(observableListDestinationName, choiceBoxDestinationName.getSelectionModel().getSelectedItem(), paqueteSeleccionadoOpcional.get());
+        } else {
 
-        choiceBoxDestinationName.setValue(null);
+            long duration = 0;
+
+            if (datePckrStartDate.getValue() != null && datePckrEndDate.getValue() != null){
+                duration = datePckrStartDate.getValue().until(datePckrEndDate.getValue(), ChronoUnit.DAYS);
+            }
+
+            TouristPackage nuevoPaquete = TouristPackage.builder()
+                    .name(txtFldPackageName.getText())
+                    .price(Double.valueOf(txtFldPrice.getText()))
+                    .quota(Integer.parseInt(txtFldQuota.getText()))
+                    .startDate(datePckrStartDate.getValue())
+                    .endDate(datePckrEndDate.getValue())
+                    .duration(duration)
+                    .clientID(txtFldClientID.getText())
+                    .build();
+
+            travelAgency.agregarDestinoEnPaquete(observableListDestinationName, choiceBoxDestinationName.getSelectionModel().getSelectedItem(), nuevoPaquete);
+
+            travelAgency.agregarPaquete(packageObservableList, nuevoPaquete);
+        }
+
+        choiceBoxDestinationName.setValue("");
     }
 
     public void eliminarDestinoEnPaquete(ActionEvent actionEvent) {
@@ -649,7 +721,7 @@ public class AdminViewController {
 
         }
 
-        choiceBoxDestinationName.setValue(null);
+        choiceBoxDestinationName.setValue("");
 
     }
 

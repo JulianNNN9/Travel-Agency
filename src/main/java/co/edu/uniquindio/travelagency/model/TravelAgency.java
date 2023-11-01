@@ -54,17 +54,41 @@ public class TravelAgency {
             log.severe(e.getMessage());
         }
 
+        //Cargar guía
+
         ArrayList<TouristGuide> aux = (ArrayList<TouristGuide>) archiveUtils.deserializerObjet("src/main/resources/persistencia/touristGuides.ser");
 
         this.touristGuides = Objects.requireNonNullElseGet(aux, ArrayList::new);
+
+        for (TouristGuide guide : touristGuides) {
+            if (guide.getLanguages() == null) {
+                guide.setLanguages(new ArrayList<>());
+            }
+        }
+
+        //Cargar reservaciones
 
         ArrayList<Reservation> aux1 = (ArrayList<Reservation>) archiveUtils.deserializerObjet("src/main/resources/persistencia/reservations.ser");
 
         this.reservations = Objects.requireNonNullElseGet(aux1, ArrayList::new);
 
+        for (Reservation reservation : reservations){
+            if (reservation.getTouristPackages() == null){
+                reservation.setTouristPackages(new ArrayList<>());
+            }
+        }
+
+        //Cargar paquetes
+
         ArrayList<TouristPackage> aux2 = (ArrayList<TouristPackage>) archiveUtils.deserializerObjet("src/main/resources/persistencia/touristPackages.ser");
 
         this.touristPackages = Objects.requireNonNullElseGet(aux2, ArrayList::new);
+
+        for (TouristPackage aPackage : touristPackages){
+            if (aPackage.getDestinosName() == null){
+                aPackage.setDestinosName(new ArrayList<>());
+            }
+        }
 
         List<String> dest = new ArrayList<>();
         dest.add("AAA");
@@ -83,9 +107,17 @@ public class TravelAgency {
 
         touristPackages.add(touristPackage);
 
+        //Cargar destinos
+
         ArrayList<Destino> aux3 = (ArrayList<Destino>) archiveUtils.deserializerObjet("src/main/resources/persistencia/destinos.ser");
 
         this.destinos = Objects.requireNonNullElseGet(aux3, ArrayList::new);
+
+        for (Destino destino : destinos){
+            if (destino.getImagesHTTPS() == null){
+                destino.setImagesHTTPS(new ArrayList<>());
+            }
+        }
 
         Destino destino = Destino.builder()
                 .name("AAA")
@@ -108,9 +140,13 @@ public class TravelAgency {
         destinos.add(destino);
         destinos.add(destino1);
 
+        //Cargar clientes
+
         ArrayList<Client> aux4 = (ArrayList<Client>) archiveUtils.deserializerObjet("src/main/resources/persistencia/clients.ser");
 
         this.clients = Objects.requireNonNullElseGet(aux4, ArrayList::new);
+
+        //Cargar admins
 
         ArrayList<Admin> aux5 = (ArrayList<Admin>) archiveUtils.deserializerObjet("src/main/resources/persistencia/admins.ser");
 
@@ -210,7 +246,13 @@ public class TravelAgency {
 
         for (Destino d : destinos) {
             if (d.equals(destino)) {
-                d.getImagesHTTPS().add(ruta);
+                if (d.getImagesHTTPS() == null){
+                    d.setImagesHTTPS(new ArrayList<>());
+                    d.getImagesHTTPS().add(ruta);
+                } else {
+                    d.getImagesHTTPS().add(ruta);
+                }
+
                 break;
             }
         }
@@ -225,7 +267,13 @@ public class TravelAgency {
 
         for (TouristPackage t : touristPackages) {
             if (t.equals(touristPackage)) {
-                t.getDestinosName().add(selectedItem);
+                if (t.getDestinosName() == null){
+                    t.setDestinosName(new ArrayList<>());
+                    t.getDestinosName().add(selectedItem);
+                } else {
+                    t.getDestinosName().add(selectedItem);
+                }
+
                 break;
             }
         }

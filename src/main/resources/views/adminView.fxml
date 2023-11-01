@@ -11,7 +11,7 @@
 
 <AnchorPane prefHeight="615.0" prefWidth="950.0" style="-fx-background-color: #383838; -fx-background-radius: 15; -fx-border-radius: 15" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.travelagency.controllers.AdminViewController">
 
-    <Pane fx:id="principalPane" prefHeight="615.0" prefWidth="950.0" style="-fx-background-radius: 15; -fx-border-radius: 15" visible="false">
+    <Pane fx:id="principalPane" prefHeight="615.0" prefWidth="950.0" style="-fx-background-radius: 15; -fx-border-radius: 15">
 
         <Label layoutX="59.0" layoutY="131.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="Has iniciado sesión como administrador"><font><Font size="45" /></font></Label>
         <Label layoutX="361.0" layoutY="272.0" style="-fx-text-fill: #D07943FF; -fx-font-family: 'Segoe UI Semibold'" text="¿Qué desea hacer?"><font><Font size="25" /></font></Label>
@@ -189,7 +189,7 @@
 
     </Pane>
 
-    <Pane fx:id="statisticsPane" prefHeight="615.0" prefWidth="950.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-background-color: #989898">
+    <Pane fx:id="statisticsPane" prefHeight="615.0" prefWidth="950.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-background-color: #989898" visible="false">
 
         <Label layoutX="306.0" layoutY="14.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="estadisticasLabelPrincipal"><font><Font size="30" /></font></Label>
 
