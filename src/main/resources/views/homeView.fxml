@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="950.0" style="-fx-background-radius: 15; -fx-background-color: transparent;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.travelagency.controllers.HomeController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="950.0" style="-fx-background-radius: 15; -fx-background-color: transparent;" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.travelagency.controllers.HomeController">
    <children>
       <HBox alignment="CENTER" prefHeight="60.0" prefWidth="949.0" style="-fx-background-color: linear-gradient(to bottom, #d0986a, #888282); -fx-background-radius: 15;">
          <children>
@@ -93,5 +99,64 @@
                  </children>
              </Pane>
          </children></AnchorPane>
+      <AnchorPane fx:id="ayudaPane1" layoutY="89.0" prefHeight="615.0" prefWidth="950.0" style="-fx-background-color: #383838; -fx-background-radius: 15;" visible="false">
+         <children>
+            <Label fx:id="registroPane" alignment="TOP_CENTER" layoutX="305.0" layoutY="14.0" prefHeight="17.0" prefWidth="341.0" text="Registro " textFill="#eeeded">
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Label>
+            <Label fx:id="nombreLbl" alignment="TOP_LEFT" layoutX="41.0" layoutY="122.0" prefHeight="25.0" prefWidth="150.0" text="Nombre" textFill="#eeeded">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="IdentificacionLbl" alignment="TOP_LEFT" layoutX="41.0" layoutY="184.0" prefHeight="25.0" prefWidth="150.0" text="Identificacion" textFill="#eeeded">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="contraselaLbl" alignment="TOP_LEFT" layoutX="41.0" layoutY="233.0" prefHeight="25.0" prefWidth="150.0" text="Contrasela" textFill="#eeeded">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="emailLbl" alignment="TOP_LEFT" layoutX="41.0" layoutY="295.0" prefHeight="25.0" prefWidth="150.0" text="Email" textFill="#eeeded">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="telefonoLbl" alignment="TOP_LEFT" layoutX="41.0" layoutY="363.0" prefHeight="25.0" prefWidth="150.0" text="Telefono" textFill="#eeeded">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="residenciaLbl" alignment="TOP_LEFT" layoutX="41.0" layoutY="424.0" prefHeight="25.0" prefWidth="150.0" text="Residencia" textFill="#eeeded">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <TextField layoutX="199.0" layoutY="122.0" />
+            <TextField layoutX="199.0" layoutY="184.0" />
+            <TextField layoutX="199.0" layoutY="233.0" />
+            <TextField layoutX="199.0" layoutY="295.0" />
+            <TextField layoutX="199.0" layoutY="363.0" />
+            <TextField layoutX="199.0" layoutY="424.0" />
+            <Button layoutX="410.0" layoutY="520.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="132.0" text="Confirmar" />
+            <Label fx:id="imagenLBl" alignment="TOP_LEFT" layoutX="401.0" layoutY="295.0" prefHeight="25.0" prefWidth="89.0" text="Imagen" textFill="#eeeded">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <TextField layoutX="490.0" layoutY="295.0" prefHeight="26.0" prefWidth="414.0" />
+            <Button layoutX="574.0" layoutY="358.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="132.0" text="Agregar Imagen" />
+            <ImageView fitHeight="198.0" fitWidth="232.0" layoutX="551.0" layoutY="80.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="registroExit" fitHeight="44.0" fitWidth="44.0" layoutX="884.0" layoutY="14.0" onMouseClicked="#registroExit" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../icons/4103083.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>

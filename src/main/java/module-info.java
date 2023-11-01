@@ -7,7 +7,7 @@ module co.edu.uniquindio.travelagency {
     requires static lombok;
 
 
-    opens co.edu.uniquindio.travelagency to javafx.fxml;
+
     opens co.edu.uniquindio.travelagency.app to javafx.fxml;
     opens co.edu.uniquindio.travelagency.controllers to javafx.fxml;
 
