@@ -13,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -81,6 +82,11 @@ public class HomeController {
         } else if (u.equals("Admin")) {
             travelAgency.generateWindow("src/main/resources/views/adminView.fxml",cerrarVentanaImgv);
         }
+
+    }
+
+    public void registroExit(MouseEvent mouseEvent) {
+
 
     }
 }

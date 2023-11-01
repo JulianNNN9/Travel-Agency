@@ -28,11 +28,6 @@ public class ClientController {
 
         cerrarVentanaImgv.setImage(exitButton);
 
-//        File file2 = new File("src/main/resources/icons/user.png");
-//        Image perfil = new Image(String.valueOf(file1.toURI()));
-//
-//        perfilImgv.setImage(perfil);
-
     }
 
 
