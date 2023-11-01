@@ -2,9 +2,18 @@ package co.edu.uniquindio.travelagency.model;
 
 import co.edu.uniquindio.travelagency.exceptions.*;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import lombok.Getter;
 import lombok.extern.java.Log;
+
+import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -114,6 +123,13 @@ public class TravelAgency {
 
         admins.add(admin);
 
+        Client cl1 = Client.builder()
+                .userId("user1")
+                .password("user1")
+                .build();
+
+        clients.add(cl1);
+
     }
 
     public static TravelAgency getInstance(){
@@ -215,7 +231,7 @@ public class TravelAgency {
         }
     }
 
-    public void LogIn(String id, String password) throws EmptyAttributeException, WrongPasswordException, UserNoExistingException {
+    public String LogIn(String id, String password) throws EmptyAttributeException, WrongPasswordException, UserNoExistingException {
 
         if (id == null || id.isBlank() || password == null || password.isBlank()){
             createAlertError(this.getResourceBundle().getString("textoTituloAlertaErrorAtributoVacio"), this.getResourceBundle().getString("textoContenidoAlertaErrorAtributoVacio"));
@@ -225,13 +241,32 @@ public class TravelAgency {
 
         if (clients.stream().anyMatch(client -> client.getUserId().equals(id))){
             validateLogInDataUser(id, password, 0);
+           return "Client";
+        } else if (admins.stream().anyMatch(client -> client.getUserId().equals(id))) {
+            validateLogInDataAdmin(id, password, 0);
+            return  "Admin";
         }
 
-        validateLogInDataAdmin(id, password, 0);
-
-
-
+        return "";
     }
+    public void generateWindow(String path, ImageView close) throws IOException {
+
+        File url = new File(path);
+        FXMLLoader loader = new FXMLLoader(url.toURL());
+        Parent parent = loader.load();
+
+        Scene scene = new Scene(parent);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.initStyle(StageStyle.TRANSPARENT);
+        scene.setFill(Color.TRANSPARENT);
+        stage.setResizable(false);
+        stage.show();
+
+        Stage stage1 = (Stage) close.getScene().getWindow();
+        stage1.close();
+    }
+
 
     private void validateLogInDataAdmin(String id, String password, int i) throws UserNoExistingException, WrongPasswordException {
 
@@ -290,7 +325,12 @@ public class TravelAgency {
             validateLogInDataUser(id, password, ++i);
         }
 
+
+
     }
+
+
+
 
     public void createAlertError(String titleError, String contentError){
         Alert alert = new Alert(Alert.AlertType.ERROR);

@@ -1432,3 +1432,21 @@ oct. 31, 2023 10:05:26 A.燤. co.edu.uniquindio.travelagency.model.TravelAgency g
 INFO: Se ha creado una instancia de Travel Agency
 oct. 31, 2023 10:05:50 A.燤. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
 INFO: Se ha creado una instancia de Travel Agency
+Oct 31, 2023 7:48:33 PM co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+Oct 31, 2023 7:48:44 PM co.edu.uniquindio.travelagency.model.TravelAgency validateLogInDataAdmin
+INFO: Se ha hecho un intento de registro con informacion incorrecta.
+Oct 31, 2023 8:38:29 PM co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+Oct 31, 2023 8:40:21 PM co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+Oct 31, 2023 8:40:33 PM co.edu.uniquindio.travelagency.model.TravelAgency validateLogInDataAdmin
+INFO: El admin con el id admin ha hecho un inicio de sesi贸n.
+Oct 31, 2023 8:40:38 PM co.edu.uniquindio.travelagency.model.TravelAgency validateLogInDataAdmin
+INFO: El admin con el id admin ha hecho un inicio de sesi贸n.
+Oct 31, 2023 8:40:40 PM co.edu.uniquindio.travelagency.model.TravelAgency validateLogInDataAdmin
+INFO: El admin con el id admin ha hecho un inicio de sesi贸n.
+Oct 31, 2023 8:46:14 PM co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+Oct 31, 2023 8:46:42 PM co.edu.uniquindio.travelagency.model.TravelAgency validateLogInDataAdmin
+INFO: El admin con el id admin ha hecho un inicio de sesi贸n.

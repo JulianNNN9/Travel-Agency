@@ -73,22 +73,14 @@ public class HomeController {
 
     public void onLogInButtonClick() throws UserNoExistingException, WrongPasswordException, EmptyAttributeException, IOException {
 
-        travelAgency.LogIn(txtFldID.getText(), txtFldPassword.getText());
-
-        File url = new File("src/main/resources/views/adminView.fxml");
-        FXMLLoader loader = new FXMLLoader(url.toURL());
-        Parent parent = loader.load();
-
-        Scene scene = new Scene(parent);
-        Stage stage = new Stage();
-        stage.setScene(scene);
-        stage.initStyle(StageStyle.TRANSPARENT);
-        scene.setFill(Color.TRANSPARENT);
-        stage.setResizable(false);
-        stage.show();
-
-        Stage stage1 = (Stage) cerrarVentanaImgv.getScene().getWindow();
-        stage1.close();
+        String u = travelAgency.LogIn(txtFldID.getText(), txtFldPassword.getText());
+        
+        
+        if(u.equals("Client")){
+            travelAgency.generateWindow("src/main/resources/views/Client.fxml",cerrarVentanaImgv);
+        } else if (u.equals("Admin")) {
+            travelAgency.generateWindow("src/main/resources/views/adminView.fxml",cerrarVentanaImgv);
+        }
 
     }
 }
