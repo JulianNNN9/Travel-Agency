@@ -163,9 +163,9 @@
 
         <ImageView fx:id="imgViewBackGuidesButton" fitHeight="36.0" fitWidth="37.0" layoutX="899.0" layoutY="14.0" onMouseClicked="#onBackButtonClick" pickOnBounds="true" preserveRatio="true"><cursor><Cursor fx:constant="HAND" /></cursor></ImageView>
 
-        <Button fx:id="addButtonGuides" layoutX="60.0" layoutY="283.0" mnemonicParsing="false" text="addButton" />
-        <Button fx:id="modifyButtonGuides" layoutX="145.0" layoutY="283.0" mnemonicParsing="false" text="modifyButton" />
-        <Button fx:id="deleteButtonGuide" layoutX="246.0" layoutY="283.0" mnemonicParsing="false" text="deleteButton" />
+        <Button fx:id="addButtonGuides" layoutX="60.0" layoutY="283.0" mnemonicParsing="false" onAction="#agregarGuiaButton" text="addButton" />
+        <Button fx:id="modifyButtonGuides" layoutX="145.0" layoutY="283.0" mnemonicParsing="false" onAction="#modificarGuiaButton" text="modifyButton" />
+        <Button fx:id="deleteButtonGuide" layoutX="246.0" layoutY="283.0" mnemonicParsing="false" onAction="#eliminarGuiaButton" text="deleteButton" />
 
         <Label layoutX="54.0" layoutY="113.0" prefHeight="17.0" prefWidth="78.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="idGuideLabel" />
         <TextField fx:id="txtFldGuideId" layoutX="172.0" layoutY="109.0" />
@@ -179,11 +179,13 @@
 
       <TableView fx:id="guidesLenguajeTable" layoutX="680.0" layoutY="331.0" prefHeight="236.0" prefWidth="238.0">
         <columns>
-          <TableColumn fx:id="lenguajeCol" prefWidth="192.0" text="C1" />
+          <TableColumn fx:id="lenguajeCol" prefWidth="192.0" text="Lenguajes" />
         </columns>
       </TableView>
-      <Button fx:id="addLenguajeButton" layoutX="716.0" layoutY="283.0" mnemonicParsing="false" text="addButton" />
-      <Button fx:id="deleteLenguajeButton" layoutX="814.0" layoutY="283.0" mnemonicParsing="false" text="deleteButton" />
+
+      <Button fx:id="addLenguajeButton" layoutX="716.0" layoutY="283.0" mnemonicParsing="false" onAction="#agregarLenguajeGuia" text="addButton" />
+      <Button fx:id="deleteLenguajeButton" layoutX="814.0" layoutY="283.0" mnemonicParsing="false" onAction="#elimiarLenguajeGuia" text="deleteButton" />
+
       <TextField fx:id="txtFldLenguaje" layoutX="782.0" layoutY="216.0" />
       <Label layoutX="680.0" layoutY="220.0" prefHeight="17.0" prefWidth="89.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="lenguajeLabel" />
 

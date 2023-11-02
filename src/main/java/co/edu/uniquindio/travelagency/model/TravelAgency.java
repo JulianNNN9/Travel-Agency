@@ -180,16 +180,41 @@ public class TravelAgency {
 
     }
 
+    public void agregarGuia(ObservableList<TouristGuide> touristGuideObservableList, TouristGuide nuevoGuia) throws AtributoVacioException, RepeatedInformationException {
+
+        if (nuevoGuia.getId() == null || nuevoGuia.getId().isEmpty() ||
+                nuevoGuia.getFullName() == null || nuevoGuia.getFullName().isEmpty() ||
+                nuevoGuia.getExperience() == null || nuevoGuia.getExperience().isEmpty() ||
+                nuevoGuia.getRating() == null){
+
+            createAlertError("Campos obligatorios", "Los campos marcados con (*) son oblogatorios");
+            log.info("Se ha intentado agregar un destino con campos vacios.");
+            throw new AtributoVacioException("Se ha intentado agregar un destino con campos vacios.");
+        }
+
+        if (touristGuideObservableList.stream().anyMatch(touristGuide -> touristGuide.getId().equals(nuevoGuia.getId()))){
+
+            createAlertError("Paquete existente", "El paquete que trataba de agregar ya se encuentra registrado.");
+            log.severe("Se ha intentado crear un paquete existente.");
+            throw new RepeatedInformationException("Se ha intentado crear un paquete existente.");
+        }
+
+        touristGuideObservableList.add(nuevoGuia);
+        travelAgency.touristGuides.add(nuevoGuia);
+
+        log.info("Se ha registrado un nuevo guia.");
+
+    }
 
     public void agregarPaquete(ObservableList<TouristPackage> packageObservableList, TouristPackage nuevoPaquete) throws AtributoVacioException, RepeatedInformationException {
 
         if ( nuevoPaquete.getName() == null || nuevoPaquete.getName().isEmpty() ||
-                nuevoPaquete.getPrice() == null ||
+                nuevoPaquete.getPrice() == null || nuevoPaquete.getPrice().isNaN() ||
                 nuevoPaquete.getQuota() == null ||
                 nuevoPaquete.getStartDate() == null ||
                 nuevoPaquete.getEndDate() == null ||
                 nuevoPaquete.getDuration() < 0 ||
-                nuevoPaquete.getClientID().isEmpty()){
+                nuevoPaquete.getClientID() == null || nuevoPaquete.getClientID().isEmpty()){
 
             createAlertError("Campos obligatorios", "Los campos marcados con (*) son oblogatorios");
             log.info("Se ha intentado agregar un destino con campos vacios.");
@@ -251,6 +276,28 @@ public class TravelAgency {
                     d.getImagesHTTPS().add(ruta);
                 } else {
                     d.getImagesHTTPS().add(ruta);
+                }
+
+                break;
+            }
+        }
+
+    }
+
+
+    public void agregarLeaguajeGuia(ObservableList<String> observableListLenguajes, String lenguaje, TouristGuide touristGuide) {
+
+        if (observableListLenguajes != null){
+            observableListLenguajes.add(lenguaje);
+        }
+
+        for (TouristGuide t : touristGuides) {
+            if (t.equals(touristGuide)) {
+                if (t.getLanguages() == null){
+                    t.setLanguages(new ArrayList<>());
+                    t.getLanguages().add(lenguaje);
+                } else {
+                    t.getLanguages().add(lenguaje);
                 }
 
                 break;
