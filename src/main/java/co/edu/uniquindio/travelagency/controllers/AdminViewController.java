@@ -29,7 +29,6 @@ import java.io.File;
 import java.io.IOException;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class AdminViewController {
 
@@ -110,6 +109,8 @@ public class AdminViewController {
     public Pane manageGuidesPane;
     @FXML
     public TableView<TouristGuide> guidesTable;
+    @FXML
+    ObservableList<TouristGuide> touristGuideObservableList;
     @FXML
     public TableColumn<TouristGuide, TouristGuide> idGuideCol, fullNameGuideCol, experienceCol, ratingCol;
     @FXML
@@ -310,7 +311,7 @@ public class AdminViewController {
 
         });
 
-        ObservableList<TouristGuide> touristGuideObservableList = guidesTable.getItems();
+        touristGuideObservableList = guidesTable.getItems();
 
         if (travelAgency.getTouristGuides() != null) {
             touristGuideObservableList.addAll(travelAgency.getTouristGuides());
@@ -333,6 +334,7 @@ public class AdminViewController {
         //------------------------ESTADISTICAS-------------------------
 
         // Obtener las reservas desde travelAgency
+
         List<Reservation> reservations = travelAgency.getReservations();
 
         // Crear un mapa para contar las repeticiones de los nombres de destinos
@@ -376,6 +378,7 @@ public class AdminViewController {
 
 
         // Ordenar los guías por rating en orden descendente
+
         guides.sort((g1, g2) -> Integer.compare(g2.getRating(), g1.getRating()));
 
         // Tomar los 5 guías mejor puntuados o el número que desees
@@ -394,6 +397,7 @@ public class AdminViewController {
 
 
         //Crear un mapa para contabilizar las reservas por nombre de paquete
+
         Map<String, Integer> packageReservationCounts = getStringIntegerMap();
 
         // Convertir el mapa en una lista de pares (nombre del paquete, número de reservas)
@@ -502,6 +506,7 @@ public class AdminViewController {
         }
     }
 
+    @FXML
     public void seleccionarImagen(ActionEvent actionEvent) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().addAll(
@@ -514,11 +519,13 @@ public class AdminViewController {
             txtFldRuta.setText(rutaImagen);
         }
     }
+
+    @FXML
     private Stage getStage() {
         return (Stage) txtFldRuta.getScene().getWindow();
     }
 
-
+    @FXML
     public void agregarRutaImagenDestinations(ActionEvent actionEvent) throws RepeatedInformationException, AtributoVacioException {
 
         String destinoName = txtFldName.getText();
@@ -547,6 +554,7 @@ public class AdminViewController {
         txtFldRuta.clear();
     }
 
+    @FXML
     public void eliminarRutaImagenDestinations(ActionEvent actionEvent) {
 
         if (imagesRoutesTable.getSelectionModel().getSelectedIndex() >= 0) {
@@ -567,6 +575,7 @@ public class AdminViewController {
         txtFldRuta.clear();
     }
 
+    @FXML
     public void eliminarRuta(Optional<Destino> destino, String rutaABorrar){
 
         List<String> rutasSinEliminar = destino.get().getImagesHTTPS().stream().filter(s -> !s.equals(rutaABorrar)).toList();
@@ -575,7 +584,7 @@ public class AdminViewController {
         destino.get().getImagesHTTPS().addAll(rutasSinEliminar);
     }
 
-
+    @FXML
     private void limpiarCamposDestinations() {
         txtFldName.clear();
         txtFldCity.clear();
@@ -668,6 +677,7 @@ public class AdminViewController {
         }
     }
 
+    @FXML
     public void agregarDestinoEnPaquete(ActionEvent actionEvent) throws RepeatedInformationException, AtributoVacioException {
 
         String paqueteName = txtFldPackageName.getText();
@@ -704,6 +714,7 @@ public class AdminViewController {
         choiceBoxDestinationName.setValue("");
     }
 
+    @FXML
     public void eliminarDestinoEnPaquete(ActionEvent actionEvent) {
 
         if (destinationsNameTable.getSelectionModel().getSelectedIndex() >= 0) {
@@ -725,14 +736,17 @@ public class AdminViewController {
 
     }
 
+    @FXML
     public void eliminarDestinoName(Optional<TouristPackage> touristPackage, String destinoABorrar){
 
         List<String> destinosSinEliminar = touristPackage.get().getDestinosName().stream().filter(s -> !s.equals(destinoABorrar)).toList();
 
         touristPackage.get().getDestinosName().clear();
         touristPackage.get().getDestinosName().addAll(destinosSinEliminar );
+
     }
 
+    @FXML
     private void limpiarCamposPackages() {
         txtFldPackageName.clear();
         txtFldPrice.clear();
@@ -743,6 +757,143 @@ public class AdminViewController {
     }
 
     //----------------------------Guides-----------------------------
+
+    @FXML
+    public void agregarGuiaButton(ActionEvent actionEvent) throws RepeatedInformationException, AtributoVacioException {
+
+        TouristGuide nuevoGuia = TouristGuide.builder()
+                .id(txtFldGuideId.getText())
+                .fullName(txtFldFullNameGuide.getText())
+                .languages(new ArrayList<>())
+                .experience(txtFldExperience.getText())
+                .rating(Integer.valueOf(txtFldRating.getText()))
+                .build();
+
+        travelAgency.agregarGuia(touristGuideObservableList, nuevoGuia);
+
+        limpiarCamposGuias();
+
+        guidesLenguajeTable.setDisable(true);
+        addLenguajeButton.setDisable(true);
+        deleteLenguajeButton.setDisable(true);
+        txtFldLenguaje.setDisable(true);
+
+        guidesLenguajeTable.refresh();
+
+    }
+
+    @FXML
+    public void modificarGuiaButton(ActionEvent actionEvent) {
+
+        if (guidesTable.getSelectionModel().getSelectedIndex() >= 0) {
+
+            TouristGuide selectedGuia = guidesTable.getSelectionModel().getSelectedItem();
+
+            selectedGuia.setId(txtFldGuideId.getText());
+            selectedGuia.setFullName(txtFldFullNameGuide.getText());
+            selectedGuia.setExperience(txtFldExperience.getText());
+            selectedGuia.setRating(Integer.valueOf(txtFldRating.getText()));
+
+            limpiarCamposGuias();
+
+            guidesTable.refresh();
+
+            guidesLenguajeTable.setDisable(true);
+            addLenguajeButton.setDisable(true);
+            deleteLenguajeButton.setDisable(true);
+            txtFldLenguaje.setDisable(true);
+
+            guidesLenguajeTable.refresh();
+        }
+
+    }
+
+    @FXML
+    public void eliminarGuiaButton(ActionEvent actionEvent) {
+        if (guidesTable.getSelectionModel().getSelectedIndex() >= 0) {
+
+            TouristGuide selectedGuia = guidesTable.getSelectionModel().getSelectedItem();
+            touristGuideObservableList.remove(selectedGuia);
+
+            limpiarCamposGuias();
+
+            guidesLenguajeTable.setDisable(true);
+            addLenguajeButton.setDisable(true);
+            deleteLenguajeButton.setDisable(true);
+            txtFldLenguaje.setDisable(true);
+
+            guidesLenguajeTable.refresh();
+        }
+    }
+
+    @FXML
+    public void agregarLenguajeGuia(ActionEvent actionEvent) throws RepeatedInformationException, AtributoVacioException {
+
+        String guiaID = txtFldGuideId.getText();
+
+        Optional<TouristGuide> guiaSeleccionadoOpcional = travelAgency.getTouristGuides().stream()
+                .filter(touristGuide -> touristGuide.getId().equals(guiaID))
+                .findFirst();
+
+        if (guiaSeleccionadoOpcional.isPresent()){
+            travelAgency.agregarLeaguajeGuia(observableListLenguajes, txtFldLenguaje.getText(), guiaSeleccionadoOpcional.get());
+        } else {
+
+            TouristGuide nuevoGuia = TouristGuide.builder()
+                    .id(txtFldGuideId.getText())
+                    .fullName(txtFldFullNameGuide.getText())
+                    .experience(txtFldExperience.getText())
+                    .rating(Integer.valueOf(txtFldRating.getText()))
+                    .build();
+
+            travelAgency.agregarLeaguajeGuia(observableListLenguajes, txtFldLenguaje.getText(), nuevoGuia);
+
+            travelAgency.agregarGuia(touristGuideObservableList, nuevoGuia);
+        }
+
+        txtFldLenguaje.clear();
+    }
+
+    @FXML
+    public void elimiarLenguajeGuia(ActionEvent actionEvent) {
+
+        if (guidesLenguajeTable.getSelectionModel().getSelectedIndex() >= 0) {
+
+            String selectedLenguaje = guidesLenguajeTable.getSelectionModel().getSelectedItem();
+            observableListLenguajes.remove(selectedLenguaje);
+
+            String guideID = txtFldGuideId.getText();
+
+            Optional<TouristGuide> guideSeleccionadoOpcional = travelAgency.getTouristGuides().stream()
+                    .filter(touristGuide -> touristGuide.getId().equals(guideID))
+                    .findFirst();
+
+            eliminarLenguaje(guideSeleccionadoOpcional, selectedLenguaje);
+
+        }
+
+        choiceBoxDestinationName.setValue("");
+
+
+
+    }
+
+    @FXML
+    public void eliminarLenguaje(Optional<TouristGuide> touristGuide, String lenguajeABorrar){
+
+        List<String> languajeSinEliminar = touristGuide.get().getLanguages().stream().filter(s -> !s.equals(lenguajeABorrar)).toList();
+
+        touristGuide.get().getLanguages().clear();
+        touristGuide.get().getLanguages().addAll(languajeSinEliminar);
+
+    }
+
+    private void limpiarCamposGuias() {
+        txtFldGuideId.clear();
+        txtFldFullNameGuide.clear();
+        txtFldExperience.clear();
+        txtFldRating.clear();
+    }
 
 
     @FXML
