@@ -37,7 +37,7 @@
              </ImageView>
          </children>
       </HBox>
-      <AnchorPane fx:id="homePane" layoutY="85.0" prefHeight="615.0" prefWidth="950.0" style="-fx-background-color: #383838; -fx-background-radius: 15;" visible="false">
+      <AnchorPane fx:id="homePane" layoutY="85.0" prefHeight="615.0" prefWidth="950.0" style="-fx-background-color: #383838; -fx-background-radius: 15;">
           <Label layoutX="59.0" layoutY="96.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="¿Quienes Somos?"><font><Font size="60" /></font></Label>
           <Label layoutX="59.0" layoutY="219.0" style="-fx-text-fill: #D07943FF; -fx-font-family: 'Segoe UI Semibold'" text="Una agencia de viajes"><font><Font size="25" /></font></Label>
           <Label layoutX="59.0" layoutY="299.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="Un pequeña frase sobre la empresa"><font><Font size="12" /></font></Label>
@@ -70,7 +70,7 @@
                </font>
             </Label>
          </children></AnchorPane>
-      <AnchorPane fx:id="iniciarsesionPane" layoutY="89.0" prefHeight="615.0" prefWidth="950.0" style="-fx-background-color: #383838; -fx-background-radius: 15;">
+      <AnchorPane fx:id="iniciarsesionPane" layoutY="89.0" prefHeight="615.0" prefWidth="950.0" style="-fx-background-color: #383838; -fx-background-radius: 15;" visible="false">
          <children>
              <Pane layoutX="346.0" layoutY="141.0" prefHeight="333.0" prefWidth="258.0" style="-fx-background-color: linear-gradient(to bottom, #d0986a, #888282); -fx-background-radius: 15">
                  <children>
@@ -99,7 +99,7 @@
                  </children>
              </Pane>
          </children></AnchorPane>
-      <AnchorPane fx:id="registroPanee" layoutY="89.0" prefHeight="615.0" prefWidth="950.0" style="-fx-background-color: #383838; -fx-background-radius: 15;">
+      <AnchorPane fx:id="registroPanee" layoutY="89.0" prefHeight="615.0" prefWidth="950.0" style="-fx-background-color: #383838; -fx-background-radius: 15;" visible="false">
          <children>
             <Label fx:id="registroPane" alignment="TOP_CENTER" layoutX="305.0" layoutY="14.0" prefHeight="17.0" prefWidth="341.0" text="Registro " textFill="#eeeded">
                <font>
@@ -142,7 +142,7 @@
             <TextField fx:id="mailTF" layoutX="199.0" layoutY="295.0" />
             <TextField fx:id="telefonoTF" layoutX="199.0" layoutY="363.0" />
             <TextField fx:id="residenciaTF" layoutX="199.0" layoutY="424.0" />
-            <Button fx:id="confirRegistroButtom" onAction="#onConfiRegistrarClienteClick" layoutX="410.0" layoutY="520.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="132.0" text="Confirmar" />
+            <Button fx:id="confirRegistroButtom" layoutX="410.0" layoutY="520.0" mnemonicParsing="false" onAction="#onConfiRegistrarClienteClick" prefHeight="35.0" prefWidth="132.0" text="Confirmar" />
             <Label fx:id="imagenLBl" alignment="TOP_LEFT" layoutX="401.0" layoutY="295.0" prefHeight="25.0" prefWidth="89.0" text="Imagen" textFill="#eeeded">
                <font>
                   <Font size="18.0" />
