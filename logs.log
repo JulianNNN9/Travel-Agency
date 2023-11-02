@@ -1450,3 +1450,57 @@ Oct 31, 2023 8:46:14 PM co.edu.uniquindio.travelagency.model.TravelAgency getIns
 INFO: Se ha creado una instancia de Travel Agency
 Oct 31, 2023 8:46:42 PM co.edu.uniquindio.travelagency.model.TravelAgency validateLogInDataAdmin
 INFO: El admin con el id admin ha hecho un inicio de sesión.
+Nov 01, 2023 9:19:07 PM co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+Nov 01, 2023 9:19:19 PM co.edu.uniquindio.travelagency.model.TravelAgency validateLogInDataUser
+INFO: El cliente con el id user1 ha hecho un inicio de sesión.
+Nov 01, 2023 9:19:19 PM co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+Nov 01, 2023 9:19:22 PM co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+Nov 01, 2023 9:41:56 PM co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+Nov 01, 2023 9:42:45 PM co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+Nov 01, 2023 9:50:29 PM co.edu.uniquindio.travelagency.model.TravelAgency validateLogInDataUser
+INFO: El cliente con el id user1 ha hecho un inicio de sesión.
+Nov 01, 2023 9:50:29 PM co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+Nov 01, 2023 9:50:31 PM co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+Nov 01, 2023 9:52:50 PM co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+Nov 01, 2023 9:53:07 PM co.edu.uniquindio.travelagency.model.TravelAgency LogIn
+INFO: Se ha hecho un intento de registro de cliente con campos vacios.
+Nov 01, 2023 9:55:20 PM co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+Nov 01, 2023 10:12:14 PM co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+Nov 01, 2023 11:07:30 PM co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+Nov 01, 2023 11:08:19 PM co.edu.uniquindio.travelagency.model.TravelAgency registrarCliente
+INFO: se ha registrado un cliente con el user ID 12332312
+Nov 01, 2023 11:09:18 PM co.edu.uniquindio.travelagency.model.TravelAgency validateLogInDataUser
+INFO: El cliente con el id user1 ha hecho un inicio de sesión.
+Nov 01, 2023 11:09:18 PM co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+Nov 01, 2023 11:09:21 PM co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+Nov 01, 2023 11:10:30 PM co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+Nov 01, 2023 11:10:48 PM co.edu.uniquindio.travelagency.model.TravelAgency registrarCliente
+INFO: se ha intentado registrar n cliente con campo ecenciales vacios
+Nov 01, 2023 11:10:55 PM co.edu.uniquindio.travelagency.model.TravelAgency registrarCliente
+INFO: se ha intentado registrar n cliente con campo ecenciales vacios
+Nov 01, 2023 11:11:01 PM co.edu.uniquindio.travelagency.model.TravelAgency registrarCliente
+INFO: se ha registrado un cliente con el user ID 123
+Nov 01, 2023 11:24:58 PM co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+Nov 01, 2023 11:25:28 PM co.edu.uniquindio.travelagency.model.TravelAgency registrarCliente
+INFO: se ha registrado un cliente con el user ID lol
+Nov 01, 2023 11:25:35 PM co.edu.uniquindio.travelagency.model.TravelAgency validateLogInDataUser
+INFO: El cliente con el id lol ha hecho un inicio de sesión.
+Nov 01, 2023 11:25:35 PM co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+Nov 01, 2023 11:25:38 PM co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency

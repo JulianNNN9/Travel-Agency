@@ -267,6 +267,37 @@ public class TravelAgency {
         stage1.close();
     }
 
+    public void registrarCliente(String userId,String passeord,String fullname,String mail ,String phoneNumber,String residence) throws AtributoVacioException, RepeatedInformationException {
+
+        if(userId == null || userId.isBlank() || fullname == null || fullname.isBlank() || phoneNumber == null || phoneNumber.isBlank() ){
+            //createAlertError(this.getResourceBundle().getString);
+            log.info("se ha intentado registrar n cliente con campo ecenciales vacios");
+            throw new AtributoVacioException("campos obligatorios sin copletar");
+        }
+
+        if(clients.stream().anyMatch(cliente -> cliente.getUserId().equals(userId))){
+            //createAlertError();
+            log.info("se intento registrar un cliente que ya existe");
+            throw new RepeatedInformationException("el cliente ya exite");
+        }
+
+        archiveUtils.serializerObjet("src/main/resources/persistencia/clients.ser",clients);
+
+        Client client = Client.builder()
+                .userId(userId)
+                .password(passeord)
+                .fullName(fullname)
+                .mail(mail)
+                .phoneNumber(phoneNumber)
+                .residence(residence)
+                .build();
+
+        clients.add(client);
+
+        log.info("se ha registrado un cliente con el user ID " + userId);
+
+    }
+
 
     private void validateLogInDataAdmin(String id, String password, int i) throws UserNoExistingException, WrongPasswordException {
 
