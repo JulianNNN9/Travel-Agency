@@ -1,7 +1,9 @@
 package co.edu.uniquindio.travelagency.controllers;
 
 import co.edu.uniquindio.travelagency.exceptions.AtributoVacioException;
+import co.edu.uniquindio.travelagency.exceptions.ErrorEnIngresoFechasException;
 import co.edu.uniquindio.travelagency.exceptions.RepeatedInformationException;
+import co.edu.uniquindio.travelagency.exceptions.RutaInvalidaException;
 import co.edu.uniquindio.travelagency.model.*;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -19,6 +21,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -94,7 +97,7 @@ public class AdminViewController {
     @FXML
     public Button addButtonPackages, modifyButtonPackages, deleteButtonPackages, addButtonDestinationName, deleteButtonDestinationName;
     @FXML
-    public TextField txtFldPackageName,txtFldPrice, txtFldQuota, txtFldClientID;
+    public TextField txtFldPackageName,txtFldPrice, txtFldQuota;
     @FXML
     public DatePicker datePckrStartDate, datePckrEndDate;
 
@@ -161,6 +164,35 @@ public class AdminViewController {
         Image exitButton = new Image(String.valueOf(file1.toURI()));
 
         imgViewExitButton.setImage(exitButton);
+
+        //txtFields de numeros
+
+        txtFldQuota.addEventFilter(KeyEvent.KEY_TYPED, event -> {
+            if (!event.getCharacter().matches("[0-9]")) {
+                event.consume(); // Bloquea la entrada no numérica
+            }
+        });
+
+        txtFldPrice.addEventFilter(KeyEvent.KEY_TYPED, event -> {
+            if (!event.getCharacter().matches("[0-9]")) {
+                event.consume(); // Bloquea la entrada no numérica
+            }
+        });
+
+        txtFldRating.addEventFilter(KeyEvent.KEY_TYPED, event -> {
+            if (!event.getCharacter().matches("[1-5]")) {
+                event.consume(); // Bloquea la entrada no numérica o fuera del rango
+            }
+        });
+
+        // Limita el campo de texto a un solo dígito
+        txtFldRating.lengthProperty().addListener((obs, oldValue, newValue) -> {
+            if (newValue.intValue() > oldValue.intValue()) {
+                if (!txtFldRating.getText().isEmpty()) {
+                    txtFldRating.setText(txtFldRating.getText().substring(0, 1));
+                }
+            }
+        });
 
         //------------------------DESTINOS----------------------------
 
@@ -268,7 +300,6 @@ public class AdminViewController {
         this.quotaCol.setCellValueFactory(new PropertyValueFactory<>("quota"));
         this.startDateCol.setCellValueFactory(new PropertyValueFactory<>("startDate"));
         this.durationCol.setCellValueFactory(new PropertyValueFactory<>("duration"));
-        this.clientIdCol.setCellValueFactory(new PropertyValueFactory<>("clientID"));
 
         packagesTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
@@ -277,7 +308,6 @@ public class AdminViewController {
                 txtFldQuota.setText(String.valueOf(newSelection.getQuota()));
                 datePckrStartDate.setValue(newSelection.getStartDate());
                 datePckrEndDate.setValue(newSelection.getEndDate());
-                txtFldClientID.setText(newSelection.getClientID());
             }
         });
 
@@ -526,7 +556,7 @@ public class AdminViewController {
     }
 
     @FXML
-    public void agregarRutaImagenDestinations(ActionEvent actionEvent) throws RepeatedInformationException, AtributoVacioException {
+    public void agregarRutaImagenDestinations(ActionEvent actionEvent) throws RepeatedInformationException, AtributoVacioException, RutaInvalidaException {
 
         String destinoName = txtFldName.getText();
 
@@ -535,7 +565,9 @@ public class AdminViewController {
                 .findFirst();
 
         if (destinoSeleccionadoOpcional.isPresent()) {
+
             travelAgency.agregarImagenDestino(observableListRutas, txtFldRuta.getText(), destinoSeleccionadoOpcional.get());
+
         } else {
 
             Destino nuevoDestino = Destino.builder()
@@ -578,7 +610,11 @@ public class AdminViewController {
     @FXML
     public void eliminarRuta(Optional<Destino> destino, String rutaABorrar){
 
-        List<String> rutasSinEliminar = destino.get().getImagesHTTPS().stream().filter(s -> !s.equals(rutaABorrar)).toList();
+        List<String> rutasSinEliminar = new ArrayList<>();
+
+        if (destino.isPresent()){
+            rutasSinEliminar = destino.get().getImagesHTTPS().stream().filter(s -> !s.equals(rutaABorrar)).toList();
+        }
 
         destino.get().getImagesHTTPS().clear();
         destino.get().getImagesHTTPS().addAll(rutasSinEliminar);
@@ -595,7 +631,7 @@ public class AdminViewController {
     //----------------------------Packages-----------------------------
 
     @FXML
-    private void agregarElementoPackages(ActionEvent event) throws RepeatedInformationException, AtributoVacioException {
+    private void agregarElementoPackages(ActionEvent event) throws RepeatedInformationException, AtributoVacioException, ErrorEnIngresoFechasException {
 
         long duration = 0;
 
@@ -616,7 +652,6 @@ public class AdminViewController {
                 .startDate(datePckrStartDate.getValue())
                 .endDate(datePckrEndDate.getValue())
                 .duration(duration)
-                .clientID(txtFldClientID.getText())
                 .build();
 
         travelAgency.agregarPaquete(packageObservableList, nuevoPaquete);
@@ -634,6 +669,7 @@ public class AdminViewController {
 
     @FXML
     private void modificarElementoPackages(ActionEvent event) {
+
         if (packagesTable.getSelectionModel().getSelectedIndex() >= 0) {
             TouristPackage selectedPackage = packagesTable.getSelectionModel().getSelectedItem();
 
@@ -642,7 +678,6 @@ public class AdminViewController {
             selectedPackage.setQuota(Integer.parseInt(txtFldQuota.getText()));
             selectedPackage.setStartDate(datePckrStartDate.getValue());
             selectedPackage.setEndDate(datePckrEndDate.getValue());
-            selectedPackage.setClientID(txtFldClientID.getText());
 
             limpiarCamposPackages();
 
@@ -678,7 +713,7 @@ public class AdminViewController {
     }
 
     @FXML
-    public void agregarDestinoEnPaquete(ActionEvent actionEvent) throws RepeatedInformationException, AtributoVacioException {
+    public void agregarDestinoEnPaquete(ActionEvent actionEvent) throws RepeatedInformationException, AtributoVacioException, ErrorEnIngresoFechasException {
 
         String paqueteName = txtFldPackageName.getText();
 
@@ -687,7 +722,9 @@ public class AdminViewController {
                 .findFirst();
 
         if (paqueteSeleccionadoOpcional.isPresent()){
+
             travelAgency.agregarDestinoEnPaquete(observableListDestinationName, choiceBoxDestinationName.getSelectionModel().getSelectedItem(), paqueteSeleccionadoOpcional.get());
+
         } else {
 
             long duration = 0;
@@ -703,7 +740,6 @@ public class AdminViewController {
                     .startDate(datePckrStartDate.getValue())
                     .endDate(datePckrEndDate.getValue())
                     .duration(duration)
-                    .clientID(txtFldClientID.getText())
                     .build();
 
             travelAgency.agregarDestinoEnPaquete(observableListDestinationName, choiceBoxDestinationName.getSelectionModel().getSelectedItem(), nuevoPaquete);
@@ -711,7 +747,6 @@ public class AdminViewController {
             travelAgency.agregarPaquete(packageObservableList, nuevoPaquete);
         }
 
-        choiceBoxDestinationName.setValue("");
     }
 
     @FXML
@@ -751,7 +786,6 @@ public class AdminViewController {
         txtFldPackageName.clear();
         txtFldPrice.clear();
         txtFldQuota.clear();
-        txtFldClientID.clear();
         datePckrEndDate.setValue(null);
         datePckrStartDate.setValue(null);
     }

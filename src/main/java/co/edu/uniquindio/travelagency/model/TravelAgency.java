@@ -110,7 +110,6 @@ public class TravelAgency {
                     .startDate(LocalDate.now())
                     .endDate(LocalDate.of(2024, 12, 1))
                     .duration(10)
-                    .clientID("456")
                     .build();
 
             touristPackages.add(touristPackage);
@@ -211,15 +210,15 @@ public class TravelAgency {
                 nuevoGuia.getRating() == null){
 
             createAlertError("Campos obligatorios", "Los campos marcados con (*) son oblogatorios");
-            log.info("Se ha intentado agregar un destino con campos vacios.");
-            throw new AtributoVacioException("Se ha intentado agregar un destino con campos vacios.");
+            log.info("Se ha intentado agregar un guia con campos vacios.");
+            throw new AtributoVacioException("Se ha intentado agregar un guia con campos vacios.");
         }
 
         if (touristGuideObservableList.stream().anyMatch(touristGuide -> touristGuide.getId().equals(nuevoGuia.getId()))){
 
-            createAlertError("Paquete existente", "El paquete que trataba de agregar ya se encuentra registrado.");
-            log.severe("Se ha intentado crear un paquete existente.");
-            throw new RepeatedInformationException("Se ha intentado crear un paquete existente.");
+            createAlertError("Guia existente", "El guia que trataba de agregar ya se encuentra registrado.");
+            log.severe("Se ha intentado registrar un guia existente.");
+            throw new RepeatedInformationException("Se ha intentado registrar un guia existente.");
         }
 
         touristGuideObservableList.add(nuevoGuia);
@@ -229,26 +228,30 @@ public class TravelAgency {
 
     }
 
-    public void agregarPaquete(ObservableList<TouristPackage> packageObservableList, TouristPackage nuevoPaquete) throws AtributoVacioException, RepeatedInformationException {
+    public void agregarPaquete(ObservableList<TouristPackage> packageObservableList, TouristPackage nuevoPaquete) throws AtributoVacioException, RepeatedInformationException, ErrorEnIngresoFechasException {
 
         if ( nuevoPaquete.getName() == null || nuevoPaquete.getName().isEmpty() ||
                 nuevoPaquete.getPrice() == null || nuevoPaquete.getPrice().isNaN() ||
                 nuevoPaquete.getQuota() == null ||
                 nuevoPaquete.getStartDate() == null ||
-                nuevoPaquete.getEndDate() == null ||
-                nuevoPaquete.getDuration() < 0 ||
-                nuevoPaquete.getClientID() == null || nuevoPaquete.getClientID().isEmpty()){
+                nuevoPaquete.getEndDate() == null){
 
             createAlertError("Campos obligatorios", "Los campos marcados con (*) son oblogatorios");
             log.info("Se ha intentado agregar un destino con campos vacios.");
             throw new AtributoVacioException("Se ha intentado agregar un destino con campos vacios.");
         }
 
-        if (packageObservableList.stream().anyMatch(destination -> destination.getName().equals(nuevoPaquete.getName()))){
+        if (packageObservableList.stream().anyMatch(touristPackage -> touristPackage.getName().equals(nuevoPaquete.getName()))){
 
             createAlertError("Paquete existente", "El paquete que trataba de agregar ya se encuentra registrado.");
             log.severe("Se ha intentado crear un paquete existente.");
             throw new RepeatedInformationException("Se ha intentado crear un paquete existente.");
+        }
+
+        if (nuevoPaquete.getDuration() < 0){
+            createAlertError("Error en el ingreso de fechas", "Las fechas que desea ingresar son inválidas, verifiquelas.");
+            log.info("Las fechas fueron incorrectamente colocadas, la fecha de inicio no puede ser después de la fecha de fin.");
+            throw new ErrorEnIngresoFechasException("Las fechas fueron incorrectamente colocadas, la fecha de inicio no puede ser después de la fecha de fin.");
         }
 
         packageObservableList.add(nuevoPaquete);
@@ -286,9 +289,27 @@ public class TravelAgency {
 
         }
 
-    public void agregarImagenDestino(ObservableList<String> observableListRutas, String ruta, Destino destino) {
+    public void agregarImagenDestino(ObservableList<String> observableListRutas, String ruta, Destino destino) throws RutaInvalidaException, RepeatedInformationException {
 
-        if (observableListRutas != null){
+        boolean rutasVacia = observableListRutas == null;
+
+        File archivo = new File(ruta);
+        boolean esRutaDeArchivo = archivo.exists() && archivo.isFile();
+
+        if (!esRutaDeArchivo){
+            createAlertError("Error en la ruta", "La ruta que trata de ingresar es inválida o inexistente.");
+            log.severe("Se ha intentado agregar una imagen invalida a un destino.");
+            throw new RutaInvalidaException("Se ha intentado agregar una imagen invalida a un destino.");
+        }
+
+        if (!rutasVacia && observableListRutas.stream().anyMatch(string -> string.equals(ruta))){
+
+            createAlertError("Ruta existente", "La ruta que trataba de agregar ya se encuentra registrada.");
+            log.severe("Se ha intentado crear una ruta existente.");
+            throw new RepeatedInformationException("Se ha intentado crear una ruta existente.");
+        }
+
+        if (!rutasVacia){
             observableListRutas.add(ruta);
         }
 
@@ -308,9 +329,18 @@ public class TravelAgency {
     }
 
 
-    public void agregarLeaguajeGuia(ObservableList<String> observableListLenguajes, String lenguaje, TouristGuide touristGuide) {
+    public void agregarLeaguajeGuia(ObservableList<String> observableListLenguajes, String lenguaje, TouristGuide touristGuide) throws RepeatedInformationException {
 
-        if (observableListLenguajes != null){
+        boolean lenguajesVacio = observableListLenguajes == null;
+
+        if (!lenguajesVacio && observableListLenguajes.stream().anyMatch(string -> string.equals(lenguaje))){
+
+            createAlertError("Lenguaje ya ingresado", "La lenguaje que trataba de agregar ya se encuentra agregado.");
+            log.severe("Se ha intentado agregar un lenaguje existente.");
+            throw new RepeatedInformationException("Se ha intentado agregar un lenaguje existente.");
+        }
+
+        if (!lenguajesVacio){
             observableListLenguajes.add(lenguaje);
         }
 
@@ -329,9 +359,18 @@ public class TravelAgency {
 
     }
 
-    public void agregarDestinoEnPaquete(ObservableList<String> observableListDestinationName, String selectedItem, TouristPackage touristPackage) {
+    public void agregarDestinoEnPaquete(ObservableList<String> observableListDestinationName, String selectedItem, TouristPackage touristPackage) throws RepeatedInformationException {
 
-        if (observableListDestinationName != null){
+        boolean destinosVacios = observableListDestinationName == null;
+
+        if (!destinosVacios && observableListDestinationName.stream().anyMatch(string -> string.equals(selectedItem))){
+
+            createAlertError("Destino existente", "La destino que trataba de agregar ya se encuentra registrada.");
+            log.severe("Se ha intentado agregar un destino existente.");
+            throw new RepeatedInformationException("Se ha intentado agregar un destino existente.");
+        }
+
+        if (!destinosVacios){
             observableListDestinationName.add(selectedItem);
         }
 

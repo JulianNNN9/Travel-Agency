@@ -19,6 +19,5 @@ public class TouristPackage {
     private LocalDate startDate;
     private LocalDate endDate;
     private long duration;
-    private String clientID;
 
 }
