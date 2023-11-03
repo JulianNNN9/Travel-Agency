@@ -56,115 +56,138 @@ public class TravelAgency {
 
         //Cargar guía
 
-        ArrayList<TouristGuide> aux = (ArrayList<TouristGuide>) archiveUtils.deserializerObjet("src/main/resources/persistencia/touristGuides.ser");
+        new Thread(() -> {
 
-        this.touristGuides = Objects.requireNonNullElseGet(aux, ArrayList::new);
+            ArrayList<TouristGuide> aux = (ArrayList<TouristGuide>) archiveUtils.deserializerObjet("src/main/resources/persistencia/touristGuides.ser");
 
-        for (TouristGuide guide : touristGuides) {
-            if (guide.getLanguages() == null) {
-                guide.setLanguages(new ArrayList<>());
+            this.touristGuides = Objects.requireNonNullElseGet(aux, ArrayList::new);
+
+            for (TouristGuide guide : touristGuides) {
+                if (guide.getLanguages() == null) {
+                    guide.setLanguages(new ArrayList<>());
+                }
             }
-        }
+
+        }).start();
 
         //Cargar reservaciones
 
-        ArrayList<Reservation> aux1 = (ArrayList<Reservation>) archiveUtils.deserializerObjet("src/main/resources/persistencia/reservations.ser");
+        new Thread(() -> {
+            ArrayList<Reservation> aux1 = (ArrayList<Reservation>) archiveUtils.deserializerObjet("src/main/resources/persistencia/reservations.ser");
 
-        this.reservations = Objects.requireNonNullElseGet(aux1, ArrayList::new);
+            this.reservations = Objects.requireNonNullElseGet(aux1, ArrayList::new);
 
-        for (Reservation reservation : reservations){
-            if (reservation.getTouristPackages() == null){
-                reservation.setTouristPackages(new ArrayList<>());
+            for (Reservation reservation : reservations){
+                if (reservation.getTouristPackages() == null){
+                    reservation.setTouristPackages(new ArrayList<>());
+                }
             }
-        }
+        }).start();
 
         //Cargar paquetes
 
-        ArrayList<TouristPackage> aux2 = (ArrayList<TouristPackage>) archiveUtils.deserializerObjet("src/main/resources/persistencia/touristPackages.ser");
+        new Thread(() -> {
 
-        this.touristPackages = Objects.requireNonNullElseGet(aux2, ArrayList::new);
+            ArrayList<TouristPackage> aux2 = (ArrayList<TouristPackage>) archiveUtils.deserializerObjet("src/main/resources/persistencia/touristPackages.ser");
 
-        for (TouristPackage aPackage : touristPackages){
-            if (aPackage.getDestinosName() == null){
-                aPackage.setDestinosName(new ArrayList<>());
+            this.touristPackages = Objects.requireNonNullElseGet(aux2, ArrayList::new);
+
+            for (TouristPackage aPackage : touristPackages){
+                if (aPackage.getDestinosName() == null){
+                    aPackage.setDestinosName(new ArrayList<>());
+                }
             }
-        }
 
-        List<String> dest = new ArrayList<>();
-        dest.add("AAA");
-        dest.add("BBB");
+            List<String> dest = new ArrayList<>();
+            dest.add("AAA");
+            dest.add("BBB");
 
-        TouristPackage touristPackage = TouristPackage.builder()
-                .destinosName(dest)
-                .name("AAA")
-                .price(1.0)
-                .quota(2)
-                .startDate(LocalDate.now())
-                .endDate(LocalDate.of(2024, 12, 1))
-                .duration(10)
-                .clientID("456")
-                .build();
+            TouristPackage touristPackage = TouristPackage.builder()
+                    .destinosName(dest)
+                    .name("AAA")
+                    .price(1.0)
+                    .quota(2)
+                    .startDate(LocalDate.now())
+                    .endDate(LocalDate.of(2024, 12, 1))
+                    .duration(10)
+                    .clientID("456")
+                    .build();
 
-        touristPackages.add(touristPackage);
+            touristPackages.add(touristPackage);
+
+        }).start();
 
         //Cargar destinos
 
-        ArrayList<Destino> aux3 = (ArrayList<Destino>) archiveUtils.deserializerObjet("src/main/resources/persistencia/destinos.ser");
+        new Thread(() -> {
 
-        this.destinos = Objects.requireNonNullElseGet(aux3, ArrayList::new);
+            ArrayList<Destino> aux3 = (ArrayList<Destino>) archiveUtils.deserializerObjet("src/main/resources/persistencia/destinos.ser");
 
-        for (Destino destino : destinos){
-            if (destino.getImagesHTTPS() == null){
-                destino.setImagesHTTPS(new ArrayList<>());
+            this.destinos = Objects.requireNonNullElseGet(aux3, ArrayList::new);
+
+            for (Destino destino : destinos){
+                if (destino.getImagesHTTPS() == null){
+                    destino.setImagesHTTPS(new ArrayList<>());
+                }
             }
-        }
 
-        Destino destino = Destino.builder()
-                .name("AAA")
-                .city("AAA")
-                .imagesHTTPS(new ArrayList<>())
-                .description("AAA")
-                .weather("TEMPLADO")
-                .build();
+            Destino destino = Destino.builder()
+                    .name("AAA")
+                    .city("AAA")
+                    .imagesHTTPS(new ArrayList<>())
+                    .description("AAA")
+                    .weather("TEMPLADO")
+                    .build();
 
-        destino.getImagesHTTPS().add("AAA");
+            destino.getImagesHTTPS().add("AAA");
 
-        Destino destino1 = Destino.builder()
-                .name("BBB")
-                .city("BBB")
-                .imagesHTTPS(new ArrayList<>())
-                .description("BBB")
-                .weather("TEMPLADO")
-                .build();
+            Destino destino1 = Destino.builder()
+                    .name("BBB")
+                    .city("BBB")
+                    .imagesHTTPS(new ArrayList<>())
+                    .description("BBB")
+                    .weather("TEMPLADO")
+                    .build();
 
-        destinos.add(destino);
-        destinos.add(destino1);
+            destinos.add(destino);
+            destinos.add(destino1);
+
+        }).start();
+
 
         //Cargar clientes
 
-        ArrayList<Client> aux4 = (ArrayList<Client>) archiveUtils.deserializerObjet("src/main/resources/persistencia/clients.ser");
+        new Thread(() -> {
+            ArrayList<Client> aux4 = (ArrayList<Client>) archiveUtils.deserializerObjet("src/main/resources/persistencia/clients.ser");
 
-        this.clients = Objects.requireNonNullElseGet(aux4, ArrayList::new);
+            this.clients = Objects.requireNonNullElseGet(aux4, ArrayList::new);
+        }).start();
+
+
 
         //Cargar admins
 
-        ArrayList<Admin> aux5 = (ArrayList<Admin>) archiveUtils.deserializerObjet("src/main/resources/persistencia/admins.ser");
+        new Thread(() -> {
+            ArrayList<Admin> aux5 = (ArrayList<Admin>) archiveUtils.deserializerObjet("src/main/resources/persistencia/admins.ser");
 
-        this.admins = Objects.requireNonNullElseGet(aux5, ArrayList::new);
+            this.admins = Objects.requireNonNullElseGet(aux5, ArrayList::new);
 
-        Admin admin = Admin.builder()
-                .userId("admin")
-                .password("123")
-                .build();
+            Admin admin = Admin.builder()
+                    .userId("admin")
+                    .password("123")
+                    .build();
 
-        admins.add(admin);
+            admins.add(admin);
 
-        Client cl1 = Client.builder()
-                .userId("user1")
-                .password("user1")
-                .build();
+            Client cl1 = Client.builder()
+                    .userId("user1")
+                    .password("user1")
+                    .build();
 
-        clients.add(cl1);
+            clients.add(cl1);
+        }).start();
+
+
 
     }
 
