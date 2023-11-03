@@ -2,6 +2,7 @@ package co.edu.uniquindio.travelagency.utils;
 
 import lombok.extern.java.Log;
 import java.io.*;
+import java.util.Formatter;
 import java.util.List;
 
 @Log
@@ -30,6 +31,17 @@ public class archiveUtils {
         }
 
         return null;
+    }
+
+    public static void escribirEnArchivo(String ruta, String formato){
+        try {
+            FileWriter fileWriter = new FileWriter(ruta, true);
+            Formatter formatter = new Formatter(fileWriter);
+            formatter.format(formato+"%n");
+            fileWriter.close();
+        } catch (IOException e){
+            log.severe(e.getMessage());
+        }
     }
 
 }
