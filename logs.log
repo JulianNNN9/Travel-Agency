@@ -1678,5 +1678,237 @@ nov. 01, 2023 9:15:59 P. M. co.edu.uniquindio.travelagency.model.TravelAgency g
 INFO: Se ha creado una instancia de Travel Agency
 nov. 01, 2023 9:16:07 P. M. co.edu.uniquindio.travelagency.model.TravelAgency agregarGuia
 INFO: Se ha registrado un nuevo guia.
-nov. 01, 2023 9:16:17 P. M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+nov. 01, 2023 9:16:17 P.�M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 02, 2023 9:03:27 P.�M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 02, 2023 9:06:01 P.�M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 02, 2023 9:06:16 P.�M. co.edu.uniquindio.travelagency.model.TravelAgency validateLogInDataAdmin
+INFO: El admin con el id admin ha hecho un inicio de sesi�n.
+nov. 02, 2023 9:06:16 P.�M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 02, 2023 9:06:16 P.�M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 02, 2023 9:06:16 P.�M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 02, 2023 9:06:35 P.�M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 02, 2023 10:37:10 P.�M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 02, 2023 10:37:36 P.�M. co.edu.uniquindio.travelagency.model.TravelAgency validateLogInDataAdmin
+INFO: El admin con el id admin ha hecho un inicio de sesi�n.
+nov. 02, 2023 10:37:36 P.�M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 02, 2023 10:37:36 P.�M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 02, 2023 10:37:36 P.�M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 02, 2023 10:39:16 P.�M. co.edu.uniquindio.travelagency.model.TravelAgency agregarDestino
+SEVERE: Se ha intentado crear un Destino existente.
+nov. 02, 2023 10:39:38 P.�M. co.edu.uniquindio.travelagency.model.TravelAgency agregarGuia
+INFO: Se ha registrado un nuevo guia.
+nov. 02, 2023 10:39:45 P.�M. co.edu.uniquindio.travelagency.model.TravelAgency agregarGuia
+INFO: Se ha registrado un nuevo guia.
+nov. 02, 2023 10:40:31 P.�M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 02, 2023 10:41:02 P.�M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 03, 2023 8:24:07 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 03, 2023 8:24:38 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency validateLogInDataAdmin
+INFO: El admin con el id admin ha hecho un inicio de sesi�n.
+nov. 03, 2023 8:24:38 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 03, 2023 8:24:38 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 03, 2023 8:24:38 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 03, 2023 8:28:49 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency agregarPaquete
+SEVERE: Se ha intentado crear un paquete existente.
+nov. 03, 2023 8:28:52 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency agregarPaquete
+INFO: Se ha intentado agregar un destino con campos vacios.
+nov. 03, 2023 8:29:05 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 03, 2023 8:29:12 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 03, 2023 8:30:37 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency validateLogInDataAdmin
+INFO: El admin con el id admin ha hecho un inicio de sesi�n.
+nov. 03, 2023 8:30:37 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 03, 2023 8:30:37 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 03, 2023 8:30:37 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 03, 2023 8:32:08 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 03, 2023 8:36:02 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 03, 2023 8:36:07 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency validateLogInDataAdmin
+INFO: El admin con el id admin ha hecho un inicio de sesi�n.
+nov. 03, 2023 8:36:07 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 03, 2023 8:36:07 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 03, 2023 8:36:07 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 03, 2023 8:36:58 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 03, 2023 8:37:04 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency validateLogInDataAdmin
+INFO: El admin con el id admin ha hecho un inicio de sesi�n.
+nov. 03, 2023 8:37:04 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 03, 2023 8:37:04 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 03, 2023 8:37:04 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 03, 2023 8:38:02 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency agregarPaquete
+INFO: Se ha creado un nuevo paquete.
+nov. 03, 2023 8:38:13 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 03, 2023 8:38:18 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency validateLogInDataAdmin
+INFO: El admin con el id admin ha hecho un inicio de sesi�n.
+nov. 03, 2023 8:38:18 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 03, 2023 8:38:18 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 03, 2023 8:38:18 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 03, 2023 8:39:36 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency agregarGuia
+INFO: Se ha registrado un nuevo guia.
+nov. 03, 2023 8:40:09 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 03, 2023 8:41:45 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 03, 2023 8:42:07 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency validateLogInDataAdmin
+INFO: El admin con el id admin ha hecho un inicio de sesi�n.
+nov. 03, 2023 8:42:07 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 03, 2023 8:42:07 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 03, 2023 8:42:07 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 03, 2023 8:42:17 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency agregarGuia
+INFO: Se ha intentado agregar un guia con campos vacios.
+nov. 03, 2023 8:42:21 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency agregarGuia
+INFO: Se ha registrado un nuevo guia.
+nov. 03, 2023 8:42:31 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency agregarGuia
+INFO: Se ha registrado un nuevo guia.
+nov. 03, 2023 9:04:15 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 03, 2023 9:04:20 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency validateLogInDataAdmin
+INFO: El admin con el id admin ha hecho un inicio de sesi�n.
+nov. 03, 2023 9:04:20 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 03, 2023 9:04:20 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 03, 2023 9:04:20 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 03, 2023 9:04:25 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency agregarDestinoEnPaquete
+SEVERE: Se ha intentado agregar un destino existente.
+nov. 03, 2023 9:04:33 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 03, 2023 9:04:59 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 03, 2023 9:05:04 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency validateLogInDataAdmin
+INFO: El admin con el id admin ha hecho un inicio de sesi�n.
+nov. 03, 2023 9:05:04 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 03, 2023 9:05:04 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 03, 2023 9:05:04 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 03, 2023 9:05:11 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 03, 2023 9:06:14 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 03, 2023 9:06:19 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency validateLogInDataAdmin
+INFO: El admin con el id admin ha hecho un inicio de sesi�n.
+nov. 03, 2023 9:06:19 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 03, 2023 9:06:19 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 03, 2023 9:06:20 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 03, 2023 9:06:24 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 03, 2023 9:14:19 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 03, 2023 9:14:25 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency validateLogInDataAdmin
+INFO: El admin con el id admin ha hecho un inicio de sesi�n.
+nov. 03, 2023 9:14:25 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 03, 2023 9:14:25 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 03, 2023 9:14:25 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 03, 2023 9:14:40 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency agregarPaquete
+INFO: Se ha intentado agregar un destino con campos vacios.
+nov. 03, 2023 9:14:45 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 03, 2023 9:16:21 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 03, 2023 9:16:26 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency validateLogInDataAdmin
+INFO: El admin con el id admin ha hecho un inicio de sesi�n.
+nov. 03, 2023 9:16:26 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 03, 2023 9:16:26 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 03, 2023 9:16:26 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 03, 2023 9:16:37 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency agregarPaquete
+INFO: Se ha intentado agregar un destino con campos vacios.
+nov. 03, 2023 9:25:31 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 03, 2023 9:25:41 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency validateLogInDataAdmin
+INFO: El admin con el id admin ha hecho un inicio de sesi�n.
+nov. 03, 2023 9:25:41 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 03, 2023 9:25:41 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 03, 2023 9:25:41 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 03, 2023 9:26:05 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 03, 2023 9:27:46 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 03, 2023 9:29:49 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency validateLogInDataAdmin
+INFO: El admin con el id admin ha hecho un inicio de sesi�n.
+nov. 03, 2023 9:29:49 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 03, 2023 9:29:49 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 03, 2023 9:29:49 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 03, 2023 9:30:59 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 03, 2023 9:31:10 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 03, 2023 9:31:15 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency validateLogInDataAdmin
+INFO: El admin con el id admin ha hecho un inicio de sesi�n.
+nov. 03, 2023 9:31:15 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 03, 2023 9:31:15 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 03, 2023 9:31:15 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 03, 2023 9:31:28 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency agregarPaquete
+INFO: Se ha creado un nuevo paquete.
+nov. 03, 2023 9:31:36 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 03, 2023 9:35:47 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 03, 2023 9:35:54 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency validateLogInDataAdmin
+INFO: El admin con el id admin ha hecho un inicio de sesi�n.
+nov. 03, 2023 9:35:54 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 03, 2023 9:35:54 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 03, 2023 9:35:54 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 03, 2023 9:36:05 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency agregarGuia
+INFO: Se ha registrado un nuevo guia.
+nov. 03, 2023 9:36:09 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency agregarLeaguajeGuia
+SEVERE: Se ha intentado agregar un lenaguje existente.
+nov. 03, 2023 9:36:10 A.�M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
 INFO: Se ha creado una instancia de Travel Agency
