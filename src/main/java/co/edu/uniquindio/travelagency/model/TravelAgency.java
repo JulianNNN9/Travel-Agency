@@ -284,12 +284,12 @@ public class TravelAgency {
         archiveUtils.serializerObjet("src/main/resources/persistencia/clients.ser",clients);
 
         Client client = Client.builder()
-                .userId(userId)
-                .password(passeord)
-                .fullName(fullname)
-                .mail(mail)
-                .phoneNumber(phoneNumber)
-                .residence(residence)
+                .userId(userId.trim())
+                .password(passeord.trim())
+                .fullName(fullname.trim())
+                .mail(mail.trim())
+                .phoneNumber(phoneNumber.trim())
+                .residence(residence.trim())
                 .build();
 
         clients.add(client);
@@ -358,6 +358,14 @@ public class TravelAgency {
 
 
 
+    }
+
+
+    public boolean empiezaPor(String inicio){
+//        if(inicio.isEmpty() || inicio.length().length())
+//            return false;
+//        for
+      return  true;
     }
 
 
