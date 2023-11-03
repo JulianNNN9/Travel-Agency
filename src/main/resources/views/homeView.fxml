@@ -14,7 +14,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="950.0" style="-fx-background-radius: 15; -fx-background-color: transparent;" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.travelagency.controllers.HomeController">
    <children>
-      <HBox alignment="CENTER" prefHeight="60.0" prefWidth="949.0" style="-fx-background-color: linear-gradient(to bottom, #d0986a, #888282); -fx-background-radius: 15;">
+      <HBox fx:id="hboxPane" alignment="CENTER" prefHeight="60.0" prefWidth="949.0" style="-fx-background-color: linear-gradient(to bottom, #d0986a, #888282); -fx-background-radius: 15;">
          <children>
             <Separator prefHeight="10.0" prefWidth="25.0" visible="false" />
             <Label alignment="CENTER" prefHeight="56.0" prefWidth="123.0" text="Travel agency">
@@ -91,7 +91,7 @@
                              <Font name="Constantia" size="13.0" />
                          </font>
                      </Label>
-                     <Button fx:id="btnRegister" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="144.0" layoutY="271.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="112.0" style="-fx-background-color: transparent; -fx-border-color: transparent; -fx-effect: inherit; -fx-underline: true; -fx-alignment: center; -fx-font-family: Constantia" text="botonRegistrarse" textAlignment="CENTER" />
+                     <Button fx:id="btnRegister" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="144.0" layoutY="271.0" mnemonicParsing="false" onAction="#onRegisterButtonClck" prefHeight="27.0" prefWidth="112.0" style="-fx-background-color: transparent; -fx-border-color: transparent; -fx-effect: inherit; -fx-underline: true; -fx-alignment: center; -fx-font-family: Constantia" text="botonRegistrarse" textAlignment="CENTER" />
                   <Button fx:id="btnLogIn" layoutX="103.0" layoutY="223.0" mnemonicParsing="false" onAction="#onLogInButtonClick" style="-fx-border-radius: 35; -fx-background-radius: 35; -fx-border-color: #a26740; -fx-background-color: #d07943; -fx-font-family: 'Segoe UI Semibold';" text="Log in">
                      <cursor>
                         <Cursor fx:constant="HAND" />
@@ -99,7 +99,7 @@
                  </children>
              </Pane>
          </children></AnchorPane>
-      <AnchorPane fx:id="ayudaPane1" layoutY="89.0" prefHeight="615.0" prefWidth="950.0" style="-fx-background-color: #383838; -fx-background-radius: 15;" visible="false">
+      <AnchorPane fx:id="registroPanee" layoutY="89.0" prefHeight="615.0" prefWidth="950.0" style="-fx-background-color: #383838; -fx-background-radius: 15;" visible="false">
          <children>
             <Label fx:id="registroPane" alignment="TOP_CENTER" layoutX="305.0" layoutY="14.0" prefHeight="17.0" prefWidth="341.0" text="Registro " textFill="#eeeded">
                <font>
@@ -136,13 +136,13 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <TextField layoutX="199.0" layoutY="122.0" />
-            <TextField layoutX="199.0" layoutY="184.0" />
-            <TextField layoutX="199.0" layoutY="233.0" />
-            <TextField layoutX="199.0" layoutY="295.0" />
-            <TextField layoutX="199.0" layoutY="363.0" />
-            <TextField layoutX="199.0" layoutY="424.0" />
-            <Button layoutX="410.0" layoutY="520.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="132.0" text="Confirmar" />
+            <TextField fx:id="nombreTF" layoutX="199.0" layoutY="122.0" />
+            <TextField fx:id="idTF" layoutX="199.0" layoutY="184.0" />
+            <TextField fx:id="passTF" layoutX="199.0" layoutY="233.0" />
+            <TextField fx:id="mailTF" layoutX="199.0" layoutY="295.0" />
+            <TextField fx:id="telefonoTF" layoutX="199.0" layoutY="363.0" />
+            <TextField fx:id="residenciaTF" layoutX="199.0" layoutY="424.0" />
+            <Button fx:id="confirRegistroButtom" layoutX="410.0" layoutY="520.0" mnemonicParsing="false" onAction="#onConfiRegistrarClienteClick" prefHeight="35.0" prefWidth="132.0" text="Confirmar" />
             <Label fx:id="imagenLBl" alignment="TOP_LEFT" layoutX="401.0" layoutY="295.0" prefHeight="25.0" prefWidth="89.0" text="Imagen" textFill="#eeeded">
                <font>
                   <Font size="18.0" />
