@@ -54,81 +54,140 @@ public class TravelAgency {
             log.severe(e.getMessage());
         }
 
-        ArrayList<TouristGuide> aux = (ArrayList<TouristGuide>) archiveUtils.deserializerObjet("src/main/resources/persistencia/touristGuides.ser");
+        //Cargar guía
 
-        this.touristGuides = Objects.requireNonNullElseGet(aux, ArrayList::new);
+        new Thread(() -> {
 
-        ArrayList<Reservation> aux1 = (ArrayList<Reservation>) archiveUtils.deserializerObjet("src/main/resources/persistencia/reservations.ser");
+            ArrayList<TouristGuide> aux = (ArrayList<TouristGuide>) archiveUtils.deserializerObjet("src/main/resources/persistencia/touristGuides.ser");
 
-        this.reservations = Objects.requireNonNullElseGet(aux1, ArrayList::new);
+            this.touristGuides = Objects.requireNonNullElseGet(aux, ArrayList::new);
 
-        ArrayList<TouristPackage> aux2 = (ArrayList<TouristPackage>) archiveUtils.deserializerObjet("src/main/resources/persistencia/touristPackages.ser");
+            for (TouristGuide guide : touristGuides) {
+                if (guide.getLanguages() == null) {
+                    guide.setLanguages(new ArrayList<>());
+                }
+            }
 
-        this.touristPackages = Objects.requireNonNullElseGet(aux2, ArrayList::new);
+        }).start();
 
-        List<String> dest = new ArrayList<>();
-        dest.add("AAA");
-        dest.add("BBB");
+        //Cargar reservaciones
 
-        TouristPackage touristPackage = TouristPackage.builder()
-                .destinosName(dest)
-                .name("AAA")
-                .price(1.0)
-                .quota(2)
-                .startDate(LocalDate.now())
-                .endDate(LocalDate.of(2024, 12, 1))
-                .duration(10)
-                .clientID("456")
-                .build();
+        new Thread(() -> {
+            ArrayList<Reservation> aux1 = (ArrayList<Reservation>) archiveUtils.deserializerObjet("src/main/resources/persistencia/reservations.ser");
 
-        touristPackages.add(touristPackage);
+            this.reservations = Objects.requireNonNullElseGet(aux1, ArrayList::new);
 
-        ArrayList<Destino> aux3 = (ArrayList<Destino>) archiveUtils.deserializerObjet("src/main/resources/persistencia/destinos.ser");
+            for (Reservation reservation : reservations){
+                if (reservation.getTouristPackages() == null){
+                    reservation.setTouristPackages(new ArrayList<>());
+                }
+            }
+        }).start();
 
-        this.destinos = Objects.requireNonNullElseGet(aux3, ArrayList::new);
+        //Cargar paquetes
 
-        Destino destino = Destino.builder()
-                .name("AAA")
-                .city("AAA")
-                .imagesHTTPS(new ArrayList<>())
-                .description("AAA")
-                .weather("TEMPLADO")
-                .build();
+        new Thread(() -> {
 
-        destino.getImagesHTTPS().add("AAA");
+            ArrayList<TouristPackage> aux2 = (ArrayList<TouristPackage>) archiveUtils.deserializerObjet("src/main/resources/persistencia/touristPackages.ser");
 
-        Destino destino1 = Destino.builder()
-                .name("BBB")
-                .city("BBB")
-                .imagesHTTPS(new ArrayList<>())
-                .description("BBB")
-                .weather("TEMPLADO")
-                .build();
+            this.touristPackages = Objects.requireNonNullElseGet(aux2, ArrayList::new);
 
-        destinos.add(destino);
-        destinos.add(destino1);
+            for (TouristPackage aPackage : touristPackages){
+                if (aPackage.getDestinosName() == null){
+                    aPackage.setDestinosName(new ArrayList<>());
+                }
+            }
 
-        ArrayList<Client> aux4 = (ArrayList<Client>) archiveUtils.deserializerObjet("src/main/resources/persistencia/clients.ser");
+            List<String> dest = new ArrayList<>();
+            dest.add("AAA");
+            dest.add("BBB");
 
-        this.clients = Objects.requireNonNullElseGet(aux4, ArrayList::new);
+            TouristPackage touristPackage = TouristPackage.builder()
+                    .destinosName(dest)
+                    .name("AAA")
+                    .price(1.0)
+                    .quota(2)
+                    .startDate(LocalDate.now())
+                    .endDate(LocalDate.of(2024, 12, 1))
+                    .duration(10)
+                    .clientID("456")
+                    .build();
 
-        ArrayList<Admin> aux5 = (ArrayList<Admin>) archiveUtils.deserializerObjet("src/main/resources/persistencia/admins.ser");
+            touristPackages.add(touristPackage);
 
-        this.admins = Objects.requireNonNullElseGet(aux5, ArrayList::new);
+        }).start();
 
-        Admin admin = Admin.builder()
-                .userId("admin")
-                .password("123")
-                .build();
+        //Cargar destinos
 
-        admins.add(admin);
+        new Thread(() -> {
 
-        Client cl1 = Client.builder()
-                .userId("user1")
-                .password("user1")
-                .build();
+            ArrayList<Destino> aux3 = (ArrayList<Destino>) archiveUtils.deserializerObjet("src/main/resources/persistencia/destinos.ser");
 
-        clients.add(cl1);
+            this.destinos = Objects.requireNonNullElseGet(aux3, ArrayList::new);
+
+            for (Destino destino : destinos){
+                if (destino.getImagesHTTPS() == null){
+                    destino.setImagesHTTPS(new ArrayList<>());
+                }
+            }
+
+            Destino destino = Destino.builder()
+                    .name("AAA")
+                    .city("AAA")
+                    .imagesHTTPS(new ArrayList<>())
+                    .description("AAA")
+                    .weather("TEMPLADO")
+                    .build();
+
+            destino.getImagesHTTPS().add("AAA");
+
+            Destino destino1 = Destino.builder()
+                    .name("BBB")
+                    .city("BBB")
+                    .imagesHTTPS(new ArrayList<>())
+                    .description("BBB")
+                    .weather("TEMPLADO")
+                    .build();
+
+            destinos.add(destino);
+            destinos.add(destino1);
+
+        }).start();
+
+
+        //Cargar clientes
+
+        new Thread(() -> {
+            ArrayList<Client> aux4 = (ArrayList<Client>) archiveUtils.deserializerObjet("src/main/resources/persistencia/clients.ser");
+
+            this.clients = Objects.requireNonNullElseGet(aux4, ArrayList::new);
+        }).start();
+
+
+
+        //Cargar admins
+
+        new Thread(() -> {
+            ArrayList<Admin> aux5 = (ArrayList<Admin>) archiveUtils.deserializerObjet("src/main/resources/persistencia/admins.ser");
+
+            this.admins = Objects.requireNonNullElseGet(aux5, ArrayList::new);
+
+            Admin admin = Admin.builder()
+                    .userId("admin")
+                    .password("123")
+                    .build();
+
+            admins.add(admin);
+
+            Client cl1 = Client.builder()
+                    .userId("user1")
+                    .password("user1")
+                    .build();
+
+            clients.add(cl1);
+        }).start();
+
+
 
     }
 
@@ -144,16 +203,41 @@ public class TravelAgency {
 
     }
 
+    public void agregarGuia(ObservableList<TouristGuide> touristGuideObservableList, TouristGuide nuevoGuia) throws AtributoVacioException, RepeatedInformationException {
+
+        if (nuevoGuia.getId() == null || nuevoGuia.getId().isEmpty() ||
+                nuevoGuia.getFullName() == null || nuevoGuia.getFullName().isEmpty() ||
+                nuevoGuia.getExperience() == null || nuevoGuia.getExperience().isEmpty() ||
+                nuevoGuia.getRating() == null){
+
+            createAlertError("Campos obligatorios", "Los campos marcados con (*) son oblogatorios");
+            log.info("Se ha intentado agregar un destino con campos vacios.");
+            throw new AtributoVacioException("Se ha intentado agregar un destino con campos vacios.");
+        }
+
+        if (touristGuideObservableList.stream().anyMatch(touristGuide -> touristGuide.getId().equals(nuevoGuia.getId()))){
+
+            createAlertError("Paquete existente", "El paquete que trataba de agregar ya se encuentra registrado.");
+            log.severe("Se ha intentado crear un paquete existente.");
+            throw new RepeatedInformationException("Se ha intentado crear un paquete existente.");
+        }
+
+        touristGuideObservableList.add(nuevoGuia);
+        travelAgency.touristGuides.add(nuevoGuia);
+
+        log.info("Se ha registrado un nuevo guia.");
+
+    }
 
     public void agregarPaquete(ObservableList<TouristPackage> packageObservableList, TouristPackage nuevoPaquete) throws AtributoVacioException, RepeatedInformationException {
 
         if ( nuevoPaquete.getName() == null || nuevoPaquete.getName().isEmpty() ||
-                nuevoPaquete.getPrice() == null ||
+                nuevoPaquete.getPrice() == null || nuevoPaquete.getPrice().isNaN() ||
                 nuevoPaquete.getQuota() == null ||
                 nuevoPaquete.getStartDate() == null ||
                 nuevoPaquete.getEndDate() == null ||
                 nuevoPaquete.getDuration() < 0 ||
-                nuevoPaquete.getClientID().isEmpty()){
+                nuevoPaquete.getClientID() == null || nuevoPaquete.getClientID().isEmpty()){
 
             createAlertError("Campos obligatorios", "Los campos marcados con (*) son oblogatorios");
             log.info("Se ha intentado agregar un destino con campos vacios.");
@@ -210,7 +294,35 @@ public class TravelAgency {
 
         for (Destino d : destinos) {
             if (d.equals(destino)) {
-                d.getImagesHTTPS().add(ruta);
+                if (d.getImagesHTTPS() == null){
+                    d.setImagesHTTPS(new ArrayList<>());
+                    d.getImagesHTTPS().add(ruta);
+                } else {
+                    d.getImagesHTTPS().add(ruta);
+                }
+
+                break;
+            }
+        }
+
+    }
+
+
+    public void agregarLeaguajeGuia(ObservableList<String> observableListLenguajes, String lenguaje, TouristGuide touristGuide) {
+
+        if (observableListLenguajes != null){
+            observableListLenguajes.add(lenguaje);
+        }
+
+        for (TouristGuide t : touristGuides) {
+            if (t.equals(touristGuide)) {
+                if (t.getLanguages() == null){
+                    t.setLanguages(new ArrayList<>());
+                    t.getLanguages().add(lenguaje);
+                } else {
+                    t.getLanguages().add(lenguaje);
+                }
+
                 break;
             }
         }
@@ -225,7 +337,13 @@ public class TravelAgency {
 
         for (TouristPackage t : touristPackages) {
             if (t.equals(touristPackage)) {
-                t.getDestinosName().add(selectedItem);
+                if (t.getDestinosName() == null){
+                    t.setDestinosName(new ArrayList<>());
+                    t.getDestinosName().add(selectedItem);
+                } else {
+                    t.getDestinosName().add(selectedItem);
+                }
+
                 break;
             }
         }
