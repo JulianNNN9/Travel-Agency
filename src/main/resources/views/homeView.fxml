@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -37,7 +38,7 @@
              </ImageView>
          </children>
       </HBox>
-      <AnchorPane fx:id="homePane" layoutY="85.0" prefHeight="615.0" prefWidth="950.0" style="-fx-background-color: #383838; -fx-background-radius: 15;">
+      <AnchorPane fx:id="homePane" layoutY="85.0" prefHeight="615.0" prefWidth="950.0" style="-fx-background-color: #383838; -fx-background-radius: 15;" visible="false">
           <Label layoutX="59.0" layoutY="96.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="¿Quienes Somos?"><font><Font size="60" /></font></Label>
           <Label layoutX="59.0" layoutY="219.0" style="-fx-text-fill: #D07943FF; -fx-font-family: 'Segoe UI Semibold'" text="Una agencia de viajes"><font><Font size="25" /></font></Label>
           <Label layoutX="59.0" layoutY="299.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="Un pequeña frase sobre la empresa"><font><Font size="12" /></font></Label>
@@ -46,13 +47,16 @@
             <Cursor fx:constant="DEFAULT" />
          </cursor>
       </AnchorPane>
-      <AnchorPane fx:id="nuestrosPaquetesPane" layoutY="89.0" prefHeight="615.0" prefWidth="950.0" style="-fx-background-color: #383838; -fx-background-radius: 15;" visible="false">
+      <AnchorPane fx:id="nuestrosPaquetesPane" layoutY="89.0" prefHeight="615.0" prefWidth="950.0" style="-fx-background-color: #383838; -fx-background-radius: 15;">
          <children>
-            <Label layoutX="358.0" layoutY="25.0" text="Paquetes Pane" textFill="#ebebeb">
-               <font>
-                  <Font size="36.0" />
-               </font>
-            </Label>
+            <Label layoutX="25.0" layoutY="24.0" prefHeight="18.0" prefWidth="173.0" text="Conoce Nuestros Paquetes" textFill="WHITE" />
+            <ImageView fitHeight="44.0" fitWidth="44.0" layoutX="210.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../icons/lupa.png" />
+               </image>
+            </ImageView>
+            <TextField fx:id="barraBusquedaTF" layoutX="268.0" layoutY="16.0" onKeyReleased="#buscador1" prefHeight="35.0" prefWidth="215.0" />
+            <TextArea fx:id="infoTA" layoutX="141.0" layoutY="70.0" prefHeight="269.0" prefWidth="669.0" />
          </children></AnchorPane>
       <AnchorPane fx:id="nuestrosGuiasPane" layoutY="89.0" prefHeight="615.0" prefWidth="950.0" style="-fx-background-color: #383838; -fx-background-radius: 15;" visible="false">
          <children>
