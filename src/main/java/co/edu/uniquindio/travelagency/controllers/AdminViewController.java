@@ -150,6 +150,8 @@ public class AdminViewController {
 
     public void initialize(){
 
+        //Imagenes
+
         File file = new File("src/main/resources/icons/4103083.png");
         Image backButton = new Image(String.valueOf(file.toURI()));
 
@@ -194,6 +196,8 @@ public class AdminViewController {
 
         //------------------------DESTINOS----------------------------
 
+        //Tabla de rutas de imagenes
+
         imagesRoutesTable.setDisable(true);
         examinarRutaButton.setDisable(true);
         addButtonImageDestination.setDisable(true);
@@ -224,6 +228,8 @@ public class AdminViewController {
 
         });
 
+        //Tabla de destinos
+
         destinoObservableList = destinationsTable.getItems();
 
         if (travelAgency.getDestinos() != null) {
@@ -245,6 +251,8 @@ public class AdminViewController {
         });
 
         //------------------------PAQUETES----------------------------
+
+        //Destinos en paquetes
 
         destinationsNameTable.setDisable(true);
         addButtonDestinationName.setDisable(true);
@@ -274,6 +282,8 @@ public class AdminViewController {
 
         });
 
+        //Paquetes
+
         packageObservableList = packagesTable.getItems();
 
         if (travelAgency.getTouristPackages() != null) {
@@ -297,6 +307,8 @@ public class AdminViewController {
         });
 
         //------------------------GUIAS----------------------------
+
+        //Lenguajes del guia
 
         guidesLenguajeTable.setDisable(true);
         addLenguajeButton.setDisable(true);
@@ -324,6 +336,8 @@ public class AdminViewController {
 
         });
 
+        //Guias
+
         touristGuideObservableList = guidesTable.getItems();
 
         if (travelAgency.getTouristGuides() != null) {
@@ -348,20 +362,7 @@ public class AdminViewController {
 
         // Obtener las reservas desde travelAgency
 
-        List<Reservation> reservations = travelAgency.getReservations();
-
-        // Crear un mapa para contar las repeticiones de los nombres de destinos
-        Map<String, Integer> cuentaReservasPorDestino = new HashMap<>();
-
-        for (Reservation reservation : reservations) {
-            List<TouristPackage> touristPackages = reservation.getTouristPackages();
-            for (TouristPackage touristPackage : touristPackages) {
-                List<String> destinos = touristPackage.getDestinosName();
-                for (String destino : destinos) {
-                    cuentaReservasPorDestino.put(destino, cuentaReservasPorDestino.getOrDefault(destino, 0) + 1);
-                }
-            }
-        }
+        Map<String, Integer> cuentaReservasPorDestino = getIntegerMap();
 
         // Ordenar el mapa por la cantidad de reservas en orden descendente
         List<Map.Entry<String, Integer>> listaOrdenada = cuentaReservasPorDestino.entrySet()
@@ -402,6 +403,7 @@ public class AdminViewController {
         for (TouristGuide guide : topGuides) {
             series1.getData().add(new XYChart.Data<>(guide.getFullName(), guide.getRating()));
         }
+
         guidesChart.getData().add(series1);
         guidesChart.setTitle("Guías Mejor Puntuados");
         guidesXAxis.setLabel("Guías");
@@ -428,6 +430,24 @@ public class AdminViewController {
         packagesChart.setTitle("Paquetes Más Reservados");
         packagesXAxis.setLabel("Paquetes");
         packagesYAxis.setLabel("Número de Reservas");
+    }
+
+    private Map<String, Integer> getIntegerMap() {
+        List<Reservation> reservations = travelAgency.getReservations();
+
+        // Crear un mapa para contar las repeticiones de los nombres de destinos
+        Map<String, Integer> cuentaReservasPorDestino = new HashMap<>();
+
+        for (Reservation reservation : reservations) {
+            List<TouristPackage> touristPackages = reservation.getTouristPackages();
+            for (TouristPackage touristPackage : touristPackages) {
+                List<String> destinos = touristPackage.getDestinosName();
+                for (String destino : destinos) {
+                    cuentaReservasPorDestino.put(destino, cuentaReservasPorDestino.getOrDefault(destino, 0) + 1);
+                }
+            }
+        }
+        return cuentaReservasPorDestino;
     }
 
     private Map<String, Integer> getStringIntegerMap() {
