@@ -6,6 +6,7 @@ import co.edu.uniquindio.travelagency.model.TravelAgency;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -14,37 +15,110 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
+import java.security.PublicKey;
 import java.util.List;
 
 public class HomeController {
 
     private final TravelAgency travelAgency = TravelAgency.getInstance();
 
+    //----------------------Modificar perfil----------------------
     @FXML
-    public TextField txtFldID, txtFldPassword,nombreTF, idTF ,passTF,mailTF ,telefonoTF,residenciaTF,barraBusquedaTF;
+    private HBox hboxCliente;
     @FXML
-    private ImageView cerrarVentanaImgv, cerrarVentanaImgv1;
+    public Pane perfilPane;
     @FXML
-    private Button homeBtn,paquetesBtn,guiasBtn,iniciaSecionBtn,btnLogIn,btnRegister, confirRegistroButtom;
+    private ImageView PerfilImgv;
     @FXML
-    private AnchorPane homePane,nuestrosPaquetesPane,nuestrosGuiasPane,iniciarsesionPane,registroPanee;
+    public TextField txtFldNombre;
+    @FXML
+    public TextField txtFldMail;
+    @FXML
+    public TextField txtFldNumero;
+    @FXML
+    public TextField txtFldResidencia;
+    @FXML
+    public Button confirmarEdicionButton;
+
+    //----------------------Registrar cliente----------------------
+    @FXML
+    private AnchorPane registroPanee;
+    @FXML
+    public TextField nombreTF, idTF ,passTF,mailTF ,telefonoTF,residenciaTF;
+    @FXML
+    private ImageView registroExit;
+    @FXML
+    private Button confirRegistroButtom;
+
+    //----------------------Home pane----------------------
+    @FXML
+    private AnchorPane homePane;
+    @FXML
+    private ImageView cerrarVentanaImgvPrincipal;
+    @FXML
+    private ImageView cerrarVentanaImgvCliente;
+    @FXML
+    private Button homeBtn;
+    //----------------------Paquetes pane----------------------
+    @FXML
+    private AnchorPane nuestrosPaquetesPane;
+    @FXML
+    public TextField barraBusquedaTF;
+    @FXML
+    private Button paquetesBtn;
+
+    //----------------------Guias pane----------------------
+    @FXML
+    private AnchorPane nuestrosGuiasPane;
+    @FXML
+    private Button guiasBtn;
+    
+    //----------------------Iniciar Sesion Pane----------------------
+    @FXML
+    public TextField txtFldID, txtFldPassword;
+    @FXML
+    private Button iniciaSecionBtn,btnLogIn,btnRegister;
+    @FXML
+    private AnchorPane iniciarsesionPane;
     @FXML
     private TextArea infoTA;
     @FXML
-    private HBox hboxPanePrincipal, hboxCliente;
-
-
+    private HBox hboxPanePrincipal;
 
     public void initialize() {
 
         File file1 = new File("src/main/resources/icons/cerrarVentana.png");
         Image exitButton = new Image(String.valueOf(file1.toURI()));
 
-        cerrarVentanaImgv.setImage(exitButton);
+        cerrarVentanaImgvPrincipal.setImage(exitButton);
+
+        //----------------------Modificar perfil----------------------
+
+        txtFldNombre.setEditable(false);
+        txtFldMail.setEditable(false);
+        txtFldNumero.setEditable(false);
+        txtFldResidencia.setEditable(false);
+        confirmarEdicionButton.setVisible(false);
+    }
+
+    public void onModificarPerfilClick(ActionEvent actionEvent) {
+        txtFldNombre.setEditable(true);
+        txtFldMail.setEditable(true);
+        txtFldNumero.setEditable(true);
+        txtFldResidencia.setEditable(true);
+        confirmarEdicionButton.setVisible(true);
+    }
+
+    public void onConfirmarEdicionClick(ActionEvent actionEvent) {
+    }
+
+    public void onPerfilClick(MouseEvent mouseEvent) {
+        visibilitiesClient(true);
     }
 
     public void onConfiRegistrarClienteClick() throws RepeatedInformationException, AtributoVacioException {
@@ -55,21 +129,29 @@ public class HomeController {
     @FXML
     private void handleButtonAction(ActionEvent event){
 
-        if (event.getTarget() == homeBtn) {visibilities(true,false,false,false);}
-        if (event.getTarget() == paquetesBtn) {visibilities(false,true,false,false);}
-        if (event.getTarget() == guiasBtn) {visibilities(false,false,true,false);}
-        if (event.getTarget() == iniciaSecionBtn) {visibilities(false,false,false,true);}
+        if (event.getTarget() == homeBtn) {
+            visibilitiesPrincipal(true,false,false,false);}
+        if (event.getTarget() == paquetesBtn) {
+            visibilitiesPrincipal(false,true,false,false);}
+        if (event.getTarget() == guiasBtn) {
+            visibilitiesPrincipal(false,false,true,false);}
+        if (event.getTarget() == iniciaSecionBtn) {
+            visibilitiesPrincipal(false,false,false,true);}
 
     }
 
-    public void visibilities(boolean pane1, boolean pane2 , boolean pane3, boolean pane5 ){
+    public void visibilitiesPrincipal(boolean pane1, boolean pane2 , boolean pane3, boolean pane5 ){
         homePane.setVisible(pane1);
         nuestrosPaquetesPane.setVisible(pane2);
         nuestrosGuiasPane.setVisible(pane3);
         iniciarsesionPane.setVisible(pane5);
     }
 
-    public void visibilities2(boolean pan1,boolean pan2,boolean pan3){
+    public void visibilitiesClient(boolean pane1){
+        perfilPane.setVisible(pane1);
+    }
+
+    public void visibilitiesRegister(boolean pan1, boolean pan2, boolean pan3){
         hboxPanePrincipal.setVisible(pan1);
         iniciarsesionPane.setVisible(pan2);
         registroPanee.setVisible(pan3);
@@ -77,7 +159,7 @@ public class HomeController {
 
     public void onExitButtonClick() {
 
-        Stage stage = (Stage) cerrarVentanaImgv.getScene().getWindow();
+        Stage stage = (Stage) cerrarVentanaImgvPrincipal.getScene().getWindow();
         stage.close();
 
     }
@@ -90,18 +172,22 @@ public class HomeController {
         if(sesion.equals("Client")){
             hboxPanePrincipal.setVisible(false);
             hboxCliente.setVisible(true);
-            visibilities(true, false, false, false);
+            visibilitiesPrincipal(true, false, false, false);
         } else if (sesion.equals("Admin")) {
-            travelAgency.generateWindow("src/main/resources/views/adminView.fxml",cerrarVentanaImgv);
+            travelAgency.generateWindow("src/main/resources/views/adminView.fxml",cerrarVentanaImgvPrincipal);
+        } else {
+            travelAgency.createAlertError("El usuario ingresado no existe", "Verifique los datos");
         }
 
     }
-    public void registroExit(MouseEvent e) {visibilities2(true,true,false);}
+    public void registroExit(MouseEvent e) {
+        visibilitiesRegister(true,true,false);}
     public void onRegisterButtonClck(ActionEvent e) {
-        visibilities2(false,false,true);
+        visibilitiesRegister(false,false,true);
     }
 
     public void buscador1(KeyEvent keyEvent) {
+
         infoTA.setText("");
         String cadenaInformativa = "";
         List<TouristPackage> jeje = travelAgency.getTouristPackages();
