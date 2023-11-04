@@ -1,13 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.Cursor?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="950.0" style="-fx-background-radius: 15; -fx-background-color: transparent;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.travelagency.controllers.HomeController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="950.0" style="-fx-background-radius: 15; -fx-background-color: transparent;" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.travelagency.controllers.HomeController">
    <children>
       <HBox fx:id="hboxPanePrincipal" alignment="CENTER" prefHeight="60.0" prefWidth="950.0" style="-fx-background-color: linear-gradient(to bottom, #d0986a, #888282); -fx-background-radius: 15;">
          <children>
@@ -61,7 +69,7 @@
             <Cursor fx:constant="DEFAULT" />
          </cursor>
       </AnchorPane>
-      <AnchorPane fx:id="nuestrosPaquetesPane" layoutY="89.0" prefHeight="615.0" prefWidth="950.0" style="-fx-background-color: #383838; -fx-background-radius: 15;" visible="false">
+      <AnchorPane fx:id="nuestrosPaquetesPane" layoutY="89.0" prefHeight="615.0" prefWidth="950.0" style="-fx-background-color: #383838; -fx-background-radius: 15;">
          <children>
             <Label layoutX="25.0" layoutY="24.0" prefHeight="18.0" prefWidth="173.0" text="Conoce Nuestros Paquetes" textFill="WHITE" />
             <ImageView fitHeight="44.0" fitWidth="44.0" layoutX="210.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
@@ -69,7 +77,7 @@
                   <Image url="@../icons/lupa.png" />
                </image>
             </ImageView>
-            <TextField fx:id="barraBusquedaTF" layoutX="268.0" layoutY="16.0"  prefHeight="35.0" prefWidth="349.0" />
+            <TextField fx:id="barraBusquedaTF" layoutX="268.0" layoutY="16.0" prefHeight="35.0" prefWidth="349.0" />
             <TableView fx:id="tblPq" layoutX="20.0" layoutY="75.0" prefHeight="265.0" prefWidth="910.0">
               <columns>
                 <TableColumn fx:id="colPqNombre" prefWidth="240.0" text="Nombre" />
@@ -176,7 +184,7 @@
              </ImageView>
          </children>
       </AnchorPane>
-      <Pane fx:id="perfilPane" layoutY="85.0" prefHeight="615.0" prefWidth="950.0" style="-fx-background-color: #383838; -fx-background-radius: 15;">
+      <Pane fx:id="perfilPane" layoutY="85.0" prefHeight="615.0" prefWidth="950.0" style="-fx-background-color: #383838; -fx-background-radius: 15;" visible="false">
          <children>
             <VBox prefHeight="615.0" prefWidth="258.0">
                <children>
@@ -208,7 +216,7 @@
                   </Pane>
                </children>
             </VBox>
-            <Pane layoutX="258.0" prefHeight="615.0" prefWidth="694.0">
+            <Pane layoutX="258.0" prefHeight="615.0" prefWidth="694.0" visible="false">
                <children>
                    <Label layoutX="225.0" layoutY="35.0" prefHeight="36.0" prefWidth="265.0" style="-fx-text-fill: #D07943FF; -fx-font-family: 'Segoe UI Semibold'" text="Histórico de reservas"><font><Font size="25" /></font></Label>
                    <TableView fx:id="historialReservacionesTable" layoutX="77.0" layoutY="98.0" prefHeight="472.0" prefWidth="560.0">
