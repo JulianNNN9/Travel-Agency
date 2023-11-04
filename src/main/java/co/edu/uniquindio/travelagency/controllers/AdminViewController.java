@@ -70,7 +70,7 @@ public class AdminViewController {
     ObservableList<Destino> destinoObservableList;
     @FXML
     public TableColumn<Destino, Destino> nameDestinationCol, cityCol, descriptionCol,weatherCol;
-    public Button examinarRutaButton, deleteButtonDestination, modifyButtonDestination, addButtonDestination, deleteButtonImageDestination, addButtonImageDestination;
+    public Button limpiarCamposDestinos, examinarRutaButton, deleteButtonDestination, modifyButtonDestination, addButtonDestination, deleteButtonImageDestination, addButtonImageDestination;
 
     //Ventana gestionar paquetes
 
@@ -93,7 +93,7 @@ public class AdminViewController {
     @FXML
     public ImageView imgViewBackPackagesButton;
     @FXML
-    public Button addButtonPackages, modifyButtonPackages, deleteButtonPackages, addButtonDestinationName, deleteButtonDestinationName;
+    public Button limpiarCamposPaquetes, addButtonPackages, modifyButtonPackages, deleteButtonPackages, addButtonDestinationName, deleteButtonDestinationName;
     @FXML
     public TextField txtFldPackageName,txtFldPrice, txtFldQuota;
     @FXML
@@ -117,7 +117,7 @@ public class AdminViewController {
     @FXML
     public ImageView imgViewBackGuidesButton;
     @FXML
-    public Button addButtonGuides, modifyButtonGuides, deleteButtonGuide, addLenguajeButton, deleteLenguajeButton;
+    public Button limpiarCamposGuides, addButtonGuides, modifyButtonGuides, deleteButtonGuide, addLenguajeButton, deleteLenguajeButton;
     @FXML
     public TextField txtFldGuideId, txtFldFullNameGuide, txtFldExperience, txtFldRating, txtFldLenguaje;
 
@@ -439,14 +439,17 @@ public class AdminViewController {
         Map<String, Integer> cuentaReservasPorDestino = new HashMap<>();
 
         for (Reservation reservation : reservations) {
-            List<TouristPackage> touristPackages = reservation.getTouristPackages();
-            for (TouristPackage touristPackage : touristPackages) {
+            TouristPackage touristPackage = reservation.getTouristPackage();
+
+            if (touristPackage != null) {
                 List<String> destinos = touristPackage.getDestinosName();
+
                 for (String destino : destinos) {
                     cuentaReservasPorDestino.put(destino, cuentaReservasPorDestino.getOrDefault(destino, 0) + 1);
                 }
             }
         }
+
         return cuentaReservasPorDestino;
     }
 
@@ -454,16 +457,22 @@ public class AdminViewController {
         Map<String, Integer> packageReservationCounts = new HashMap<>();
 
         for (Reservation reservation : reservations) {
-            List<TouristPackage> packages = reservation.getTouristPackages();
-            for (TouristPackage aPackage : packages) {
-                String packageName = aPackage.getName();
+            TouristPackage touristPackage = reservation.getTouristPackage();
+
+            if (touristPackage != null) {
+                String packageName = touristPackage.getName();
                 packageReservationCounts.put(packageName, packageReservationCounts.getOrDefault(packageName, 0) + 1);
             }
         }
+
         return packageReservationCounts;
     }
 
     //----------------------------Destinations-----------------------------
+
+    public void onLimpiarCamposDestinoClick(ActionEvent actionEvent) {
+        limpiarCamposDestinations();
+    }
 
     @FXML
     private void agregarElementoDestinations(ActionEvent event) throws RepeatedInformationException, AtributoVacioException {
@@ -619,6 +628,10 @@ public class AdminViewController {
 
     //----------------------------Packages-----------------------------
 
+    public void onLimpiarCamposPaquetesClick(ActionEvent actionEvent) {
+        limpiarCamposPackages();
+    }
+
     @FXML
     private void agregarElementoPackages(ActionEvent event) throws RepeatedInformationException, AtributoVacioException, ErrorEnIngresoFechasException {
 
@@ -769,6 +782,10 @@ public class AdminViewController {
     }
 
     //----------------------------Guides-----------------------------
+
+    public void onLimpiarCamposGuiasClick(ActionEvent actionEvent) {
+        limpiarCamposGuias();
+    }
 
     @FXML
     public void agregarGuiaButton(ActionEvent actionEvent) throws RepeatedInformationException, AtributoVacioException {
