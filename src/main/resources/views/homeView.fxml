@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
@@ -68,8 +69,26 @@
                   <Image url="@../icons/lupa.png" />
                </image>
             </ImageView>
-            <TextField fx:id="barraBusquedaTF" layoutX="268.0" layoutY="16.0" onKeyReleased="#buscador1" prefHeight="35.0" prefWidth="215.0" />
-            <TextArea fx:id="infoTA" layoutX="141.0" layoutY="70.0" prefHeight="269.0" prefWidth="669.0" />
+            <TextField fx:id="barraBusquedaTF" layoutX="268.0" layoutY="16.0"  prefHeight="35.0" prefWidth="349.0" />
+            <TableView fx:id="tblPq" layoutX="20.0" layoutY="75.0" prefHeight="265.0" prefWidth="910.0">
+              <columns>
+                <TableColumn fx:id="colPqNombre" prefWidth="240.0" text="Nombre" />
+                <TableColumn fx:id="colPqPrecio" minWidth="4.0" prefWidth="112.0" text="Precio" />
+                  <TableColumn fx:id="colPqCupo" prefWidth="85.0" text="Cupo" />
+                  <TableColumn fx:id="colPqFechaInicio" minWidth="0.0" prefWidth="103.0" text="Fecha incio" />
+                  <TableColumn fx:id="colPqFechaFinal" prefWidth="152.0" text="Fecha final" />
+                  <TableColumn fx:id="colPqDuration" minWidth="0.0" prefWidth="217.0" text="Duracion" />
+              </columns>
+            </TableView>
+            <TableView fx:id="tblDe" layoutX="28.0" layoutY="358.0" prefHeight="233.0" prefWidth="531.0">
+              <columns>
+                <TableColumn fx:id="colDeNombre" prefWidth="137.0" text="Nombre" />
+                <TableColumn fx:id="colDeCiudad" prefWidth="146.0" text="Ciudad" />
+                  <TableColumn fx:id="colDeDescription" prefWidth="152.0" text="Descripcion" />
+                  <TableColumn fx:id="colDeClima" prefWidth="95.0" text="Clima" />
+              </columns>
+            </TableView>
+            <ImageView fx:id="mostrarDestinoImg" fitHeight="233.0" fitWidth="287.0" layoutX="614.0" layoutY="358.0" pickOnBounds="true" preserveRatio="true" />
          </children></AnchorPane>
       <AnchorPane fx:id="nuestrosGuiasPane" layoutY="89.0" prefHeight="615.0" prefWidth="950.0" style="-fx-background-color: #383838; -fx-background-radius: 15;" visible="false">
          <children>

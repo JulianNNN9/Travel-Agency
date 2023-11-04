@@ -7,6 +7,7 @@ import co.edu.uniquindio.travelagency.model.TouristPackage;
 import co.edu.uniquindio.travelagency.model.TravelAgency;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -24,6 +25,7 @@ import java.io.File;
 import java.io.IOException;
 import java.security.PublicKey;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.Optional;
 
 public class HomeController {
@@ -34,11 +36,19 @@ public class HomeController {
     @FXML
     private HBox hboxCliente;
     @FXML
+    public TableView<TouristPackage> tblPq;
+    @FXML
+    private ImageView cerrarVentanaImgv;
+    @FXML
     public Pane perfilPane;
     @FXML
     private ImageView PerfilImgv;
     @FXML
     public TextField txtFldNombre;
+    @FXML
+    private TableColumn<TouristPackage,TouristPackage> colPqNombre, colPqPrecio,colPqCupo,colPqFechaInicio,colPqFechaFinal,colPqDuration;
+    @FXML
+     ObservableList<TouristPackage> touristPackagelist ;
     @FXML
     public TextField txtFldMail;
     @FXML
@@ -57,6 +67,7 @@ public class HomeController {
     private TableColumn<Reservation, String> endDateColumn;
     @FXML
     private TableColumn<Reservation, String> numberOfPeopleColumn;
+    @FXML
     private ObservableList<Reservation> reservations = FXCollections.observableArrayList();
 
 
@@ -109,9 +120,32 @@ public class HomeController {
 
     public void initialize() {
 
+        touristPackagelist = tblPq.getItems();
+
+        if (travelAgency.getTouristPackages() != null) {
+            touristPackagelist.addAll(travelAgency.getTouristPackages());
+        }
+
+        this.colPqNombre.setCellValueFactory(new PropertyValueFactory<>("name"));
+        this.colPqPrecio.setCellValueFactory(new PropertyValueFactory<>("price"));
+        this.colPqCupo.setCellValueFactory(new PropertyValueFactory<>("quota"));
+        this.colPqFechaInicio.setCellValueFactory(new PropertyValueFactory<>("startDate"));
+        this.colPqFechaFinal.setCellValueFactory(new PropertyValueFactory<>("endDate"));
+        this.colPqDuration.setCellValueFactory(new PropertyValueFactory<>("duration"));
+
+//        tblPq.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+//            if (newSelection != null) {
+//                txtFldPackageName.setText(newSelection.getName());
+//                txtFldPrice.setText(String.valueOf(newSelection.getPrice()));
+//                txtFldQuota.setText(String.valueOf(newSelection.getQuota()));
+//                datePckrStartDate.setValue(newSelection.getStartDate());
+//                datePckrEndDate.setValue(newSelection.getEndDate());
+//            }
+//        });
+
         File file1 = new File("src/main/resources/icons/cerrarVentana.png");
         Image exitButton = new Image(String.valueOf(file1.toURI()));
-
+        searchFilter();
         cerrarVentanaImgvPrincipal.setImage(exitButton);
 
         //----------------------Modificar perfil----------------------
@@ -189,6 +223,25 @@ public class HomeController {
         travelAgency.createAlertInfo("Registro de cliente","Informacion","se ha registrado el cliente con la ID" + idTF.getText());
     }
 
+    private void searchFilter() {
+//        FilteredList<TouristPackage> filterData= new FilteredList<>(touristPackagelist,e->true);
+//        barraBusquedaTF.setOnKeyPressed(e ->{
+//            barraBusquedaTF.textProperty().addListener((observable, oldValue, newVaue )->{
+//                filterData.setPredicate((Predicate<? super TouristPackage>) cust ->{
+//                    if (newVaue == null){
+//                        return  true;
+//                    }
+//                    String toLowerCaseFilter =newVaue.toLowerCase();
+//                    if(cust.getName().contains(newVaue)){
+//                        return true;
+//                    }else if(cust.)
+//                } );
+//            });
+//
+//        });
+    }
+
+
     @FXML
     private void handleButtonAction(ActionEvent event){
 
@@ -256,19 +309,4 @@ public class HomeController {
         visibilitiesRegister(false,false,true);
     }
 
-    public void buscador1(KeyEvent keyEvent) {
-
-        infoTA.setText("");
-        String cadenaInformativa = "";
-        List<TouristPackage> jeje = travelAgency.getTouristPackages();
-
-        for(int i=0; i< jeje.size();i++){
-            if(travelAgency.empiezaPor(barraBusquedaTF.getText()))
-                cadenaInformativa += jeje.get(i).toString()+"\n\n";
-        infoTA.setText(cadenaInformativa);
-
-        }
-
-
-    }
 }
