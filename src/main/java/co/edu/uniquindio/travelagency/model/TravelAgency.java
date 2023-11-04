@@ -12,14 +12,10 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import lombok.Getter;
 import lombok.extern.java.Log;
-
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.util.logging.FileHandler;
 import java.util.logging.SimpleFormatter;
 import co.edu.uniquindio.travelagency.utils.*;
@@ -54,81 +50,93 @@ public class TravelAgency {
             log.severe(e.getMessage());
         }
 
-        ArrayList<TouristGuide> aux = (ArrayList<TouristGuide>) archiveUtils.deserializerObjet("src/main/resources/persistencia/touristGuides.ser");
+        //Cargar guía
 
-        this.touristGuides = Objects.requireNonNullElseGet(aux, ArrayList::new);
+        new Thread(() -> {
 
-        ArrayList<Reservation> aux1 = (ArrayList<Reservation>) archiveUtils.deserializerObjet("src/main/resources/persistencia/reservations.ser");
+            ArrayList<TouristGuide> aux = (ArrayList<TouristGuide>) archiveUtils.deserializerObjet("src/main/resources/persistencia/touristGuides.ser");
 
-        this.reservations = Objects.requireNonNullElseGet(aux1, ArrayList::new);
+            this.touristGuides = Objects.requireNonNullElseGet(aux, ArrayList::new);
 
-        ArrayList<TouristPackage> aux2 = (ArrayList<TouristPackage>) archiveUtils.deserializerObjet("src/main/resources/persistencia/touristPackages.ser");
+            for (TouristGuide guide : touristGuides) {
+                if (guide.getLanguages() == null) {
+                    guide.setLanguages(new ArrayList<>());
+                }
+            }
 
-        this.touristPackages = Objects.requireNonNullElseGet(aux2, ArrayList::new);
+        }).start();
 
-        List<String> dest = new ArrayList<>();
-        dest.add("AAA");
-        dest.add("BBB");
+        //Cargar reservaciones
 
-        TouristPackage touristPackage = TouristPackage.builder()
-                .destinosName(dest)
-                .name("AAA")
-                .price(1.0)
-                .quota(2)
-                .startDate(LocalDate.now())
-                .endDate(LocalDate.of(2024, 12, 1))
-                .duration(10)
-                .clientID("456")
-                .build();
+        new Thread(() -> {
+            ArrayList<Reservation> aux1 = (ArrayList<Reservation>) archiveUtils.deserializerObjet("src/main/resources/persistencia/reservations.ser");
 
-        touristPackages.add(touristPackage);
+            this.reservations = Objects.requireNonNullElseGet(aux1, ArrayList::new);
 
-        ArrayList<Destino> aux3 = (ArrayList<Destino>) archiveUtils.deserializerObjet("src/main/resources/persistencia/destinos.ser");
+            for (Reservation reservation : reservations){
+                if (reservation.getTouristPackages() == null){
+                    reservation.setTouristPackages(new ArrayList<>());
+                }
+            }
 
-        this.destinos = Objects.requireNonNullElseGet(aux3, ArrayList::new);
+        }).start();
 
-        Destino destino = Destino.builder()
-                .name("AAA")
-                .city("AAA")
-                .imagesHTTPS(new ArrayList<>())
-                .description("AAA")
-                .weather("TEMPLADO")
-                .build();
+        //Cargar paquetes
 
-        destino.getImagesHTTPS().add("AAA");
+        new Thread(() -> {
 
-        Destino destino1 = Destino.builder()
-                .name("BBB")
-                .city("BBB")
-                .imagesHTTPS(new ArrayList<>())
-                .description("BBB")
-                .weather("TEMPLADO")
-                .build();
+            ArrayList<TouristPackage> aux2 = (ArrayList<TouristPackage>) archiveUtils.deserializerObjet("src/main/resources/persistencia/touristPackages.ser");
 
-        destinos.add(destino);
-        destinos.add(destino1);
+            this.touristPackages = Objects.requireNonNullElseGet(aux2, ArrayList::new);
 
-        ArrayList<Client> aux4 = (ArrayList<Client>) archiveUtils.deserializerObjet("src/main/resources/persistencia/clients.ser");
+            for (TouristPackage aPackage : touristPackages){
+                if (aPackage.getDestinosName() == null){
+                    aPackage.setDestinosName(new ArrayList<>());
+                }
+            }
 
-        this.clients = Objects.requireNonNullElseGet(aux4, ArrayList::new);
+        }).start();
 
-        ArrayList<Admin> aux5 = (ArrayList<Admin>) archiveUtils.deserializerObjet("src/main/resources/persistencia/admins.ser");
+        //Cargar destinos
 
-        this.admins = Objects.requireNonNullElseGet(aux5, ArrayList::new);
+        new Thread(() -> {
 
-        Admin admin = Admin.builder()
-                .userId("admin")
-                .password("123")
-                .build();
+            ArrayList<Destino> aux3 = (ArrayList<Destino>) archiveUtils.deserializerObjet("src/main/resources/persistencia/destinos.ser");
 
-        admins.add(admin);
+            this.destinos = Objects.requireNonNullElseGet(aux3, ArrayList::new);
 
-        Client cl1 = Client.builder()
-                .userId("user1")
-                .password("user1")
-                .build();
+            for (Destino destino : destinos){
+                if (destino.getImagesHTTPS() == null){
+                    destino.setImagesHTTPS(new ArrayList<>());
+                }
+            }
 
-        clients.add(cl1);
+        }).start();
+
+
+        //Cargar clientes
+
+        new Thread(() -> {
+
+            ArrayList<Client> aux4 = (ArrayList<Client>) archiveUtils.deserializerObjet("src/main/resources/persistencia/clients.ser");
+
+            this.clients = Objects.requireNonNullElseGet(aux4, ArrayList::new);
+
+        }).start();
+
+
+
+        //Cargar admins
+
+        new Thread(() -> {
+
+            ArrayList<Admin> aux5 = (ArrayList<Admin>) archiveUtils.deserializerObjet("src/main/resources/persistencia/admins.ser");
+
+            this.admins = Objects.requireNonNullElseGet(aux5, ArrayList::new);
+
+        }).start();
+
+
 
     }
 
@@ -144,32 +152,222 @@ public class TravelAgency {
 
     }
 
+    public void serializarDestinos(){
+        archiveUtils.serializerObjet("src/main/resources/persistencia/destinos.ser", destinos);
+    }
 
-    public void agregarPaquete(ObservableList<TouristPackage> packageObservableList, TouristPackage nuevoPaquete) throws AtributoVacioException, RepeatedInformationException {
+    public void serializarGuias(){
+        archiveUtils.serializerObjet("src/main/resources/persistencia/touristGuides.ser", touristGuides);
+    }
 
-        if ( nuevoPaquete.getName() == null || nuevoPaquete.getName().isEmpty() ||
-                nuevoPaquete.getPrice() == null ||
-                nuevoPaquete.getQuota() == null ||
-                nuevoPaquete.getStartDate() == null ||
-                nuevoPaquete.getEndDate() == null ||
-                nuevoPaquete.getDuration() < 0 ||
-                nuevoPaquete.getClientID().isEmpty()){
+    public void serializarPaquetes(){
+        archiveUtils.serializerObjet("src/main/resources/persistencia/touristPackages.ser", touristPackages);
+    }
+
+    public void serizalizarClientes(){
+        archiveUtils.serializerObjet("src/main/resources/persistencia/clients.ser", clients);
+    }
+
+    public void modificarDestino(Destino selectedDestino, String nuevoNombre, String nuevaCiudad, String nuevaDescrpcion, String nuevaLocalDate) throws AtributoVacioException {
+
+        if (nuevoNombre.isEmpty() ||
+                nuevaCiudad.isEmpty() ||
+                nuevaDescrpcion.isEmpty() ||
+                nuevaLocalDate.isEmpty()) {
 
             createAlertError("Campos obligatorios", "Los campos marcados con (*) son oblogatorios");
             log.info("Se ha intentado agregar un destino con campos vacios.");
             throw new AtributoVacioException("Se ha intentado agregar un destino con campos vacios.");
         }
 
-        if (packageObservableList.stream().anyMatch(destination -> destination.getName().equals(nuevoPaquete.getName()))){
+        selectedDestino.setName(nuevoNombre);
+        selectedDestino.setCity(nuevaCiudad);
+        selectedDestino.setDescription(nuevaDescrpcion);
+        selectedDestino.setWeather(nuevaLocalDate);
+
+        serializarDestinos();
+
+    }
+    public void modificarPaquete(TouristPackage selectedPackage, String nuevoNombrePaquete, double nuevoPrecio, int nuevosCupos, LocalDate nuevaFechaInicio, LocalDate nuevaFechaFin) throws AtributoVacioException {
+
+        if ( nuevoNombrePaquete == null || nuevoNombrePaquete.isEmpty() ||
+                nuevoPrecio < 0 ||
+                nuevosCupos < 0 ||
+                nuevaFechaInicio == null ||
+                nuevaFechaFin == null){
+
+            createAlertError("Campos obligatorios", "Los campos marcados con (*) son oblogatorios");
+            log.info("Se ha intentado agregar un destino con campos vacios.");
+            throw new AtributoVacioException("Se ha intentado agregar un destino con campos vacios.");
+        }
+
+        selectedPackage.setName(nuevoNombrePaquete);
+        selectedPackage.setPrice(nuevoPrecio);
+        selectedPackage.setQuota(nuevosCupos);
+        selectedPackage.setStartDate(nuevaFechaInicio);
+        selectedPackage.setEndDate(nuevaFechaFin);
+
+        serializarPaquetes();
+
+    }
+
+    public void modificarGuia(TouristGuide selectedGuia, String nuevoGuideID, String nuevoGuideName, String nuevaExperiencia, String nuevoRating) throws AtributoVacioException {
+
+        if (nuevoGuideID == null || nuevoGuideID.isEmpty() ||
+                nuevoGuideName == null || nuevoGuideName.isEmpty() ||
+                nuevaExperiencia == null || nuevaExperiencia.isEmpty() ||
+                nuevoRating == null){
+
+            createAlertError("Campos obligatorios", "Los campos marcados con (*) son oblogatorios");
+            log.info("Se ha intentado agregar un guia con campos vacios.");
+            throw new AtributoVacioException("Se ha intentado agregar un guia con campos vacios.");
+        }
+
+        selectedGuia.setId(nuevoGuideID);
+        selectedGuia.setFullName(nuevoGuideName);
+        selectedGuia.setExperience(nuevaExperiencia);
+        selectedGuia.setRating(Integer.valueOf(nuevoRating));
+
+        serializarGuias();
+    }
+
+    public void modificarPerfil(String clientID, String nuevoName, String nuevoMail, String nuevoNumero, String nuevoResidence) throws AtributoVacioException {
+
+        if (nuevoName == null || nuevoName.isEmpty() ||
+                nuevoMail == null || nuevoMail.isEmpty() ||
+                nuevoNumero == null || nuevoNumero.isEmpty() ||
+                nuevoResidence == null){
+
+            createAlertError("Campos obligatorios", "Los campos marcados con (*) son oblogatorios");
+            log.info("Se ha intentado agregar un guia con campos vacios.");
+            throw new AtributoVacioException("Se ha intentado agregar un guia con campos vacios.");
+        }
+
+        Optional<Client> client = clients.stream().filter(client1 -> client1.getUserId().equals(clientID)).findFirst();
+
+        if (client.isPresent()){
+            client.get().setFullName(nuevoName);
+            client.get().setMail(nuevoMail);
+            client.get().setPhoneNumber(nuevoNumero);
+            client.get().setResidence(nuevoResidence);
+        }
+
+        serizalizarClientes();
+
+    }
+
+    public void eliminarDestinoName(Optional<TouristPackage> touristPackage, String destinoABorrar){
+
+        List<String> destinosSinEliminar = touristPackage.get().getDestinosName().stream().filter(s -> !s.equals(destinoABorrar)).toList();
+
+        touristPackage.get().getDestinosName().clear();
+        touristPackage.get().getDestinosName().addAll(destinosSinEliminar );
+
+        serializarPaquetes();
+    }
+
+    public void eliminarRuta(Optional<Destino> destino, String rutaABorrar){
+
+        List<String> rutasSinEliminar = new ArrayList<>();
+
+        if (destino.isPresent()){
+            rutasSinEliminar = destino.get().getImagesHTTPS().stream().filter(s -> !s.equals(rutaABorrar)).toList();
+        }
+
+        destino.get().getImagesHTTPS().clear();
+        destino.get().getImagesHTTPS().addAll(rutasSinEliminar);
+
+        serializarDestinos();
+    }
+
+    public void eliminarLenguaje(Optional<TouristGuide> touristGuide, String lenguajeABorrar){
+
+        List<String> languajeSinEliminar = touristGuide.get().getLanguages().stream().filter(s -> !s.equals(lenguajeABorrar)).toList();
+
+        touristGuide.get().getLanguages().clear();
+        touristGuide.get().getLanguages().addAll(languajeSinEliminar);
+
+        serializarGuias();
+
+    }
+
+
+    public void eliminarDestino(ObservableList<Destino> destinoObservableList, Destino selectedDestino) {
+        destinoObservableList.remove(selectedDestino);
+        destinos.removeIf(destino -> destino.equals(selectedDestino));
+        serializarDestinos();
+    }
+
+    public void eliminarPaquete(ObservableList<TouristPackage> packageObservableList, TouristPackage selectedPackage) {
+        packageObservableList.remove(selectedPackage);
+        touristPackages.removeIf(touristPackage -> touristPackage.equals(selectedPackage));
+        serializarPaquetes();
+    }
+
+    public void eliminarGuia(ObservableList<TouristGuide> touristGuideObservableList, TouristGuide selectedGuia) {
+        touristGuideObservableList.remove(selectedGuia);
+        touristGuides.removeIf(touristGuide -> touristGuide.equals(selectedGuia));
+        serializarGuias();
+    }
+
+    public void agregarGuia(ObservableList<TouristGuide> touristGuideObservableList, TouristGuide nuevoGuia) throws AtributoVacioException, RepeatedInformationException {
+
+        if (nuevoGuia.getId() == null || nuevoGuia.getId().isEmpty() ||
+                nuevoGuia.getFullName() == null || nuevoGuia.getFullName().isEmpty() ||
+                nuevoGuia.getExperience() == null || nuevoGuia.getExperience().isEmpty() ||
+                nuevoGuia.getRating() == null){
+
+            createAlertError("Campos obligatorios", "Los campos marcados con (*) son oblogatorios");
+            log.info("Se ha intentado agregar un guia con campos vacios.");
+            throw new AtributoVacioException("Se ha intentado agregar un guia con campos vacios.");
+        }
+
+        if (touristGuideObservableList.stream().anyMatch(touristGuide -> touristGuide.getId().equals(nuevoGuia.getId()))){
+
+            createAlertError("Guia existente", "El guia que trataba de agregar ya se encuentra registrado.");
+            log.severe("Se ha intentado registrar un guia existente.");
+            throw new RepeatedInformationException("Se ha intentado registrar un guia existente.");
+        }
+
+        touristGuideObservableList.add(nuevoGuia);
+        travelAgency.touristGuides.add(nuevoGuia);
+
+        serializarGuias();
+
+        log.info("Se ha registrado un nuevo guia.");
+
+    }
+
+    public void agregarPaquete(ObservableList<TouristPackage> packageObservableList, TouristPackage nuevoPaquete) throws AtributoVacioException, RepeatedInformationException, ErrorEnIngresoFechasException {
+
+        if ( nuevoPaquete.getName() == null || nuevoPaquete.getName().isEmpty() ||
+                nuevoPaquete.getPrice() == null || nuevoPaquete.getPrice().isNaN() ||
+                nuevoPaquete.getQuota() == null ||
+                nuevoPaquete.getStartDate() == null ||
+                nuevoPaquete.getEndDate() == null){
+
+            createAlertError("Campos obligatorios", "Los campos marcados con (*) son oblogatorios");
+            log.info("Se ha intentado agregar un destino con campos vacios.");
+            throw new AtributoVacioException("Se ha intentado agregar un destino con campos vacios.");
+        }
+
+        if (packageObservableList.stream().anyMatch(touristPackage -> touristPackage.getName().equals(nuevoPaquete.getName()))){
 
             createAlertError("Paquete existente", "El paquete que trataba de agregar ya se encuentra registrado.");
             log.severe("Se ha intentado crear un paquete existente.");
             throw new RepeatedInformationException("Se ha intentado crear un paquete existente.");
         }
 
+        if (nuevoPaquete.getDuration() < 0){
+            createAlertError("Error en el ingreso de fechas", "Las fechas que desea ingresar son inválidas, verifiquelas.");
+            log.info("Las fechas fueron incorrectamente colocadas, la fecha de inicio no puede ser después de la fecha de fin.");
+            throw new ErrorEnIngresoFechasException("Las fechas fueron incorrectamente colocadas, la fecha de inicio no puede ser después de la fecha de fin.");
+        }
+
         packageObservableList.add(nuevoPaquete);
         travelAgency.touristPackages.add(nuevoPaquete);
-        //archiveUtils.serializerObjet("src/main/resources/persistencia/touristPackages.ser", touristPackages);
+
+        serializarPaquetes();
 
         log.info("Se ha creado un nuevo paquete.");
 
@@ -196,17 +394,32 @@ public class TravelAgency {
 
         destinoObservableList.add(nuevoDestino);
         travelAgency.destinos.add(nuevoDestino);
-        //archiveUtils.serializerObjet("src/main/resources/persistencia/destinos.ser", destinos);
+
+        serializarDestinos();
 
         log.info("Se ha creado un nuevo destino.");
 
         }
 
-    public void agregarImagenDestino(ObservableList<String> observableListRutas, String ruta, Destino destino) {
+    public void agregarImagenDestino(ObservableList<String> observableListRutas, String ruta, Destino destino) throws RutaInvalidaException, RepeatedInformationException {
 
-        if (observableListRutas != null){
-            observableListRutas.add(ruta);
+        File archivo = new File(ruta);
+        boolean esRutaDeArchivo = archivo.exists() && archivo.isFile();
+
+        if (!esRutaDeArchivo){
+            createAlertError("Error en la ruta", "La ruta que trata de ingresar es inválida o inexistente.");
+            log.severe("Se ha intentado agregar una imagen invalida a un destino.");
+            throw new RutaInvalidaException("Se ha intentado agregar una imagen invalida a un destino.");
         }
+
+        if (observableListRutas.stream().anyMatch(string -> string.equals(ruta))){
+
+            createAlertError("Ruta existente", "La ruta que trataba de agregar ya se encuentra registrada.");
+            log.severe("Se ha intentado crear una ruta existente.");
+            throw new RepeatedInformationException("Se ha intentado crear una ruta existente.");
+        }
+
+        observableListRutas.add(ruta);
 
         for (Destino d : destinos) {
             if (d.equals(destino)) {
@@ -215,13 +428,41 @@ public class TravelAgency {
             }
         }
 
+        serializarDestinos();
     }
 
-    public void agregarDestinoEnPaquete(ObservableList<String> observableListDestinationName, String selectedItem, TouristPackage touristPackage) {
 
-        if (observableListDestinationName != null){
-            observableListDestinationName.add(selectedItem);
+    public void agregarLeaguajeGuia(ObservableList<String> observableListLenguajes, String lenguaje, TouristGuide touristGuide) throws RepeatedInformationException {
+
+        if (observableListLenguajes.stream().anyMatch(string -> string.equals(lenguaje))){
+
+            createAlertError("Lenguaje ya ingresado", "La lenguaje que trataba de agregar ya se encuentra agregado.");
+            log.severe("Se ha intentado agregar un lenaguje existente.");
+            throw new RepeatedInformationException("Se ha intentado agregar un lenaguje existente.");
         }
+
+        observableListLenguajes.add(lenguaje);
+
+        for (TouristGuide t : touristGuides) {
+            if (t.equals(touristGuide)) {
+                t.getLanguages().add(lenguaje);
+                break;
+            }
+        }
+
+        serializarGuias();
+    }
+
+    public void agregarDestinoEnPaquete(ObservableList<String> observableListDestinationName, String selectedItem, TouristPackage touristPackage) throws RepeatedInformationException {
+
+        if (observableListDestinationName.stream().anyMatch(string -> string.equals(selectedItem))){
+
+            createAlertError("Destino existente", "La destino que trataba de agregar ya se encuentra registrada.");
+            log.severe("Se ha intentado agregar un destino existente.");
+            throw new RepeatedInformationException("Se ha intentado agregar un destino existente.");
+        }
+
+        observableListDestinationName.add(selectedItem);
 
         for (TouristPackage t : touristPackages) {
             if (t.equals(touristPackage)) {
@@ -229,14 +470,16 @@ public class TravelAgency {
                 break;
             }
         }
+
+        serializarPaquetes();
     }
 
-    public String LogIn(String id, String password) throws EmptyAttributeException, WrongPasswordException, UserNoExistingException {
+    public String LogIn(String id, String password) throws WrongPasswordException, UserNoExistingException, AtributoVacioException {
 
         if (id == null || id.isBlank() || password == null || password.isBlank()){
-            createAlertError(this.getResourceBundle().getString("textoTituloAlertaErrorAtributoVacio"), this.getResourceBundle().getString("textoContenidoAlertaErrorAtributoVacio"));
-            log.info("Se ha hecho un intento de registro de cliente con campos vacios.");
-            throw new EmptyAttributeException(this.getResourceBundle().getString("textoAtributoVacioException"));
+            createAlertError("Campos obligatorios.", "Algunos campos son obligatorios (*)");
+            log.info("se ha intentado registrar un cliente con campos obligatorios vacios");
+            throw new AtributoVacioException("Se ha hecho un intento de registro de cliente con campos vacios");
         }
 
         if (clients.stream().anyMatch(client -> client.getUserId().equals(id))){
@@ -246,9 +489,116 @@ public class TravelAgency {
             validateLogInDataAdmin(id, password, 0);
             return  "Admin";
         }
-
         return "";
     }
+
+    public void registrarCliente(String userId, String password, String fullname, String mail , String phoneNumber, String residence) throws AtributoVacioException, RepeatedInformationException {
+
+        if(userId == null || userId.isBlank() ||
+                password == null || password.isBlank() ||
+                fullname == null || fullname.isBlank() ||
+                mail == null || mail.isBlank() ||
+                phoneNumber == null || phoneNumber.isBlank() ||
+                residence == null || residence.isBlank()){
+
+            createAlertError("Campos obligatorios.", "Todos los campos son obligatorios (*)");
+            log.info("se ha intentado registrar un cliente con campos obligatorios vacios");
+            throw new AtributoVacioException("Se ha hecho un intento de registro de cliente con campos vacios");
+        }
+
+        if(clients.stream().anyMatch(cliente -> cliente.getUserId().equals(userId))){
+            createAlertError("Usuario existente", "El usuario ya existe.");
+            log.info("se intento registrar un usuario que ya existe");
+            throw new RepeatedInformationException("el usuario ya exite");
+        }
+
+        Client client = Client.builder()
+                .userId(userId.trim())
+                .password(password.trim())
+                .fullName(fullname.trim())
+                .mail(mail.trim())
+                .phoneNumber(phoneNumber.trim())
+                .residence(residence.trim())
+                .build();
+
+        clients.add(client);
+
+        serizalizarClientes();
+
+        log.info("se ha registrado un cliente con el user ID " + userId);
+
+    }
+
+
+    private void validateLogInDataAdmin(String id, String password, int i) throws UserNoExistingException, WrongPasswordException {
+
+        if (i >= admins.size()) {
+
+            createAlertError("El usuario ingresado no existe", "Verifique los datos");
+            log.info("Se ha hecho un intento de registro con informacion incorrecta.");
+            throw new UserNoExistingException("Usuario no existente");
+
+        }
+
+        Admin currentAdmin = admins.get(i);
+
+        if (currentAdmin.getUserId().equals(id)) {
+
+            if (currentAdmin.getPassword().equals(password)) {
+
+                log.info("El admin con el id " + id + " ha hecho un inicio de sesión.");
+
+            } else {
+
+                createAlertError("Contraseña incorrecta", "Verifique los datos");
+                log.info("Se ha intentado un inicio de sesión con contraseña incorrecta.");
+                throw new WrongPasswordException("Contraseña incorrecta");
+
+            }
+
+        } else {
+
+            validateLogInDataAdmin(id, password, ++i);
+        }
+
+    }
+
+    public void validateLogInDataUser(String id, String password, int i) throws UserNoExistingException, WrongPasswordException {
+
+        if (i >= clients.size()) {
+
+            createAlertError("El usuario ingresado no existe", "Verifique los datos");
+            log.info("Se ha hecho un intento de registro con informacion incorrecta.");
+            throw new UserNoExistingException("Usuario no existente");
+
+        }
+
+        Client currentClient = clients.get(i);
+
+        if (currentClient.getUserId().equals(id)) {
+            if (currentClient.getPassword().equals(password)) {
+
+                log.info("El cliente con el id " + id + " ha hecho un inicio de sesión.");
+
+            } else {
+
+                createAlertError("Contraseña incorrecta", "Verifique los datos");
+                log.info("Se ha intentado un inicio de sesión con contraseña incorrecta.");
+                throw new WrongPasswordException("Contraseña incorrecta");
+            }
+
+        } else {
+            validateLogInDataUser(id, password, ++i);
+        }
+    }
+
+    public boolean empiezaPor(String inicio){
+//        if(inicio.isEmpty() || inicio.length().length())
+//            return false;
+//        for
+      return  true;
+    }
+
     public void generateWindow(String path, ImageView close) throws IOException {
 
         File url = new File(path);
@@ -267,110 +617,6 @@ public class TravelAgency {
         stage1.close();
     }
 
-    public void registrarCliente(String userId,String passeord,String fullname,String mail ,String phoneNumber,String residence) throws AtributoVacioException, RepeatedInformationException {
-
-        if(userId == null || userId.isBlank() || fullname == null || fullname.isBlank() || phoneNumber == null || phoneNumber.isBlank() ){
-            //createAlertError(this.getResourceBundle().getString);
-            log.info("se ha intentado registrar n cliente con campo ecenciales vacios");
-            throw new AtributoVacioException("campos obligatorios sin copletar");
-        }
-
-        if(clients.stream().anyMatch(cliente -> cliente.getUserId().equals(userId))){
-            //createAlertError();
-            log.info("se intento registrar un cliente que ya existe");
-            throw new RepeatedInformationException("el cliente ya exite");
-        }
-
-        archiveUtils.serializerObjet("src/main/resources/persistencia/clients.ser",clients);
-
-        Client client = Client.builder()
-                .userId(userId.trim())
-                .password(passeord.trim())
-                .fullName(fullname.trim())
-                .mail(mail.trim())
-                .phoneNumber(phoneNumber.trim())
-                .residence(residence.trim())
-                .build();
-
-        clients.add(client);
-
-        log.info("se ha registrado un cliente con el user ID " + userId);
-
-    }
-
-
-    private void validateLogInDataAdmin(String id, String password, int i) throws UserNoExistingException, WrongPasswordException {
-
-        if (i >= admins.size()) {
-
-            createAlertError(this.getResourceBundle().getString("textTitleAlertErrorNoExistingException"), this.getResourceBundle().getString("textContentAlertErrorNoExistingException"));
-            log.info("Se ha hecho un intento de registro con informacion incorrecta.");
-            throw new UserNoExistingException(this.getResourceBundle().getString("textUserNoExistingException"));
-
-        }
-
-        Admin currentAdmin = admins.get(i);
-
-        if (currentAdmin.getUserId().equals(id)) {
-
-            if (currentAdmin.getPassword().equals(password)) {
-
-                log.info("El admin con el id " + id + " ha hecho un inicio de sesión.");
-
-            } else {
-
-                createAlertError(travelAgency.getResourceBundle().getString("textTitleAlertErrorWrongPasswordException"), travelAgency.getResourceBundle().getString("textContentAlertErrorWrongPasswordException"));
-                log.info("Se ha intentado un inicio de sesión con contraseña incorrecta.");
-                throw new WrongPasswordException(travelAgency.getResourceBundle().getString("textWrongPasswordException"));
-
-            }
-
-        } else {
-
-            validateLogInDataAdmin(id, password, ++i);
-        }
-
-    }
-
-    public void validateLogInDataUser(String id, String password, int i) throws UserNoExistingException, WrongPasswordException {
-
-        if (i >= clients.size()) {
-
-            createAlertError(this.getResourceBundle().getString("textTitleAlertErrorNoExistingException"), this.getResourceBundle().getString("textContentAlertErrorNoExistingException"));
-            log.info("Se ha hecho un intento de registro con informacion incorrecta.");
-            throw new UserNoExistingException(this.getResourceBundle().getString("textUserNoExistingException"));
-
-        }
-
-        Client currentClient = clients.get(i);
-
-        if (currentClient.getUserId().equals(id)) {
-            if (currentClient.getPassword().equals(password)) {
-                log.info("El cliente con el id " + id + " ha hecho un inicio de sesión.");
-            } else {
-                createAlertError(travelAgency.getResourceBundle().getString("textTitleAlertErrorWrongPasswordException"), travelAgency.getResourceBundle().getString("textContentAlertErrorWrongPasswordException"));
-                log.info("Se ha intentado un inicio de sesión con contraseña incorrecta.");
-                throw new WrongPasswordException(travelAgency.getResourceBundle().getString("textWrongPasswordException"));
-            }
-        } else {
-            validateLogInDataUser(id, password, ++i);
-        }
-
-
-
-    }
-
-
-    public boolean empiezaPor(String inicio){
-//        if(inicio.isEmpty() || inicio.length().length())
-//            return false;
-//        for
-      return  true;
-    }
-
-
-
-
     public void createAlertError(String titleError, String contentError){
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(titleError);
@@ -385,5 +631,4 @@ public class TravelAgency {
         alert.setContentText(contentError);
         alert.show();
     }
-
 }

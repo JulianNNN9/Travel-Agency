@@ -5,12 +5,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
 @Data @AllArgsConstructor @NoArgsConstructor @Builder
 
-public class TouristPackage {
+public class TouristPackage implements Serializable {
 
     private List<String> destinosName;
     private String name;
@@ -19,6 +20,5 @@ public class TouristPackage {
     private LocalDate startDate;
     private LocalDate endDate;
     private long duration;
-    private String clientID;
 
 }
