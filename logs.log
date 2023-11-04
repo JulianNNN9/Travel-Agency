@@ -2617,3 +2617,25 @@ nov. 04, 2023 10:49:15 A. M. co.edu.uniquindio.travelagency.model.TravelAgency r
 INFO: se ha registrado un cliente con el user ID dsa
 nov. 04, 2023 10:49:21 A. M. co.edu.uniquindio.travelagency.model.TravelAgency validateLogInDataUser
 INFO: El cliente con el id dsa ha hecho un inicio de sesión.
+nov. 04, 2023 10:53:22 A. M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 04, 2023 10:58:25 A. M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 04, 2023 10:58:31 A. M. co.edu.uniquindio.travelagency.model.TravelAgency validateLogInDataUser
+INFO: El cliente con el id 200 ha hecho un inicio de sesión.
+nov. 04, 2023 11:05:58 A. M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 04, 2023 11:06:28 A. M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 04, 2023 11:40:48 A. M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 04, 2023 11:41:20 A. M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 04, 2023 11:41:31 A. M. co.edu.uniquindio.travelagency.model.TravelAgency validateLogInDataUser
+INFO: El cliente con el id 200 ha hecho un inicio de sesión.
+nov. 04, 2023 12:03:30 P. M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 04, 2023 12:09:38 P. M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency
+nov. 04, 2023 12:13:51 P. M. co.edu.uniquindio.travelagency.model.TravelAgency getInstance
+INFO: Se ha creado una instancia de Travel Agency

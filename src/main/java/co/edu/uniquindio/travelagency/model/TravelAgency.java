@@ -429,7 +429,6 @@ public class TravelAgency {
             validateLogInDataAdmin(id, password, 0);
             return  "Admin";
         }
-
         return "";
     }
 
