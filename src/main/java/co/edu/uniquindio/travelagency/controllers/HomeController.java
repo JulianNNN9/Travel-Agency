@@ -103,7 +103,7 @@ public class HomeController {
 
 
         if(u.equals("Client")){
-            travelAgency.generateWindow("src/main/resources/views/Client.fxml",cerrarVentanaImgv);
+            travelAgency.generateWindow("src/main/resources/views/client.fxml",cerrarVentanaImgv);
         } else if (u.equals("Admin")) {
             travelAgency.generateWindow("src/main/resources/views/adminView.fxml",cerrarVentanaImgv);
         }
