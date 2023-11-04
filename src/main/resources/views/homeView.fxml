@@ -192,9 +192,12 @@
             <Pane layoutX="258.0" prefHeight="615.0" prefWidth="694.0">
                <children>
                    <Label layoutX="225.0" layoutY="35.0" prefHeight="36.0" prefWidth="265.0" style="-fx-text-fill: #D07943FF; -fx-font-family: 'Segoe UI Semibold'" text="Histórico de reservas"><font><Font size="25" /></font></Label>
-                   <TableView layoutX="77.0" layoutY="98.0" prefHeight="472.0" prefWidth="560.0">
+                   <TableView fx:id="historialReservacionesTable" layoutX="77.0" layoutY="98.0" prefHeight="472.0" prefWidth="560.0">
                     <columns>
-                      <TableColumn prefWidth="75.0" text="C1" />
+                      <TableColumn fx:id="packageColumn" prefWidth="150.0" text="Paquete turístico" />
+                        <TableColumn fx:id="startDateColumn" minWidth="0.0" prefWidth="150.0" text="Fecha inicio" />
+                        <TableColumn fx:id="endDateColumn" prefWidth="141.0" text="Fecha fin" />
+                        <TableColumn fx:id="numberOfPeopleColumn" prefWidth="112.0" text="Número personas" />
                     </columns>
                   </TableView>
                </children>

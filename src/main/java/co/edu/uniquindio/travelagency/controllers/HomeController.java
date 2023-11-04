@@ -1,14 +1,16 @@
 package co.edu.uniquindio.travelagency.controllers;
 
 import co.edu.uniquindio.travelagency.exceptions.*;
+import co.edu.uniquindio.travelagency.model.Client;
+import co.edu.uniquindio.travelagency.model.Reservation;
 import co.edu.uniquindio.travelagency.model.TouristPackage;
 import co.edu.uniquindio.travelagency.model.TravelAgency;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
@@ -22,6 +24,7 @@ import java.io.File;
 import java.io.IOException;
 import java.security.PublicKey;
 import java.util.List;
+import java.util.Optional;
 
 public class HomeController {
 
@@ -44,6 +47,18 @@ public class HomeController {
     public TextField txtFldResidencia;
     @FXML
     public Button confirmarEdicionButton;
+    @FXML
+    public TableView<Reservation> historialReservacionesTable;
+    @FXML
+    private TableColumn<Reservation, String> packageColumn;
+    @FXML
+    private TableColumn<Reservation, String> startDateColumn;
+    @FXML
+    private TableColumn<Reservation, String> endDateColumn;
+    @FXML
+    private TableColumn<Reservation, String> numberOfPeopleColumn;
+    private ObservableList<Reservation> reservations = FXCollections.observableArrayList();
+
 
     //----------------------Registrar cliente----------------------
     @FXML
@@ -90,6 +105,8 @@ public class HomeController {
     @FXML
     private HBox hboxPanePrincipal;
 
+    String  clientID, passwordID,fullName, mail, phoneNumber, residence;
+
     public void initialize() {
 
         File file1 = new File("src/main/resources/icons/cerrarVentana.png");
@@ -104,6 +121,44 @@ public class HomeController {
         txtFldNumero.setEditable(false);
         txtFldResidencia.setEditable(false);
         confirmarEdicionButton.setVisible(false);
+
+        //txtField numericos
+
+        txtFldNumero.addEventFilter(KeyEvent.KEY_TYPED, event -> {
+            if (!event.getCharacter().matches("[0-9]")) {
+                event.consume(); // Bloquea la entrada no numérica
+            }
+        });
+
+        //Cargas historial de reservaciones
+
+        packageColumn.setCellValueFactory(new PropertyValueFactory<>("touristPackageString"));
+        startDateColumn.setCellValueFactory(new PropertyValueFactory<>("startDateString"));
+        endDateColumn.setCellValueFactory(new PropertyValueFactory<>("endDateString"));
+        numberOfPeopleColumn.setCellValueFactory(new PropertyValueFactory<>("numberOfPeopleString"));
+
+        // Llama a travelagency.getReservations para obtener las reservaciones
+        List<Reservation> reservationsData = travelAgency.getReservations();
+
+        reservations.addAll(reservationsData);
+
+        historialReservacionesTable.setItems(reservations);
+    }
+
+    public void cargarDatos(){
+        txtFldNombre.setText(fullName);
+        txtFldMail.setText(mail);
+        txtFldNumero.setText(phoneNumber);
+        txtFldResidencia.setText(residence);
+    }
+
+    public void sesionIniciada(Client client){
+        clientID = client.getUserId();
+        passwordID = client.getPassword();
+        fullName = client.getFullName();
+        mail = client.getMail();
+        phoneNumber = client.getPhoneNumber();
+        residence = client.getResidence();
     }
 
     public void onModificarPerfilClick(ActionEvent actionEvent) {
@@ -114,7 +169,15 @@ public class HomeController {
         confirmarEdicionButton.setVisible(true);
     }
 
-    public void onConfirmarEdicionClick(ActionEvent actionEvent) {
+    public void onConfirmarEdicionClick(ActionEvent actionEvent) throws AtributoVacioException {
+
+        travelAgency.modificarPerfil(clientID, txtFldNombre.getText(), txtFldMail.getText(), txtFldNumero.getText(), txtFldResidencia.getText());
+
+        txtFldNombre.setEditable(false);
+        txtFldMail.setEditable(false);
+        txtFldNumero.setEditable(false);
+        txtFldResidencia.setEditable(false);
+        confirmarEdicionButton.setVisible(false);
     }
 
     public void onPerfilClick(MouseEvent mouseEvent) {
@@ -158,23 +221,30 @@ public class HomeController {
     }
 
     public void onExitButtonClick() {
-
         Stage stage = (Stage) cerrarVentanaImgvPrincipal.getScene().getWindow();
         stage.close();
-
     }
 
     public void onLogInButtonClick() throws UserNoExistingException, WrongPasswordException, IOException, AtributoVacioException {
 
         String sesion = travelAgency.LogIn(txtFldID.getText(), txtFldPassword.getText());
 
+        Optional<Client> optionalClient = travelAgency.getClients().stream().filter(client -> client.getUserId().equals(txtFldID.getText())).findFirst();
 
         if(sesion.equals("Client")){
+
             hboxPanePrincipal.setVisible(false);
             hboxCliente.setVisible(true);
             visibilitiesPrincipal(true, false, false, false);
+
+            optionalClient.ifPresent(this::sesionIniciada);
+
+            cargarDatos();
+
         } else if (sesion.equals("Admin")) {
+
             travelAgency.generateWindow("src/main/resources/views/adminView.fxml",cerrarVentanaImgvPrincipal);
+
         } else {
             travelAgency.createAlertError("El usuario ingresado no existe", "Verifique los datos");
         }

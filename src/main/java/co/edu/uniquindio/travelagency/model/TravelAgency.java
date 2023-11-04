@@ -164,7 +164,21 @@ public class TravelAgency {
         archiveUtils.serializerObjet("src/main/resources/persistencia/touristPackages.ser", touristPackages);
     }
 
-    public void modificarDestino(Destino selectedDestino, String nuevoNombre, String nuevaCiudad, String nuevaDescrpcion, String nuevaLocalDate) {
+    public void serizalizarClientes(){
+        archiveUtils.serializerObjet("src/main/resources/persistencia/clients.ser", clients);
+    }
+
+    public void modificarDestino(Destino selectedDestino, String nuevoNombre, String nuevaCiudad, String nuevaDescrpcion, String nuevaLocalDate) throws AtributoVacioException {
+
+        if (nuevoNombre.isEmpty() ||
+                nuevaCiudad.isEmpty() ||
+                nuevaDescrpcion.isEmpty() ||
+                nuevaLocalDate.isEmpty()) {
+
+            createAlertError("Campos obligatorios", "Los campos marcados con (*) son oblogatorios");
+            log.info("Se ha intentado agregar un destino con campos vacios.");
+            throw new AtributoVacioException("Se ha intentado agregar un destino con campos vacios.");
+        }
 
         selectedDestino.setName(nuevoNombre);
         selectedDestino.setCity(nuevaCiudad);
@@ -174,7 +188,18 @@ public class TravelAgency {
         serializarDestinos();
 
     }
-    public void modificarPaquete(TouristPackage selectedPackage, String nuevoNombrePaquete, double nuevoPrecio, int nuevosCupos, LocalDate nuevaFechaInicio, LocalDate nuevaFechaFin) {
+    public void modificarPaquete(TouristPackage selectedPackage, String nuevoNombrePaquete, double nuevoPrecio, int nuevosCupos, LocalDate nuevaFechaInicio, LocalDate nuevaFechaFin) throws AtributoVacioException {
+
+        if ( nuevoNombrePaquete == null || nuevoNombrePaquete.isEmpty() ||
+                nuevoPrecio < 0 ||
+                nuevosCupos < 0 ||
+                nuevaFechaInicio == null ||
+                nuevaFechaFin == null){
+
+            createAlertError("Campos obligatorios", "Los campos marcados con (*) son oblogatorios");
+            log.info("Se ha intentado agregar un destino con campos vacios.");
+            throw new AtributoVacioException("Se ha intentado agregar un destino con campos vacios.");
+        }
 
         selectedPackage.setName(nuevoNombrePaquete);
         selectedPackage.setPrice(nuevoPrecio);
@@ -186,7 +211,17 @@ public class TravelAgency {
 
     }
 
-    public void modificarGuia(TouristGuide selectedGuia, String nuevoGuideID, String nuevoGuideName, String nuevaExperiencia, String nuevoRating) {
+    public void modificarGuia(TouristGuide selectedGuia, String nuevoGuideID, String nuevoGuideName, String nuevaExperiencia, String nuevoRating) throws AtributoVacioException {
+
+        if (nuevoGuideID == null || nuevoGuideID.isEmpty() ||
+                nuevoGuideName == null || nuevoGuideName.isEmpty() ||
+                nuevaExperiencia == null || nuevaExperiencia.isEmpty() ||
+                nuevoRating == null){
+
+            createAlertError("Campos obligatorios", "Los campos marcados con (*) son oblogatorios");
+            log.info("Se ha intentado agregar un guia con campos vacios.");
+            throw new AtributoVacioException("Se ha intentado agregar un guia con campos vacios.");
+        }
 
         selectedGuia.setId(nuevoGuideID);
         selectedGuia.setFullName(nuevoGuideName);
@@ -194,6 +229,31 @@ public class TravelAgency {
         selectedGuia.setRating(Integer.valueOf(nuevoRating));
 
         serializarGuias();
+    }
+
+    public void modificarPerfil(String clientID, String nuevoName, String nuevoMail, String nuevoNumero, String nuevoResidence) throws AtributoVacioException {
+
+        if (nuevoName == null || nuevoName.isEmpty() ||
+                nuevoMail == null || nuevoMail.isEmpty() ||
+                nuevoNumero == null || nuevoNumero.isEmpty() ||
+                nuevoResidence == null){
+
+            createAlertError("Campos obligatorios", "Los campos marcados con (*) son oblogatorios");
+            log.info("Se ha intentado agregar un guia con campos vacios.");
+            throw new AtributoVacioException("Se ha intentado agregar un guia con campos vacios.");
+        }
+
+        Optional<Client> client = clients.stream().filter(client1 -> client1.getUserId().equals(clientID)).findFirst();
+
+        if (client.isPresent()){
+            client.get().setFullName(nuevoName);
+            client.get().setMail(nuevoMail);
+            client.get().setPhoneNumber(nuevoNumero);
+            client.get().setResidence(nuevoResidence);
+        }
+
+        serizalizarClientes();
+
     }
 
     public void eliminarDestinoName(Optional<TouristPackage> touristPackage, String destinoABorrar){
@@ -432,10 +492,16 @@ public class TravelAgency {
         return "";
     }
 
-    public void registrarCliente(String userId,String passeord,String fullname,String mail ,String phoneNumber,String residence) throws AtributoVacioException, RepeatedInformationException {
+    public void registrarCliente(String userId, String password, String fullname, String mail , String phoneNumber, String residence) throws AtributoVacioException, RepeatedInformationException {
 
-        if(userId == null || userId.isBlank() || fullname == null || fullname.isBlank() || phoneNumber == null || phoneNumber.isBlank() ){
-            createAlertError("Campos obligatorios.", "Algunos campos son obligatorios (*)");
+        if(userId == null || userId.isBlank() ||
+                password == null || password.isBlank() ||
+                fullname == null || fullname.isBlank() ||
+                mail == null || mail.isBlank() ||
+                phoneNumber == null || phoneNumber.isBlank() ||
+                residence == null || residence.isBlank()){
+
+            createAlertError("Campos obligatorios.", "Todos los campos son obligatorios (*)");
             log.info("se ha intentado registrar un cliente con campos obligatorios vacios");
             throw new AtributoVacioException("Se ha hecho un intento de registro de cliente con campos vacios");
         }
@@ -448,7 +514,7 @@ public class TravelAgency {
 
         Client client = Client.builder()
                 .userId(userId.trim())
-                .password(passeord.trim())
+                .password(password.trim())
                 .fullName(fullname.trim())
                 .mail(mail.trim())
                 .phoneNumber(phoneNumber.trim())
@@ -457,7 +523,7 @@ public class TravelAgency {
 
         clients.add(client);
 
-        archiveUtils.serializerObjet("src/main/resources/persistencia/clients.ser", clients);
+        serizalizarClientes();
 
         log.info("se ha registrado un cliente con el user ID " + userId);
 
