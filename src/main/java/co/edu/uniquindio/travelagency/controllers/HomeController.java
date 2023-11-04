@@ -32,6 +32,7 @@ public class HomeController {
 
     private final TravelAgency travelAgency = TravelAgency.getInstance();
 
+
     //----------------------Modificar perfil----------------------
     @FXML
     private HBox hboxCliente;
@@ -68,6 +69,19 @@ public class HomeController {
     @FXML
     private ObservableList<Reservation> reservations = FXCollections.observableArrayList();
 
+    //----------------------Reservar----------------------
+    @FXML
+    public Pane reservarPane;
+    @FXML
+    public Button reservarButton;
+    @FXML
+    public TextField txtFldNombrePaquete;
+    @FXML
+    public TableView<TouristPackage> packagesTable;
+    @FXML
+    ObservableList<TouristPackage> packageObservableList;
+    @FXML
+    public TableColumn<TouristPackage, TouristPackage> namePackageCol, priceCol, quotaCol, startDateCol, durationCol;
 
     //----------------------Registrar cliente----------------------
     @FXML
@@ -131,11 +145,6 @@ public class HomeController {
         elementosSheaarchBar();
         seleccionDestinos();
 
-
-
-
-
-
         //----------------------Modificar perfil----------------------
 
         txtFldNombre.setEditable(false);
@@ -165,6 +174,32 @@ public class HomeController {
         reservations.addAll(reservationsData);
 
         historialReservacionesTable.setItems(reservations);
+
+        //Hacer reservación
+
+        txtFldNombrePaquete.setEditable(false);
+
+        packageObservableList = packagesTable.getItems();
+
+        if (travelAgency.getTouristPackages() != null) {
+            packageObservableList.addAll(travelAgency.getTouristPackages());
+        }
+
+        this.namePackageCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        this.priceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
+        this.quotaCol.setCellValueFactory(new PropertyValueFactory<>("quota"));
+        this.startDateCol.setCellValueFactory(new PropertyValueFactory<>("startDate"));
+        this.durationCol.setCellValueFactory(new PropertyValueFactory<>("duration"));
+
+        packagesTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                txtFldNombrePaquete.setText(newSelection.getName());
+            }
+        });
+    }
+
+    public void onReservarClick(ActionEvent actionEvent) {
+        visibilitiesClient(false, true);
     }
 
     private void seleccionDestinos() {
@@ -224,7 +259,7 @@ public class HomeController {
     }
 
     public void onPerfilClick(MouseEvent mouseEvent) {
-        visibilitiesClient(true);
+        visibilitiesClient(true, false);
     }
 
     public void onConfiRegistrarClienteClick() throws RepeatedInformationException, AtributoVacioException {
@@ -254,8 +289,9 @@ public class HomeController {
         iniciarsesionPane.setVisible(pane5);
     }
 
-    public void visibilitiesClient(boolean pane1){
+    public void visibilitiesClient(boolean pane1, boolean pane2){
         perfilPane.setVisible(pane1);
+        reservarPane.setVisible(pane2);
     }
 
     public void visibilitiesRegister(boolean pan1, boolean pan2, boolean pan3){
@@ -353,5 +389,4 @@ public class HomeController {
     public void onRegisterButtonClck(ActionEvent e) {
         visibilitiesRegister(false,false,true);
     }
-
 }

@@ -14,7 +14,7 @@ import java.util.List;
 
 public class Reservation implements Serializable {
 
-    private List<TouristPackage> touristPackages;
+    private TouristPackage touristPackage;
     private LocalDate requestDate;
     private ReservationStatus reservationStatus;
     private LocalDate startDate;
