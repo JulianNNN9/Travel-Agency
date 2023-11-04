@@ -89,7 +89,7 @@ public class AdminViewController {
     @FXML
     ObservableList<TouristPackage> packageObservableList;
     @FXML
-    public TableColumn<TouristPackage, TouristPackage> namePackageCol, priceCol, quotaCol, startDateCol, durationCol, clientIdCol;
+    public TableColumn<TouristPackage, TouristPackage> namePackageCol, priceCol, quotaCol, startDateCol, durationCol;
     @FXML
     public ImageView imgViewBackPackagesButton;
     @FXML
@@ -491,7 +491,7 @@ public class AdminViewController {
     }
 
     @FXML
-    private void modificarElementoDestinations(ActionEvent event) {
+    private void modificarElementoDestinations(ActionEvent event) throws AtributoVacioException {
         if (destinationsTable.getSelectionModel().getSelectedIndex() >= 0) {
 
             Destino selectedDestino = destinationsTable.getSelectionModel().getSelectedItem();
@@ -657,7 +657,7 @@ public class AdminViewController {
     }
 
     @FXML
-    private void modificarElementoPackages(ActionEvent event) {
+    private void modificarElementoPackages(ActionEvent event) throws AtributoVacioException {
 
         if (packagesTable.getSelectionModel().getSelectedIndex() >= 0) {
 
@@ -795,7 +795,7 @@ public class AdminViewController {
     }
 
     @FXML
-    public void modificarGuiaButton(ActionEvent actionEvent) {
+    public void modificarGuiaButton(ActionEvent actionEvent) throws AtributoVacioException {
 
         if (guidesTable.getSelectionModel().getSelectedIndex() >= 0) {
 
