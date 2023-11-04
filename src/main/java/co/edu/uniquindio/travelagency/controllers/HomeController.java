@@ -3,11 +3,13 @@ package co.edu.uniquindio.travelagency.controllers;
 import co.edu.uniquindio.travelagency.exceptions.*;
 import co.edu.uniquindio.travelagency.model.TouristPackage;
 import co.edu.uniquindio.travelagency.model.TravelAgency;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
@@ -20,6 +22,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 public class HomeController {
 
@@ -28,13 +31,27 @@ public class HomeController {
     @FXML
     public TextField txtFldID, txtFldPassword,nombreTF, idTF ,passTF,mailTF ,telefonoTF,residenciaTF,barraBusquedaTF;
     @FXML
+    public TableView<TouristPackage> tblPq;
+    @FXML
     private ImageView cerrarVentanaImgv;
     @FXML
     private Button homeBtn,paquetesBtn,guiasBtn,ayudasBtn,iniciaSecionBtn,btnLogIn,btnRegister, confirRegistroButtom;
     @FXML
     private AnchorPane homePane,nuestrosPaquetesPane,nuestrosGuiasPane,ayudaPane,iniciarsesionPane,registroPanee;
     @FXML
-    private TextArea infoTA;
+    private TableColumn<TouristPackage,TouristPackage> colPqNombre, colPqPrecio,colPqCupo,colPqFechaInicio,colPqFechaFinal,colPqDuration;
+
+    @FXML
+     ObservableList<TouristPackage> touristPackagelist ;
+
+
+
+
+
+
+
+
+
     public void onConfiRegistrarClienteClick() throws RepeatedInformationException, AtributoVacioException {
 
         travelAgency.registrarCliente(idTF.getText(),passTF.getText(),nombreTF.getText(),mailTF.getText(),telefonoTF.getText(),residenciaTF.getText());
@@ -49,12 +66,56 @@ public class HomeController {
 
     public void initialize() {
 
+        touristPackagelist = tblPq.getItems();
+
+        if (travelAgency.getTouristPackages() != null) {
+            touristPackagelist.addAll(travelAgency.getTouristPackages());
+        }
+
+        this.colPqNombre.setCellValueFactory(new PropertyValueFactory<>("name"));
+        this.colPqPrecio.setCellValueFactory(new PropertyValueFactory<>("price"));
+        this.colPqCupo.setCellValueFactory(new PropertyValueFactory<>("quota"));
+        this.colPqFechaInicio.setCellValueFactory(new PropertyValueFactory<>("startDate"));
+        this.colPqFechaFinal.setCellValueFactory(new PropertyValueFactory<>("endDate"));
+        this.colPqDuration.setCellValueFactory(new PropertyValueFactory<>("duration"));
+
+//        tblPq.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+//            if (newSelection != null) {
+//                txtFldPackageName.setText(newSelection.getName());
+//                txtFldPrice.setText(String.valueOf(newSelection.getPrice()));
+//                txtFldQuota.setText(String.valueOf(newSelection.getQuota()));
+//                datePckrStartDate.setValue(newSelection.getStartDate());
+//                datePckrEndDate.setValue(newSelection.getEndDate());
+//            }
+//        });
+
         File file1 = new File("src/main/resources/icons/cerrarVentana.png");
         Image exitButton = new Image(String.valueOf(file1.toURI()));
+
+        searchFilter();
 
         cerrarVentanaImgv.setImage(exitButton);
 
     }
+
+    private void searchFilter() {
+//        FilteredList<TouristPackage> filterData= new FilteredList<>(touristPackagelist,e->true);
+//        barraBusquedaTF.setOnKeyPressed(e ->{
+//            barraBusquedaTF.textProperty().addListener((observable, oldValue, newVaue )->{
+//                filterData.setPredicate((Predicate<? super TouristPackage>) cust ->{
+//                    if (newVaue == null){
+//                        return  true;
+//                    }
+//                    String toLowerCaseFilter =newVaue.toLowerCase();
+//                    if(cust.getName().contains(newVaue)){
+//                        return true;
+//                    }else if(cust.)
+//                } );
+//            });
+//
+//        });
+    }
+
 
     @FXML
     private void handleButtonAction(ActionEvent event){
@@ -114,18 +175,5 @@ public class HomeController {
         visibilities2(false,false,true);
     }
 
-    public void buscador1(KeyEvent keyEvent) {
-        infoTA.setText("");
-        String cadenaInformativa = "";
-        List<TouristPackage> jeje = travelAgency.getTouristPackages();
 
-        for(int i=0; i< jeje.size();i++){
-            if(travelAgency.empiezaPor(barraBusquedaTF.getText()))
-                cadenaInformativa += jeje.get(i).toString()+"\n\n";
-        infoTA.setText(cadenaInformativa);
-
-        }
-
-
-    }
 }
