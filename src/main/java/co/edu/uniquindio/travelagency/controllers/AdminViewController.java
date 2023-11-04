@@ -70,7 +70,7 @@ public class AdminViewController {
     ObservableList<Destino> destinoObservableList;
     @FXML
     public TableColumn<Destino, Destino> nameDestinationCol, cityCol, descriptionCol,weatherCol;
-    public Button examinarRutaButton, deleteButtonDestination, modifyButtonDestination, addButtonDestination, deleteButtonImageDestination, addButtonImageDestination;
+    public Button limpiarCamposDestinos, examinarRutaButton, deleteButtonDestination, modifyButtonDestination, addButtonDestination, deleteButtonImageDestination, addButtonImageDestination;
 
     //Ventana gestionar paquetes
 
@@ -93,7 +93,7 @@ public class AdminViewController {
     @FXML
     public ImageView imgViewBackPackagesButton;
     @FXML
-    public Button addButtonPackages, modifyButtonPackages, deleteButtonPackages, addButtonDestinationName, deleteButtonDestinationName;
+    public Button limpiarCamposPaquetes, addButtonPackages, modifyButtonPackages, deleteButtonPackages, addButtonDestinationName, deleteButtonDestinationName;
     @FXML
     public TextField txtFldPackageName,txtFldPrice, txtFldQuota;
     @FXML
@@ -117,7 +117,7 @@ public class AdminViewController {
     @FXML
     public ImageView imgViewBackGuidesButton;
     @FXML
-    public Button addButtonGuides, modifyButtonGuides, deleteButtonGuide, addLenguajeButton, deleteLenguajeButton;
+    public Button limpiarCamposGuides, addButtonGuides, modifyButtonGuides, deleteButtonGuide, addLenguajeButton, deleteLenguajeButton;
     @FXML
     public TextField txtFldGuideId, txtFldFullNameGuide, txtFldExperience, txtFldRating, txtFldLenguaje;
 
@@ -470,6 +470,10 @@ public class AdminViewController {
 
     //----------------------------Destinations-----------------------------
 
+    public void onLimpiarCamposDestinoClick(ActionEvent actionEvent) {
+        limpiarCamposDestinations();
+    }
+
     @FXML
     private void agregarElementoDestinations(ActionEvent event) throws RepeatedInformationException, AtributoVacioException {
 
@@ -624,6 +628,10 @@ public class AdminViewController {
 
     //----------------------------Packages-----------------------------
 
+    public void onLimpiarCamposPaquetesClick(ActionEvent actionEvent) {
+        limpiarCamposPackages();
+    }
+
     @FXML
     private void agregarElementoPackages(ActionEvent event) throws RepeatedInformationException, AtributoVacioException, ErrorEnIngresoFechasException {
 
@@ -774,6 +782,10 @@ public class AdminViewController {
     }
 
     //----------------------------Guides-----------------------------
+
+    public void onLimpiarCamposGuiasClick(ActionEvent actionEvent) {
+        limpiarCamposGuias();
+    }
 
     @FXML
     public void agregarGuiaButton(ActionEvent actionEvent) throws RepeatedInformationException, AtributoVacioException {
