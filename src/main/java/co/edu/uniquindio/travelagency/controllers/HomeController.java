@@ -18,7 +18,6 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class HomeController {
@@ -28,22 +27,15 @@ public class HomeController {
     @FXML
     public TextField txtFldID, txtFldPassword,nombreTF, idTF ,passTF,mailTF ,telefonoTF,residenciaTF,barraBusquedaTF;
     @FXML
-    private ImageView cerrarVentanaImgv;
+    private ImageView cerrarVentanaImgv, cerrarVentanaImgv1;
     @FXML
-    private Button homeBtn,paquetesBtn,guiasBtn,ayudasBtn,iniciaSecionBtn,btnLogIn,btnRegister, confirRegistroButtom;
+    private Button homeBtn,paquetesBtn,guiasBtn,iniciaSecionBtn,btnLogIn,btnRegister, confirRegistroButtom;
     @FXML
-    private AnchorPane homePane,nuestrosPaquetesPane,nuestrosGuiasPane,ayudaPane,iniciarsesionPane,registroPanee;
+    private AnchorPane homePane,nuestrosPaquetesPane,nuestrosGuiasPane,iniciarsesionPane,registroPanee;
     @FXML
     private TextArea infoTA;
-    public void onConfiRegistrarClienteClick() throws RepeatedInformationException, AtributoVacioException {
-
-        travelAgency.registrarCliente(idTF.getText(),passTF.getText(),nombreTF.getText(),mailTF.getText(),telefonoTF.getText(),residenciaTF.getText());
-        travelAgency.createAlertInfo("Registro de cliente","Informacion","se ha registrado el cliente con la ID" + idTF.getText());
-
-    }
-
     @FXML
-    private HBox hboxPane;
+    private HBox hboxPanePrincipal, hboxCliente;
 
 
 
@@ -53,41 +45,34 @@ public class HomeController {
         Image exitButton = new Image(String.valueOf(file1.toURI()));
 
         cerrarVentanaImgv.setImage(exitButton);
+    }
 
+    public void onConfiRegistrarClienteClick() throws RepeatedInformationException, AtributoVacioException {
+        travelAgency.registrarCliente(idTF.getText(),passTF.getText(),nombreTF.getText(),mailTF.getText(),telefonoTF.getText(),residenciaTF.getText());
+        travelAgency.createAlertInfo("Registro de cliente","Informacion","se ha registrado el cliente con la ID" + idTF.getText());
     }
 
     @FXML
     private void handleButtonAction(ActionEvent event){
 
-        if (event.getTarget() == homeBtn)
-        {visibilities(true,false,false,false,false);}
-        if (event.getTarget() == paquetesBtn)
-        {visibilities(false,true,false,false,false);}
-        if (event.getTarget() == guiasBtn)
-        {visibilities(false,false,true,false,false);}
-        if (event.getTarget() == ayudasBtn)
-        {visibilities(false, false, false, true, false);}
-        if (event.getTarget() == iniciaSecionBtn)
-        {visibilities(false,false,false,false,true);}
+        if (event.getTarget() == homeBtn) {visibilities(true,false,false,false);}
+        if (event.getTarget() == paquetesBtn) {visibilities(false,true,false,false);}
+        if (event.getTarget() == guiasBtn) {visibilities(false,false,true,false);}
+        if (event.getTarget() == iniciaSecionBtn) {visibilities(false,false,false,true);}
 
     }
 
-    public void visibilities(boolean pane1, boolean pane2 , boolean pane3, boolean pane4, boolean pane5 ){
-
+    public void visibilities(boolean pane1, boolean pane2 , boolean pane3, boolean pane5 ){
         homePane.setVisible(pane1);
         nuestrosPaquetesPane.setVisible(pane2);
         nuestrosGuiasPane.setVisible(pane3);
-        ayudaPane.setVisible(pane4);
         iniciarsesionPane.setVisible(pane5);
-
     }
 
     public void visibilities2(boolean pan1,boolean pan2,boolean pan3){
-
-        hboxPane.setVisible(pan1);
+        hboxPanePrincipal.setVisible(pan1);
         iniciarsesionPane.setVisible(pan2);
         registroPanee.setVisible(pan3);
-
     }
 
     public void onExitButtonClick() {
@@ -97,14 +82,16 @@ public class HomeController {
 
     }
 
-    public void onLogInButtonClick() throws UserNoExistingException, WrongPasswordException, EmptyAttributeException, IOException {
+    public void onLogInButtonClick() throws UserNoExistingException, WrongPasswordException, IOException, AtributoVacioException {
 
-        String u = travelAgency.LogIn(txtFldID.getText(), txtFldPassword.getText());
+        String sesion = travelAgency.LogIn(txtFldID.getText(), txtFldPassword.getText());
 
 
-        if(u.equals("Client")){
-            travelAgency.generateWindow("src/main/resources/views/client.fxml",cerrarVentanaImgv);
-        } else if (u.equals("Admin")) {
+        if(sesion.equals("Client")){
+            hboxPanePrincipal.setVisible(false);
+            hboxCliente.setVisible(true);
+            visibilities(true, false, false, false);
+        } else if (sesion.equals("Admin")) {
             travelAgency.generateWindow("src/main/resources/views/adminView.fxml",cerrarVentanaImgv);
         }
 

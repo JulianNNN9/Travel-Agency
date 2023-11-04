@@ -414,12 +414,12 @@ public class TravelAgency {
         serializarPaquetes();
     }
 
-    public String LogIn(String id, String password) throws EmptyAttributeException, WrongPasswordException, UserNoExistingException {
+    public String LogIn(String id, String password) throws WrongPasswordException, UserNoExistingException, AtributoVacioException {
 
         if (id == null || id.isBlank() || password == null || password.isBlank()){
-            createAlertError(this.getResourceBundle().getString("textoTituloAlertaErrorAtributoVacio"), this.getResourceBundle().getString("textoContenidoAlertaErrorAtributoVacio"));
-            log.info("Se ha hecho un intento de registro de cliente con campos vacios.");
-            throw new EmptyAttributeException(this.getResourceBundle().getString("textoAtributoVacioException"));
+            createAlertError("Campos obligatorios.", "Algunos campos son obligatorios (*)");
+            log.info("se ha intentado registrar un cliente con campos obligatorios vacios");
+            throw new AtributoVacioException("Se ha hecho un intento de registro de cliente con campos vacios");
         }
 
         if (clients.stream().anyMatch(client -> client.getUserId().equals(id))){
@@ -432,36 +432,19 @@ public class TravelAgency {
 
         return "";
     }
-    public void generateWindow(String path, ImageView close) throws IOException {
-
-        File url = new File(path);
-        FXMLLoader loader = new FXMLLoader(url.toURL());
-        Parent parent = loader.load();
-
-        Scene scene = new Scene(parent);
-        Stage stage = new Stage();
-        stage.setScene(scene);
-        stage.initStyle(StageStyle.TRANSPARENT);
-        scene.setFill(Color.TRANSPARENT);
-        stage.setResizable(false);
-        stage.show();
-
-        Stage stage1 = (Stage) close.getScene().getWindow();
-        stage1.close();
-    }
 
     public void registrarCliente(String userId,String passeord,String fullname,String mail ,String phoneNumber,String residence) throws AtributoVacioException, RepeatedInformationException {
 
         if(userId == null || userId.isBlank() || fullname == null || fullname.isBlank() || phoneNumber == null || phoneNumber.isBlank() ){
-            //createAlertError(this.getResourceBundle().getString);
-            log.info("se ha intentado registrar n cliente con campo ecenciales vacios");
-            throw new AtributoVacioException("campos obligatorios sin copletar");
+            createAlertError("Campos obligatorios.", "Algunos campos son obligatorios (*)");
+            log.info("se ha intentado registrar un cliente con campos obligatorios vacios");
+            throw new AtributoVacioException("Se ha hecho un intento de registro de cliente con campos vacios");
         }
 
         if(clients.stream().anyMatch(cliente -> cliente.getUserId().equals(userId))){
-            //createAlertError();
-            log.info("se intento registrar un cliente que ya existe");
-            throw new RepeatedInformationException("el cliente ya exite");
+            createAlertError("Usuario existente", "El usuario ya existe.");
+            log.info("se intento registrar un usuario que ya existe");
+            throw new RepeatedInformationException("el usuario ya exite");
         }
 
         Client client = Client.builder()
@@ -486,9 +469,9 @@ public class TravelAgency {
 
         if (i >= admins.size()) {
 
-            createAlertError(this.getResourceBundle().getString("textTitleAlertErrorNoExistingException"), this.getResourceBundle().getString("textContentAlertErrorNoExistingException"));
+            createAlertError("El usuario ingresado no existe", "Verifique los datos");
             log.info("Se ha hecho un intento de registro con informacion incorrecta.");
-            throw new UserNoExistingException(this.getResourceBundle().getString("textUserNoExistingException"));
+            throw new UserNoExistingException("Usuario no existente");
 
         }
 
@@ -502,9 +485,9 @@ public class TravelAgency {
 
             } else {
 
-                createAlertError(travelAgency.getResourceBundle().getString("textTitleAlertErrorWrongPasswordException"), travelAgency.getResourceBundle().getString("textContentAlertErrorWrongPasswordException"));
+                createAlertError("Contraseña incorrecta", "Verifique los datos");
                 log.info("Se ha intentado un inicio de sesión con contraseña incorrecta.");
-                throw new WrongPasswordException(travelAgency.getResourceBundle().getString("textWrongPasswordException"));
+                throw new WrongPasswordException("Contraseña incorrecta");
 
             }
 
@@ -519,9 +502,9 @@ public class TravelAgency {
 
         if (i >= clients.size()) {
 
-            createAlertError(this.getResourceBundle().getString("textTitleAlertErrorNoExistingException"), this.getResourceBundle().getString("textContentAlertErrorNoExistingException"));
+            createAlertError("El usuario ingresado no existe", "Verifique los datos");
             log.info("Se ha hecho un intento de registro con informacion incorrecta.");
-            throw new UserNoExistingException(this.getResourceBundle().getString("textUserNoExistingException"));
+            throw new UserNoExistingException("Usuario no existente");
 
         }
 
@@ -529,20 +512,20 @@ public class TravelAgency {
 
         if (currentClient.getUserId().equals(id)) {
             if (currentClient.getPassword().equals(password)) {
+
                 log.info("El cliente con el id " + id + " ha hecho un inicio de sesión.");
+
             } else {
-                createAlertError(travelAgency.getResourceBundle().getString("textTitleAlertErrorWrongPasswordException"), travelAgency.getResourceBundle().getString("textContentAlertErrorWrongPasswordException"));
+
+                createAlertError("Contraseña incorrecta", "Verifique los datos");
                 log.info("Se ha intentado un inicio de sesión con contraseña incorrecta.");
-                throw new WrongPasswordException(travelAgency.getResourceBundle().getString("textWrongPasswordException"));
+                throw new WrongPasswordException("Contraseña incorrecta");
             }
+
         } else {
             validateLogInDataUser(id, password, ++i);
         }
-
-
-
     }
-
 
     public boolean empiezaPor(String inicio){
 //        if(inicio.isEmpty() || inicio.length().length())
@@ -551,8 +534,23 @@ public class TravelAgency {
       return  true;
     }
 
+    public void generateWindow(String path, ImageView close) throws IOException {
 
+        File url = new File(path);
+        FXMLLoader loader = new FXMLLoader(url.toURL());
+        Parent parent = loader.load();
 
+        Scene scene = new Scene(parent);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.initStyle(StageStyle.TRANSPARENT);
+        scene.setFill(Color.TRANSPARENT);
+        stage.setResizable(false);
+        stage.show();
+
+        Stage stage1 = (Stage) close.getScene().getWindow();
+        stage1.close();
+    }
 
     public void createAlertError(String titleError, String contentError){
         Alert alert = new Alert(Alert.AlertType.ERROR);
