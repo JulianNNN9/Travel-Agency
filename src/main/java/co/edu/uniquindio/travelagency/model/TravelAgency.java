@@ -73,12 +73,6 @@ public class TravelAgency {
 
             this.reservations = Objects.requireNonNullElseGet(aux1, ArrayList::new);
 
-            for (Reservation reservation : reservations){
-                if (reservation.getTouristPackages() == null){
-                    reservation.setTouristPackages(new ArrayList<>());
-                }
-            }
-
         }).start();
 
         //Cargar paquetes

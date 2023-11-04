@@ -439,14 +439,17 @@ public class AdminViewController {
         Map<String, Integer> cuentaReservasPorDestino = new HashMap<>();
 
         for (Reservation reservation : reservations) {
-            List<TouristPackage> touristPackages = reservation.getTouristPackages();
-            for (TouristPackage touristPackage : touristPackages) {
+            TouristPackage touristPackage = reservation.getTouristPackage();
+
+            if (touristPackage != null) {
                 List<String> destinos = touristPackage.getDestinosName();
+
                 for (String destino : destinos) {
                     cuentaReservasPorDestino.put(destino, cuentaReservasPorDestino.getOrDefault(destino, 0) + 1);
                 }
             }
         }
+
         return cuentaReservasPorDestino;
     }
 
@@ -454,12 +457,14 @@ public class AdminViewController {
         Map<String, Integer> packageReservationCounts = new HashMap<>();
 
         for (Reservation reservation : reservations) {
-            List<TouristPackage> packages = reservation.getTouristPackages();
-            for (TouristPackage aPackage : packages) {
-                String packageName = aPackage.getName();
+            TouristPackage touristPackage = reservation.getTouristPackage();
+
+            if (touristPackage != null) {
+                String packageName = touristPackage.getName();
                 packageReservationCounts.put(packageName, packageReservationCounts.getOrDefault(packageName, 0) + 1);
             }
         }
+
         return packageReservationCounts;
     }
 

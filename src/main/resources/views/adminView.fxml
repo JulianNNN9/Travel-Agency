@@ -53,7 +53,7 @@
 
     <Pane fx:id="manageDestinationsPane" prefHeight="615.0" prefWidth="950.0" style="-fx-background-radius: 15; -fx-border-radius: 15" visible="false">
 
-        <Label contentDisplay="CENTER" layoutX="42.0" layoutY="14.0" prefHeight="45.0" prefWidth="308.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'; -fx-font-size: 25" text="gestionDeDestinosLabel" textAlignment="CENTER" />
+        <Label contentDisplay="CENTER" layoutX="42.0" layoutY="14.0" prefHeight="45.0" prefWidth="308.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'; -fx-font-size: 25" text="Gestión de destinos" textAlignment="CENTER" />
 
         <TableView fx:id="destinationsTable" layoutX="61.0" layoutY="301.0" prefHeight="270.0" prefWidth="530.0">
             <columns>
@@ -66,9 +66,9 @@
 
         <ImageView fx:id="imgViewBackDestinationsButton" fitHeight="36.0" fitWidth="37.0" layoutX="899.0" layoutY="14.0" onMouseClicked="#onBackButtonClick" pickOnBounds="true" preserveRatio="true"><cursor><Cursor fx:constant="HAND" /></cursor></ImageView>
 
-        <Button fx:id="addButtonDestination" layoutX="165.0" layoutY="255.0" mnemonicParsing="false" onAction="#agregarElementoDestinations" text="addButton" />
-        <Button fx:id="modifyButtonDestination" layoutX="261.0" layoutY="255.0" mnemonicParsing="false" onAction="#modificarElementoDestinations" text="modifyButton" />
-        <Button fx:id="deleteButtonDestination" layoutX="377.0" layoutY="255.0" mnemonicParsing="false" onAction="#eliminarElementoDestinations" text="deleteButton" />
+        <Button fx:id="addButtonDestination" layoutX="57.0" layoutY="255.0" mnemonicParsing="false" onAction="#agregarElementoDestinations" text="addButton" />
+        <Button fx:id="modifyButtonDestination" layoutX="171.0" layoutY="256.0" mnemonicParsing="false" onAction="#modificarElementoDestinations" text="modifyButton" />
+        <Button fx:id="deleteButtonDestination" layoutX="297.0" layoutY="255.0" mnemonicParsing="false" onAction="#eliminarElementoDestinations" text="deleteButton" />
 
         <Label layoutX="61.0" layoutY="95.0" prefHeight="17.0" prefWidth="63.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="nameLabel" />
         <TextField fx:id="txtFldName" layoutX="172.0" layoutY="91.0" />
@@ -98,12 +98,13 @@
         <Button fx:id="deleteButtonImageDestination" layoutX="793.0" layoutY="255.0" mnemonicParsing="false" onAction="#eliminarRutaImagenDestinations" text="deleteButton" />
         <Button fx:id="examinarRutaButton" layoutX="766.0" layoutY="124.0" mnemonicParsing="false" onAction="#seleccionarImagen" text="examinarButon" />
       <TextField fx:id="txtFldRuta" layoutX="702.0" layoutY="91.0" prefHeight="25.0" prefWidth="224.0" />
+      <Button layoutX="488.0" layoutY="256.0" mnemonicParsing="false" text="Limpiar campos" />
 
     </Pane>
 
     <Pane fx:id="managePackagesPane" prefHeight="615.0" prefWidth="950.0" style="-fx-background-radius: 15; -fx-border-radius: 15" visible="false">
 
-        <Label contentDisplay="CENTER" layoutX="321.0" layoutY="10.0" prefHeight="45.0" prefWidth="308.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'; -fx-font-size: 25" text="gestionDePaquetesLabel" textAlignment="CENTER" />
+        <Label contentDisplay="CENTER" layoutX="35.0" layoutY="14.0" prefHeight="45.0" prefWidth="308.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'; -fx-font-size: 25" text="Gestión de Paquetes" textAlignment="CENTER" />
 
         <TableView fx:id="packagesTable" layoutX="61.0" layoutY="312.0" prefHeight="259.0" prefWidth="561.0">
             <columns>
@@ -141,13 +142,14 @@
       <Button fx:id="deleteButtonDestinationName" layoutX="814.0" layoutY="260.0" mnemonicParsing="false" onAction="#eliminarDestinoEnPaquete" text="deleteButton" />
       <ChoiceBox fx:id="choiceBoxDestinationName" layoutX="724.0" layoutY="143.0" prefWidth="150.0" />
       <Label layoutX="731.0" layoutY="116.0" prefHeight="17.0" prefWidth="137.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="seleccionarDestinoLabel" />
+      <Button layoutX="522.0" layoutY="260.0" mnemonicParsing="false" text="Limpiar campos" />
 
 
     </Pane>
 
     <Pane fx:id="manageGuidesPane" prefHeight="615.0" prefWidth="950.0" style="-fx-background-radius: 15; -fx-border-radius: 15" visible="false">
 
-        <Label contentDisplay="CENTER" layoutX="315.0" layoutY="14.0" prefHeight="45.0" prefWidth="308.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'; -fx-font-size: 25" text="gestionDeGuiasLabel" textAlignment="CENTER" />
+        <Label contentDisplay="CENTER" layoutX="35.0" layoutY="14.0" prefHeight="45.0" prefWidth="308.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'; -fx-font-size: 25" text="Gestión de guias" textAlignment="CENTER" />
 
         <TableView fx:id="guidesTable" layoutX="54.0" layoutY="331.0" prefHeight="236.0" prefWidth="577.0">
             <columns>
@@ -185,6 +187,7 @@
 
       <TextField fx:id="txtFldLenguaje" layoutX="782.0" layoutY="216.0" />
       <Label layoutX="680.0" layoutY="220.0" prefHeight="17.0" prefWidth="89.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="lenguajeLabel" />
+      <Button layoutX="531.0" layoutY="283.0" mnemonicParsing="false" text="Limpiar campos" />
 
     </Pane>
 
