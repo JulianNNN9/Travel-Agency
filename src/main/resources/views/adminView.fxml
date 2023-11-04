@@ -197,7 +197,7 @@
         <HBox alignment="CENTER" layoutY="94.0" prefHeight="413.0" prefWidth="948.0" spacing="20">
 
             <VBox alignment="CENTER" spacing="10">
-                <BarChart fx:id="destinationsChart" prefHeight="260.0" prefWidth="290.0">
+                <BarChart fx:id="destinationsChart" prefHeight="429.0" prefWidth="290.0">
                     <xAxis>
                         <CategoryAxis fx:id="destinationsXAxis" />
                     </xAxis>
@@ -208,7 +208,7 @@
             </VBox>
 
             <VBox alignment="CENTER" spacing="10">
-                <BarChart fx:id="guidesChart" prefHeight="260.0" prefWidth="290.0">
+                <BarChart fx:id="guidesChart" prefHeight="461.0" prefWidth="290.0">
                     <xAxis>
                         <CategoryAxis fx:id="guidesXAxis" />
                     </xAxis>
@@ -219,7 +219,7 @@
             </VBox>
 
             <VBox alignment="CENTER" spacing="10">
-                <BarChart fx:id="packagesChart" prefHeight="260.0" prefWidth="290.0">
+                <BarChart fx:id="packagesChart" prefHeight="457.0" prefWidth="290.0">
                     <xAxis>
                         <CategoryAxis fx:id="packagesXAxis" />
                     </xAxis>

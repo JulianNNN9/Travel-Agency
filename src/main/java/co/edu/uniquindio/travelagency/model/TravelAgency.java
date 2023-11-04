@@ -12,14 +12,10 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import lombok.Getter;
 import lombok.extern.java.Log;
-
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.util.logging.FileHandler;
 import java.util.logging.SimpleFormatter;
 import co.edu.uniquindio.travelagency.utils.*;
@@ -82,6 +78,7 @@ public class TravelAgency {
                     reservation.setTouristPackages(new ArrayList<>());
                 }
             }
+
         }).start();
 
         //Cargar paquetes
@@ -97,22 +94,6 @@ public class TravelAgency {
                     aPackage.setDestinosName(new ArrayList<>());
                 }
             }
-
-            List<String> dest = new ArrayList<>();
-            dest.add("AAA");
-            dest.add("BBB");
-
-            TouristPackage touristPackage = TouristPackage.builder()
-                    .destinosName(dest)
-                    .name("AAA")
-                    .price(1.0)
-                    .quota(2)
-                    .startDate(LocalDate.now())
-                    .endDate(LocalDate.of(2024, 12, 1))
-                    .duration(10)
-                    .build();
-
-            touristPackages.add(touristPackage);
 
         }).start();
 
@@ -130,36 +111,17 @@ public class TravelAgency {
                 }
             }
 
-            Destino destino = Destino.builder()
-                    .name("AAA")
-                    .city("AAA")
-                    .imagesHTTPS(new ArrayList<>())
-                    .description("AAA")
-                    .weather("TEMPLADO")
-                    .build();
-
-            destino.getImagesHTTPS().add("AAA");
-
-            Destino destino1 = Destino.builder()
-                    .name("BBB")
-                    .city("BBB")
-                    .imagesHTTPS(new ArrayList<>())
-                    .description("BBB")
-                    .weather("TEMPLADO")
-                    .build();
-
-            destinos.add(destino);
-            destinos.add(destino1);
-
         }).start();
 
 
         //Cargar clientes
 
         new Thread(() -> {
+
             ArrayList<Client> aux4 = (ArrayList<Client>) archiveUtils.deserializerObjet("src/main/resources/persistencia/clients.ser");
 
             this.clients = Objects.requireNonNullElseGet(aux4, ArrayList::new);
+
         }).start();
 
 
@@ -167,23 +129,11 @@ public class TravelAgency {
         //Cargar admins
 
         new Thread(() -> {
+
             ArrayList<Admin> aux5 = (ArrayList<Admin>) archiveUtils.deserializerObjet("src/main/resources/persistencia/admins.ser");
 
             this.admins = Objects.requireNonNullElseGet(aux5, ArrayList::new);
 
-            Admin admin = Admin.builder()
-                    .userId("admin")
-                    .password("123")
-                    .build();
-
-            admins.add(admin);
-
-            Client cl1 = Client.builder()
-                    .userId("user1")
-                    .password("user1")
-                    .build();
-
-            clients.add(cl1);
         }).start();
 
 
@@ -200,6 +150,104 @@ public class TravelAgency {
 
         return travelAgency;
 
+    }
+
+    public void serializarDestinos(){
+        archiveUtils.serializerObjet("src/main/resources/persistencia/destinos.ser", destinos);
+    }
+
+    public void serializarGuias(){
+        archiveUtils.serializerObjet("src/main/resources/persistencia/touristGuides.ser", touristGuides);
+    }
+
+    public void serializarPaquetes(){
+        archiveUtils.serializerObjet("src/main/resources/persistencia/touristPackages.ser", touristPackages);
+    }
+
+    public void modificarDestino(Destino selectedDestino, String nuevoNombre, String nuevaCiudad, String nuevaDescrpcion, String nuevaLocalDate) {
+
+        selectedDestino.setName(nuevoNombre);
+        selectedDestino.setCity(nuevaCiudad);
+        selectedDestino.setDescription(nuevaDescrpcion);
+        selectedDestino.setWeather(nuevaLocalDate);
+
+        serializarDestinos();
+
+    }
+    public void modificarPaquete(TouristPackage selectedPackage, String nuevoNombrePaquete, double nuevoPrecio, int nuevosCupos, LocalDate nuevaFechaInicio, LocalDate nuevaFechaFin) {
+
+        selectedPackage.setName(nuevoNombrePaquete);
+        selectedPackage.setPrice(nuevoPrecio);
+        selectedPackage.setQuota(nuevosCupos);
+        selectedPackage.setStartDate(nuevaFechaInicio);
+        selectedPackage.setEndDate(nuevaFechaFin);
+
+        serializarPaquetes();
+
+    }
+
+    public void modificarGuia(TouristGuide selectedGuia, String nuevoGuideID, String nuevoGuideName, String nuevaExperiencia, String nuevoRating) {
+
+        selectedGuia.setId(nuevoGuideID);
+        selectedGuia.setFullName(nuevoGuideName);
+        selectedGuia.setExperience(nuevaExperiencia);
+        selectedGuia.setRating(Integer.valueOf(nuevoRating));
+
+        serializarGuias();
+    }
+
+    public void eliminarDestinoName(Optional<TouristPackage> touristPackage, String destinoABorrar){
+
+        List<String> destinosSinEliminar = touristPackage.get().getDestinosName().stream().filter(s -> !s.equals(destinoABorrar)).toList();
+
+        touristPackage.get().getDestinosName().clear();
+        touristPackage.get().getDestinosName().addAll(destinosSinEliminar );
+
+        serializarPaquetes();
+    }
+
+    public void eliminarRuta(Optional<Destino> destino, String rutaABorrar){
+
+        List<String> rutasSinEliminar = new ArrayList<>();
+
+        if (destino.isPresent()){
+            rutasSinEliminar = destino.get().getImagesHTTPS().stream().filter(s -> !s.equals(rutaABorrar)).toList();
+        }
+
+        destino.get().getImagesHTTPS().clear();
+        destino.get().getImagesHTTPS().addAll(rutasSinEliminar);
+
+        serializarDestinos();
+    }
+
+    public void eliminarLenguaje(Optional<TouristGuide> touristGuide, String lenguajeABorrar){
+
+        List<String> languajeSinEliminar = touristGuide.get().getLanguages().stream().filter(s -> !s.equals(lenguajeABorrar)).toList();
+
+        touristGuide.get().getLanguages().clear();
+        touristGuide.get().getLanguages().addAll(languajeSinEliminar);
+
+        serializarGuias();
+
+    }
+
+
+    public void eliminarDestino(ObservableList<Destino> destinoObservableList, Destino selectedDestino) {
+        destinoObservableList.remove(selectedDestino);
+        destinos.removeIf(destino -> destino.equals(selectedDestino));
+        serializarDestinos();
+    }
+
+    public void eliminarPaquete(ObservableList<TouristPackage> packageObservableList, TouristPackage selectedPackage) {
+        packageObservableList.remove(selectedPackage);
+        touristPackages.removeIf(touristPackage -> touristPackage.equals(selectedPackage));
+        serializarPaquetes();
+    }
+
+    public void eliminarGuia(ObservableList<TouristGuide> touristGuideObservableList, TouristGuide selectedGuia) {
+        touristGuideObservableList.remove(selectedGuia);
+        touristGuides.removeIf(touristGuide -> touristGuide.equals(selectedGuia));
+        serializarGuias();
     }
 
     public void agregarGuia(ObservableList<TouristGuide> touristGuideObservableList, TouristGuide nuevoGuia) throws AtributoVacioException, RepeatedInformationException {
@@ -223,6 +271,8 @@ public class TravelAgency {
 
         touristGuideObservableList.add(nuevoGuia);
         travelAgency.touristGuides.add(nuevoGuia);
+
+        serializarGuias();
 
         log.info("Se ha registrado un nuevo guia.");
 
@@ -256,7 +306,8 @@ public class TravelAgency {
 
         packageObservableList.add(nuevoPaquete);
         travelAgency.touristPackages.add(nuevoPaquete);
-        //archiveUtils.serializerObjet("src/main/resources/persistencia/touristPackages.ser", touristPackages);
+
+        serializarPaquetes();
 
         log.info("Se ha creado un nuevo paquete.");
 
@@ -283,15 +334,14 @@ public class TravelAgency {
 
         destinoObservableList.add(nuevoDestino);
         travelAgency.destinos.add(nuevoDestino);
-        //archiveUtils.serializerObjet("src/main/resources/persistencia/destinos.ser", destinos);
+
+        serializarDestinos();
 
         log.info("Se ha creado un nuevo destino.");
 
         }
 
     public void agregarImagenDestino(ObservableList<String> observableListRutas, String ruta, Destino destino) throws RutaInvalidaException, RepeatedInformationException {
-
-        boolean rutasVacia = observableListRutas == null;
 
         File archivo = new File(ruta);
         boolean esRutaDeArchivo = archivo.exists() && archivo.isFile();
@@ -302,90 +352,66 @@ public class TravelAgency {
             throw new RutaInvalidaException("Se ha intentado agregar una imagen invalida a un destino.");
         }
 
-        if (!rutasVacia && observableListRutas.stream().anyMatch(string -> string.equals(ruta))){
+        if (observableListRutas.stream().anyMatch(string -> string.equals(ruta))){
 
             createAlertError("Ruta existente", "La ruta que trataba de agregar ya se encuentra registrada.");
             log.severe("Se ha intentado crear una ruta existente.");
             throw new RepeatedInformationException("Se ha intentado crear una ruta existente.");
         }
 
-        if (!rutasVacia){
-            observableListRutas.add(ruta);
-        }
+        observableListRutas.add(ruta);
 
         for (Destino d : destinos) {
             if (d.equals(destino)) {
-                if (d.getImagesHTTPS() == null){
-                    d.setImagesHTTPS(new ArrayList<>());
-                    d.getImagesHTTPS().add(ruta);
-                } else {
-                    d.getImagesHTTPS().add(ruta);
-                }
-
+                d.getImagesHTTPS().add(ruta);
                 break;
             }
         }
 
+        serializarDestinos();
     }
 
 
     public void agregarLeaguajeGuia(ObservableList<String> observableListLenguajes, String lenguaje, TouristGuide touristGuide) throws RepeatedInformationException {
 
-        boolean lenguajesVacio = observableListLenguajes == null;
-
-        if (!lenguajesVacio && observableListLenguajes.stream().anyMatch(string -> string.equals(lenguaje))){
+        if (observableListLenguajes.stream().anyMatch(string -> string.equals(lenguaje))){
 
             createAlertError("Lenguaje ya ingresado", "La lenguaje que trataba de agregar ya se encuentra agregado.");
             log.severe("Se ha intentado agregar un lenaguje existente.");
             throw new RepeatedInformationException("Se ha intentado agregar un lenaguje existente.");
         }
 
-        if (!lenguajesVacio){
-            observableListLenguajes.add(lenguaje);
-        }
+        observableListLenguajes.add(lenguaje);
 
         for (TouristGuide t : touristGuides) {
             if (t.equals(touristGuide)) {
-                if (t.getLanguages() == null){
-                    t.setLanguages(new ArrayList<>());
-                    t.getLanguages().add(lenguaje);
-                } else {
-                    t.getLanguages().add(lenguaje);
-                }
-
+                t.getLanguages().add(lenguaje);
                 break;
             }
         }
 
+        serializarGuias();
     }
 
     public void agregarDestinoEnPaquete(ObservableList<String> observableListDestinationName, String selectedItem, TouristPackage touristPackage) throws RepeatedInformationException {
 
-        boolean destinosVacios = observableListDestinationName == null;
-
-        if (!destinosVacios && observableListDestinationName.stream().anyMatch(string -> string.equals(selectedItem))){
+        if (observableListDestinationName.stream().anyMatch(string -> string.equals(selectedItem))){
 
             createAlertError("Destino existente", "La destino que trataba de agregar ya se encuentra registrada.");
             log.severe("Se ha intentado agregar un destino existente.");
             throw new RepeatedInformationException("Se ha intentado agregar un destino existente.");
         }
 
-        if (!destinosVacios){
-            observableListDestinationName.add(selectedItem);
-        }
+        observableListDestinationName.add(selectedItem);
 
         for (TouristPackage t : touristPackages) {
             if (t.equals(touristPackage)) {
-                if (t.getDestinosName() == null){
-                    t.setDestinosName(new ArrayList<>());
-                    t.getDestinosName().add(selectedItem);
-                } else {
-                    t.getDestinosName().add(selectedItem);
-                }
-
+                t.getDestinosName().add(selectedItem);
                 break;
             }
         }
+
+        serializarPaquetes();
     }
 
     public String LogIn(String id, String password) throws EmptyAttributeException, WrongPasswordException, UserNoExistingException {
@@ -438,8 +464,6 @@ public class TravelAgency {
             throw new RepeatedInformationException("el cliente ya exite");
         }
 
-        archiveUtils.serializerObjet("src/main/resources/persistencia/clients.ser",clients);
-
         Client client = Client.builder()
                 .userId(userId.trim())
                 .password(passeord.trim())
@@ -450,6 +474,8 @@ public class TravelAgency {
                 .build();
 
         clients.add(client);
+
+        archiveUtils.serializerObjet("src/main/resources/persistencia/clients.ser", clients);
 
         log.info("se ha registrado un cliente con el user ID " + userId);
 
@@ -542,5 +568,4 @@ public class TravelAgency {
         alert.setContentText(contentError);
         alert.show();
     }
-
 }
