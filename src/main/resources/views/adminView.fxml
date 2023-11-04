@@ -21,26 +21,26 @@
       <VBox alignment="CENTER" layoutX="334.0" layoutY="332.0" prefHeight="200.0" prefWidth="265.0">
          <children>
 
-                   <Button fx:id="manageDestinationsButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleButtonAction" prefWidth="212.0" style="-fx-border-radius: 35; -fx-background-radius: 35; -fx-border-color: #a26740; -fx-background-color: #d07943; -fx-font-family: 'Segoe UI Semibold'" text="gestionarDestinosButton" textAlignment="CENTER">
+                   <Button fx:id="manageDestinationsButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="27.0" prefWidth="131.0" style="-fx-border-radius: 35; -fx-background-radius: 35; -fx-border-color: #a26740; -fx-background-color: #d07943; -fx-font-family: 'Segoe UI Semibold'" text="Gestionar destinos" textAlignment="CENTER">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
             <Separator orientation="VERTICAL" prefHeight="25.0" prefWidth="106.0" visible="false" />
 
-                   <Button fx:id="managePackagesButton" mnemonicParsing="false" onAction="#handleButtonAction" style="-fx-border-radius: 35; -fx-background-radius: 35; -fx-border-color: #a26740; -fx-background-color: #d07943; -fx-font-family: 'Segoe UI Semibold'" text="gestionarPaquetesButton">
+                   <Button fx:id="managePackagesButton" mnemonicParsing="false" onAction="#handleButtonAction" style="-fx-border-radius: 35; -fx-background-radius: 35; -fx-border-color: #a26740; -fx-background-color: #d07943; -fx-font-family: 'Segoe UI Semibold'" text="Gestionar paquetes">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
             <Separator orientation="VERTICAL" prefHeight="25.0" prefWidth="100.0" visible="false" />
-                   <Button fx:id="manageGuidesButton" mnemonicParsing="false" onAction="#handleButtonAction" style="-fx-border-radius: 35; -fx-background-radius: 35; -fx-border-color: #a26740; -fx-background-color: #d07943; -fx-font-family: 'Segoe UI Semibold'" text="gestionarGuiasButton">
+                   <Button fx:id="manageGuidesButton" mnemonicParsing="false" onAction="#handleButtonAction" style="-fx-border-radius: 35; -fx-background-radius: 35; -fx-border-color: #a26740; -fx-background-color: #d07943; -fx-font-family: 'Segoe UI Semibold'" text="Gestionar guias">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
             <Separator orientation="VERTICAL" prefHeight="25.0" prefWidth="101.0" visible="false" />
-                   <Button fx:id="statisticsButton" mnemonicParsing="false" onAction="#handleButtonAction" style="-fx-border-radius: 35; -fx-background-radius: 35; -fx-border-color: #a26740; -fx-background-color: #d07943; -fx-font-family: 'Segoe UI Semibold'" text="estadisticasButton">
+                   <Button fx:id="statisticsButton" mnemonicParsing="false" onAction="#handleButtonAction" style="-fx-border-radius: 35; -fx-background-radius: 35; -fx-border-color: #a26740; -fx-background-color: #d07943; -fx-font-family: 'Segoe UI Semibold'" text="Estadísticas">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -57,25 +57,34 @@
 
         <TableView fx:id="destinationsTable" layoutX="61.0" layoutY="301.0" prefHeight="270.0" prefWidth="530.0">
             <columns>
-                <TableColumn fx:id="nameDestinationCol" prefWidth="109.0" text="Name" />
-                <TableColumn fx:id="cityCol" prefWidth="87.0" text="City" />
-                <TableColumn fx:id="descriptionCol" prefWidth="209.0" text="Description" />
-                <TableColumn fx:id="weatherCol" minWidth="0.0" prefWidth="118.0" text="Weather" />
+                <TableColumn fx:id="nameDestinationCol" prefWidth="109.0" text="Nombre" />
+                <TableColumn fx:id="cityCol" prefWidth="87.0" text="Ciudad" />
+                <TableColumn fx:id="descriptionCol" prefWidth="209.0" text="Descripción" />
+                <TableColumn fx:id="weatherCol" minWidth="0.0" prefWidth="118.0" text="Clima" />
             </columns>
         </TableView>
 
         <ImageView fx:id="imgViewBackDestinationsButton" fitHeight="36.0" fitWidth="37.0" layoutX="899.0" layoutY="14.0" onMouseClicked="#onBackButtonClick" pickOnBounds="true" preserveRatio="true"><cursor><Cursor fx:constant="HAND" /></cursor></ImageView>
 
-        <Button fx:id="addButtonDestination" layoutX="57.0" layoutY="255.0" mnemonicParsing="false" onAction="#agregarElementoDestinations" style="-fx-border-radius: 35; -fx-background-radius: 35; -fx-border-color: #a26740; -fx-background-color: #d07943; -fx-font-family: 'Segoe UI Semibold'" text="addButton" />
-        <Button fx:id="modifyButtonDestination" layoutX="171.0" layoutY="256.0" mnemonicParsing="false" onAction="#modificarElementoDestinations" style="-fx-border-radius: 35; -fx-background-radius: 35; -fx-border-color: #a26740; -fx-background-color: #d07943; -fx-font-family: 'Segoe UI Semibold'" text="modifyButton" />
-        <Button fx:id="deleteButtonDestination" layoutX="297.0" layoutY="255.0" mnemonicParsing="false" onAction="#eliminarElementoDestinations" style="-fx-border-radius: 35; -fx-background-radius: 35; -fx-border-color: #a26740; -fx-background-color: #d07943; -fx-font-family: 'Segoe UI Semibold'" text="deleteButton" />
+        <Button fx:id="addButtonDestination" layoutX="82.0" layoutY="255.0" mnemonicParsing="false" onAction="#agregarElementoDestinations" style="-fx-border-radius: 35; -fx-background-radius: 35; -fx-border-color: #a26740; -fx-background-color: #d07943; -fx-font-family: 'Segoe UI Semibold'" text="Agregar">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+        <Button fx:id="modifyButtonDestination" layoutX="171.0" layoutY="256.0" mnemonicParsing="false" onAction="#modificarElementoDestinations" style="-fx-border-radius: 35; -fx-background-radius: 35; -fx-border-color: #a26740; -fx-background-color: #d07943; -fx-font-family: 'Segoe UI Semibold'" text="Modificar">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+        <Button fx:id="deleteButtonDestination" layoutX="273.0" layoutY="255.0" mnemonicParsing="false" onAction="#eliminarElementoDestinations" style="-fx-border-radius: 35; -fx-background-radius: 35; -fx-border-color: #a26740; -fx-background-color: #d07943; -fx-font-family: 'Segoe UI Semibold'" text="Borrar">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
 
-        <Label layoutX="61.0" layoutY="95.0" prefHeight="17.0" prefWidth="63.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="nameLabel" />
+        <Label layoutX="61.0" layoutY="95.0" prefHeight="17.0" prefWidth="63.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="Nombre :" />
         <TextField fx:id="txtFldName" layoutX="172.0" layoutY="91.0" />
-        <Label layoutX="61.0" layoutY="151.0" prefHeight="17.0" prefWidth="63.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="cityLabel" />
+        <Label layoutX="61.0" layoutY="151.0" prefHeight="17.0" prefWidth="63.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="Ciudad :" />
         <TextField fx:id="txtFldCity" layoutX="172.0" layoutY="147.0" />
-        <Label layoutX="61.0" layoutY="203.0" prefHeight="17.0" prefWidth="84.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="weatherLabel" />
-        <Label layoutX="354.0" layoutY="95.0" prefHeight="17.0" prefWidth="98.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="descriptionLabel" />
+        <Label layoutX="61.0" layoutY="203.0" prefHeight="17.0" prefWidth="84.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="Clima :" />
+        <Label layoutX="354.0" layoutY="95.0" prefHeight="17.0" prefWidth="98.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="Descripción :" />
         <TextField fx:id="txtFldDescription" alignment="TOP_LEFT" layoutX="350.0" layoutY="124.0" prefHeight="98.0" prefWidth="238.0" />
         <ChoiceBox fx:id="choiceBoxClima" layoutX="171.0" layoutY="199.0" prefWidth="150.0">
             <items>
@@ -88,17 +97,29 @@
         </ChoiceBox>
 
 
-        <Label layoutX="637.0" layoutY="95.0" prefHeight="17.0" prefWidth="72.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="rutaLabel" />
+        <Label layoutX="637.0" layoutY="95.0" prefHeight="17.0" prefWidth="72.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="Ruta :" />
           <TableView fx:id="imagesRoutesTable" layoutX="637.0" layoutY="301.0" prefHeight="270.0" prefWidth="277.0">
             <columns>
               <TableColumn fx:id="rutasCol" prefWidth="270.0" text="Rutas" />
             </columns>
           </TableView>
 
-        <Button fx:id="addButtonImageDestination" layoutX="704.0" layoutY="256.0" mnemonicParsing="false" onAction="#agregarRutaImagenDestinations" style="-fx-border-radius: 35; -fx-background-radius: 35; -fx-border-color: #a26740; -fx-background-color: #d07943; -fx-font-family: 'Segoe UI Semibold'" text="addButton" />
-        <Button fx:id="deleteButtonImageDestination" layoutX="793.0" layoutY="255.0" mnemonicParsing="false" onAction="#eliminarRutaImagenDestinations" style="-fx-border-radius: 35; -fx-background-radius: 35; -fx-border-color: #a26740; -fx-background-color: #d07943; -fx-font-family: 'Segoe UI Semibold'" text="deleteButton" />
-        <Button fx:id="examinarRutaButton" layoutX="766.0" layoutY="124.0" mnemonicParsing="false" onAction="#seleccionarImagen" style="-fx-border-radius: 35; -fx-background-radius: 35; -fx-border-color: #a26740; -fx-background-color: #d07943; -fx-font-family: 'Segoe UI Semibold'" text="examinarButon" />
-        <Button fx:id="limpiarCamposDestinos" layoutX="488.0" layoutY="256.0" onAction="#onLimpiarCamposDestinoClick" mnemonicParsing="false" style="-fx-border-radius: 35; -fx-background-radius: 35; -fx-border-color: #a26740; -fx-background-color: #d07943; -fx-font-family: 'Segoe UI Semibold'" text="Limpiar campos" />
+        <Button fx:id="addButtonImageDestination" layoutX="704.0" layoutY="256.0" mnemonicParsing="false" onAction="#agregarRutaImagenDestinations" style="-fx-border-radius: 35; -fx-background-radius: 35; -fx-border-color: #a26740; -fx-background-color: #d07943; -fx-font-family: 'Segoe UI Semibold'" text="Agregar">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+        <Button fx:id="deleteButtonImageDestination" layoutX="793.0" layoutY="255.0" mnemonicParsing="false" onAction="#eliminarRutaImagenDestinations" style="-fx-border-radius: 35; -fx-background-radius: 35; -fx-border-color: #a26740; -fx-background-color: #d07943; -fx-font-family: 'Segoe UI Semibold'" text="Borrar">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+        <Button fx:id="examinarRutaButton" layoutX="780.0" layoutY="124.0" mnemonicParsing="false" onAction="#seleccionarImagen" style="-fx-border-radius: 35; -fx-background-radius: 35; -fx-border-color: #a26740; -fx-background-color: #d07943; -fx-font-family: 'Segoe UI Semibold'" text="Examinar">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+        <Button fx:id="limpiarCamposDestinos" layoutX="488.0" layoutY="256.0" mnemonicParsing="false" onAction="#onLimpiarCamposDestinoClick" style="-fx-border-radius: 35; -fx-background-radius: 35; -fx-border-color: #a26740; -fx-background-color: #d07943; -fx-font-family: 'Segoe UI Semibold'" text="Limpiar campos">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
 
         <TextField fx:id="txtFldRuta" layoutX="702.0" layoutY="91.0" prefHeight="25.0" prefWidth="224.0" />
 
@@ -110,29 +131,29 @@
 
         <TableView fx:id="packagesTable" layoutX="61.0" layoutY="312.0" prefHeight="259.0" prefWidth="561.0">
             <columns>
-                <TableColumn fx:id="namePackageCol" prefWidth="127.0" text="Name" />
-                <TableColumn fx:id="priceCol" prefWidth="114.0" text="Price" />
-                <TableColumn fx:id="quotaCol" prefWidth="39.0" text="Quota" />
-                <TableColumn fx:id="startDateCol" minWidth="0.0" prefWidth="134.0" text="Start date" />
-                <TableColumn fx:id="durationCol" minWidth="0.0" prefWidth="138.0" text="Duration" />
+                <TableColumn fx:id="namePackageCol" prefWidth="127.0" text="Nombre" />
+                <TableColumn fx:id="priceCol" prefWidth="114.0" text="Precio" />
+                <TableColumn fx:id="quotaCol" prefWidth="39.0" text="Cupo" />
+                <TableColumn fx:id="startDateCol" minWidth="0.0" prefWidth="134.0" text="Fecha inicio" />
+                <TableColumn fx:id="durationCol" minWidth="0.0" prefWidth="138.0" text="Duración" />
             </columns>
         </TableView>
 
         <ImageView fx:id="imgViewBackPackagesButton" fitHeight="36.0" fitWidth="37.0" layoutX="899.0" layoutY="14.0" onMouseClicked="#onBackButtonClick" pickOnBounds="true" preserveRatio="true"><cursor><Cursor fx:constant="HAND" /></cursor></ImageView>
 
-        <Button fx:id="addButtonPackages" layoutX="61.0" layoutY="260.0" mnemonicParsing="false" onAction="#agregarElementoPackages" style="-fx-border-radius: 35; -fx-background-radius: 35; -fx-border-color: #a26740; -fx-background-color: #d07943; -fx-font-family: 'Segoe UI Semibold'" text="addButton" />
-        <Button fx:id="modifyButtonPackages" layoutX="145.0" layoutY="260.0" mnemonicParsing="false" onAction="#modificarElementoPackages" style="-fx-border-radius: 35; -fx-background-radius: 35; -fx-border-color: #a26740; -fx-background-color: #d07943; -fx-font-family: 'Segoe UI Semibold'" text="modifyButton" />
-        <Button fx:id="deleteButtonPackages" layoutX="246.0" layoutY="260.0" mnemonicParsing="false" onAction="#eliminarElementoPackages" style="-fx-border-radius: 35; -fx-background-radius: 35; -fx-border-color: #a26740; -fx-background-color: #d07943; -fx-font-family: 'Segoe UI Semibold'" text="deleteButton" />
+        <Button fx:id="addButtonPackages" layoutX="61.0" layoutY="260.0" mnemonicParsing="false" onAction="#agregarElementoPackages" style="-fx-border-radius: 35; -fx-background-radius: 35; -fx-border-color: #a26740; -fx-background-color: #d07943; -fx-font-family: 'Segoe UI Semibold'" text="Agregar" />
+        <Button fx:id="modifyButtonPackages" layoutX="145.0" layoutY="260.0" mnemonicParsing="false" onAction="#modificarElementoPackages" style="-fx-border-radius: 35; -fx-background-radius: 35; -fx-border-color: #a26740; -fx-background-color: #d07943; -fx-font-family: 'Segoe UI Semibold'" text="Modificar" />
+        <Button fx:id="deleteButtonPackages" layoutX="246.0" layoutY="260.0" mnemonicParsing="false" onAction="#eliminarElementoPackages" style="-fx-border-radius: 35; -fx-background-radius: 35; -fx-border-color: #a26740; -fx-background-color: #d07943; -fx-font-family: 'Segoe UI Semibold'" text="Borrar" />
 
-        <Label layoutX="67.0" layoutY="103.0" prefHeight="17.0" prefWidth="72.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="nameLabel" />
+        <Label layoutX="67.0" layoutY="103.0" prefHeight="17.0" prefWidth="72.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="Nombre :" />
         <TextField fx:id="txtFldPackageName" layoutX="172.0" layoutY="99.0" />
-        <Label layoutX="65.0" layoutY="155.0" prefHeight="17.0" prefWidth="63.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="priceLabel" />
+        <Label layoutX="65.0" layoutY="155.0" prefHeight="17.0" prefWidth="63.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="Precio :" />
         <TextField fx:id="txtFldPrice" layoutX="172.0" layoutY="151.0" />
-        <Label layoutX="61.0" layoutY="211.0" prefHeight="17.0" prefWidth="84.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="quotaLabel" />
+        <Label layoutX="61.0" layoutY="211.0" prefHeight="17.0" prefWidth="84.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="Cupos :" />
         <TextField fx:id="txtFldQuota" layoutX="172.0" layoutY="199.0" />
-        <Label layoutX="370.0" layoutY="103.0" prefHeight="17.0" prefWidth="72.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="startDate" />
+        <Label layoutX="370.0" layoutY="103.0" prefHeight="17.0" prefWidth="72.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="Fecha inicio :" />
         <DatePicker fx:id="datePckrStartDate" layoutX="475.0" layoutY="99.0" prefHeight="25.0" prefWidth="149.0" />
-        <Label layoutX="370.0" layoutY="155.0" prefHeight="17.0" prefWidth="84.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="endDate" />
+        <Label layoutX="370.0" layoutY="155.0" prefHeight="17.0" prefWidth="84.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="Fecha fin :" />
         <DatePicker fx:id="datePckrEndDate" layoutX="475.0" layoutY="151.0" prefHeight="25.0" prefWidth="149.0" />
 
       <TableView fx:id="destinationsNameTable" layoutX="680.0" layoutY="312.0" prefHeight="259.0" prefWidth="238.0">
@@ -141,12 +162,12 @@
         </columns>
       </TableView>
 
-      <Button fx:id="addButtonDestinationName" layoutX="717.0" layoutY="260.0" mnemonicParsing="false" onAction="#agregarDestinoEnPaquete" style="-fx-border-radius: 35; -fx-background-radius: 35; -fx-border-color: #a26740; -fx-background-color: #d07943; -fx-font-family: 'Segoe UI Semibold'" text="addButton" />
-      <Button fx:id="deleteButtonDestinationName" layoutX="814.0" layoutY="260.0" mnemonicParsing="false" onAction="#eliminarDestinoEnPaquete" style="-fx-border-radius: 35; -fx-background-radius: 35; -fx-border-color: #a26740; -fx-background-color: #d07943; -fx-font-family: 'Segoe UI Semibold'" text="deleteButton" />
+      <Button fx:id="addButtonDestinationName" layoutX="717.0" layoutY="260.0" mnemonicParsing="false" onAction="#agregarDestinoEnPaquete" style="-fx-border-radius: 35; -fx-background-radius: 35; -fx-border-color: #a26740; -fx-background-color: #d07943; -fx-font-family: 'Segoe UI Semibold'" text="Agregar" />
+      <Button fx:id="deleteButtonDestinationName" layoutX="814.0" layoutY="260.0" mnemonicParsing="false" onAction="#eliminarDestinoEnPaquete" style="-fx-border-radius: 35; -fx-background-radius: 35; -fx-border-color: #a26740; -fx-background-color: #d07943; -fx-font-family: 'Segoe UI Semibold'" text="Borrar" />
       <Button fx:id="limpiarCamposPaquetes" layoutX="522.0" layoutY="260.0" mnemonicParsing="false" onAction="#onLimpiarCamposPaquetesClick" style="-fx-border-radius: 35; -fx-background-radius: 35; -fx-border-color: #a26740; -fx-background-color: #d07943; -fx-font-family: 'Segoe UI Semibold'" text="Limpiar campos" />
 
       <ChoiceBox fx:id="choiceBoxDestinationName" layoutX="724.0" layoutY="143.0" prefWidth="150.0" />
-      <Label layoutX="731.0" layoutY="116.0" prefHeight="17.0" prefWidth="137.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="seleccionarDestinoLabel" />
+      <Label layoutX="731.0" layoutY="116.0" prefHeight="17.0" prefWidth="137.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="Seleccione un destino :" />
 
 
 
@@ -158,47 +179,47 @@
 
         <TableView fx:id="guidesTable" layoutX="54.0" layoutY="331.0" prefHeight="236.0" prefWidth="577.0">
             <columns>
-                <TableColumn fx:id="idGuideCol" prefWidth="109.0" text="Id" />
-                <TableColumn fx:id="fullNameGuideCol" prefWidth="161.0" text="Full name" />
-                <TableColumn fx:id="experienceCol" minWidth="0.0" prefWidth="153.0" text="Experience" />
-                <TableColumn fx:id="ratingCol" minWidth="0.0" prefWidth="147.0" text="Rating" />
+                <TableColumn fx:id="idGuideCol" prefWidth="109.0" text="ID" />
+                <TableColumn fx:id="fullNameGuideCol" prefWidth="161.0" text="Nombre completo" />
+                <TableColumn fx:id="experienceCol" minWidth="0.0" prefWidth="153.0" text="Experiencia" />
+                <TableColumn fx:id="ratingCol" minWidth="0.0" prefWidth="147.0" text="Calificación" />
             </columns>
         </TableView>
 
         <ImageView fx:id="imgViewBackGuidesButton" fitHeight="36.0" fitWidth="37.0" layoutX="899.0" layoutY="14.0" onMouseClicked="#onBackButtonClick" pickOnBounds="true" preserveRatio="true"><cursor><Cursor fx:constant="HAND" /></cursor></ImageView>
 
-        <Button fx:id="addButtonGuides" layoutX="60.0" layoutY="283.0" mnemonicParsing="false" onAction="#agregarGuiaButton" style="-fx-border-radius: 35; -fx-background-radius: 35; -fx-border-color: #a26740; -fx-background-color: #d07943; -fx-font-family: 'Segoe UI Semibold'" text="addButton" />
-        <Button fx:id="modifyButtonGuides" layoutX="145.0" layoutY="283.0" mnemonicParsing="false" onAction="#modificarGuiaButton" style="-fx-border-radius: 35; -fx-background-radius: 35; -fx-border-color: #a26740; -fx-background-color: #d07943; -fx-font-family: 'Segoe UI Semibold'" text="modifyButton" />
-        <Button fx:id="deleteButtonGuide" layoutX="246.0" layoutY="283.0" mnemonicParsing="false" onAction="#eliminarGuiaButton" style="-fx-border-radius: 35; -fx-background-radius: 35; -fx-border-color: #a26740; -fx-background-color: #d07943; -fx-font-family: 'Segoe UI Semibold'" text="deleteButton" />
+        <Button fx:id="addButtonGuides" layoutX="60.0" layoutY="283.0" mnemonicParsing="false" onAction="#agregarGuiaButton" style="-fx-border-radius: 35; -fx-background-radius: 35; -fx-border-color: #a26740; -fx-background-color: #d07943; -fx-font-family: 'Segoe UI Semibold'" text="Agregar" />
+        <Button fx:id="modifyButtonGuides" layoutX="145.0" layoutY="283.0" mnemonicParsing="false" onAction="#modificarGuiaButton" style="-fx-border-radius: 35; -fx-background-radius: 35; -fx-border-color: #a26740; -fx-background-color: #d07943; -fx-font-family: 'Segoe UI Semibold'" text="Modificar" />
+        <Button fx:id="deleteButtonGuide" layoutX="246.0" layoutY="283.0" mnemonicParsing="false" onAction="#eliminarGuiaButton" style="-fx-border-radius: 35; -fx-background-radius: 35; -fx-border-color: #a26740; -fx-background-color: #d07943; -fx-font-family: 'Segoe UI Semibold'" text="Borrar" />
 
-        <Label layoutX="54.0" layoutY="113.0" prefHeight="17.0" prefWidth="78.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="idGuideLabel" />
+        <Label layoutX="54.0" layoutY="113.0" prefHeight="17.0" prefWidth="78.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="ID :" />
         <TextField fx:id="txtFldGuideId" layoutX="172.0" layoutY="109.0" />
-        <Label layoutX="54.0" layoutY="166.0" prefHeight="17.0" prefWidth="84.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="fullNameLabel" />
+        <Label layoutX="54.0" layoutY="166.0" prefHeight="17.0" prefWidth="113.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="Nombre completo :" />
         <TextField fx:id="txtFldFullNameGuide" layoutX="172.0" layoutY="162.0" />
-        <Label layoutX="54.0" layoutY="220.0" prefHeight="17.0" prefWidth="98.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="experienceLabel" />
+        <Label layoutX="54.0" layoutY="220.0" prefHeight="17.0" prefWidth="98.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="Experiencia :" />
         <TextField fx:id="txtFldExperience" layoutX="172.0" layoutY="216.0" />
-        <Label layoutX="365.0" layoutY="113.0" prefHeight="17.0" prefWidth="98.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="ratingLabel" />
+        <Label layoutX="365.0" layoutY="113.0" prefHeight="17.0" prefWidth="98.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="Calificación :" />
         <TextField fx:id="txtFldRating" layoutX="450.0" layoutY="109.0" prefHeight="25.0" prefWidth="149.0" />
 
 
       <TableView fx:id="guidesLenguajeTable" layoutX="680.0" layoutY="331.0" prefHeight="236.0" prefWidth="238.0">
         <columns>
-          <TableColumn fx:id="lenguajeCol" prefWidth="192.0" text="Lenguajes" />
+          <TableColumn fx:id="lenguajeCol" prefWidth="229.0" text="Idiomas" />
         </columns>
       </TableView>
 
-      <Button fx:id="addLenguajeButton" layoutX="716.0" layoutY="283.0" mnemonicParsing="false" onAction="#agregarLenguajeGuia" style="-fx-border-radius: 35; -fx-background-radius: 35; -fx-border-color: #a26740; -fx-background-color: #d07943; -fx-font-family: 'Segoe UI Semibold'" text="addButton" />
-      <Button fx:id="deleteLenguajeButton" layoutX="814.0" layoutY="283.0" mnemonicParsing="false" onAction="#elimiarLenguajeGuia" style="-fx-border-radius: 35; -fx-background-radius: 35; -fx-border-color: #a26740; -fx-background-color: #d07943; -fx-font-family: 'Segoe UI Semibold'" text="deleteButton" />
+      <Button fx:id="addLenguajeButton" layoutX="716.0" layoutY="283.0" mnemonicParsing="false" onAction="#agregarLenguajeGuia" style="-fx-border-radius: 35; -fx-background-radius: 35; -fx-border-color: #a26740; -fx-background-color: #d07943; -fx-font-family: 'Segoe UI Semibold'" text="Agregar" />
+      <Button fx:id="deleteLenguajeButton" layoutX="814.0" layoutY="283.0" mnemonicParsing="false" onAction="#elimiarLenguajeGuia" style="-fx-border-radius: 35; -fx-background-radius: 35; -fx-border-color: #a26740; -fx-background-color: #d07943; -fx-font-family: 'Segoe UI Semibold'" text="Borrar" />
       <Button fx:id="limpiarCamposGuides" layoutX="531.0" layoutY="283.0" mnemonicParsing="false" onAction="#onLimpiarCamposGuiasClick" style="-fx-border-radius: 35; -fx-background-radius: 35; -fx-border-color: #a26740; -fx-background-color: #d07943; -fx-font-family: 'Segoe UI Semibold'" text="Limpiar campos" />
 
       <TextField fx:id="txtFldLenguaje" layoutX="782.0" layoutY="216.0" />
-      <Label layoutX="680.0" layoutY="220.0" prefHeight="17.0" prefWidth="89.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="lenguajeLabel" />
+      <Label layoutX="680.0" layoutY="220.0" prefHeight="17.0" prefWidth="89.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="Idioma :" />
 
     </Pane>
 
     <Pane fx:id="statisticsPane" prefHeight="615.0" prefWidth="950.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-background-color: #989898" visible="false">
 
-        <Label layoutX="306.0" layoutY="14.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="estadisticasLabelPrincipal"><font><Font size="30" /></font></Label>
+        <Label layoutX="393.0" layoutY="14.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="Estadísticas "><font><Font size="30" /></font></Label>
 
         <ImageView fx:id="imgViewBackStatisticsButton" fitHeight="36.0" fitWidth="37.0" layoutX="899.0" layoutY="14.0" onMouseClicked="#onBackButtonClick" pickOnBounds="true" preserveRatio="true"><cursor><Cursor fx:constant="HAND" /></cursor></ImageView>
 
