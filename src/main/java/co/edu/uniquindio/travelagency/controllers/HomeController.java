@@ -3,6 +3,7 @@ package co.edu.uniquindio.travelagency.controllers;
 import co.edu.uniquindio.travelagency.exceptions.*;
 import co.edu.uniquindio.travelagency.model.*;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -23,6 +24,7 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
 import java.security.PublicKey;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
@@ -75,15 +77,25 @@ public class HomeController {
     @FXML
     public Button reservarButton;
     @FXML
-    public TextField txtFldNombrePaquete;
+    public TextField txtFldNombrePaquete, txtFldCuposDeseados;
     @FXML
     public TableView<TouristPackage> packagesTable;
     @FXML
-    ObservableList<TouristPackage> packageObservableList;
+    ObservableList<TouristPackage> packageObservableList = FXCollections.observableArrayList();;
     @FXML
     public TableColumn<TouristPackage, TouristPackage> namePackageCol, priceCol, quotaCol, startDateCol, durationCol;
+    @FXML
+    public RadioButton radioBttonSI, radioBttonNO;
+    @FXML
+    public ChoiceBox<String> choiceBoxGuias;
+    @FXML
+    public Label seleccionarGuiaLabel;
+    @FXML
+    public Button hacerReservacionButton;
+    ToggleGroup group = new ToggleGroup();
 
     //----------------------Registrar cliente----------------------
+
     @FXML
     private AnchorPane registroPanee;
     @FXML
@@ -127,21 +139,35 @@ public class HomeController {
     private TextArea infoTA;
     @FXML
     private HBox hboxPanePrincipal;
-
-    @FXML private TableView<String> tblDe;
-
-    @FXML private TableColumn<String,String>  colDeNombre, colDeCiudad, colDeDescription, colDeClima;
-
+    @FXML
+    private TableView<String> tblDe;
+    @FXML
+    private TableColumn<String,String>  colDeNombre, colDeCiudad, colDeDescription, colDeClima;
     @FXML
     ObservableList<String> dE = FXCollections.observableArrayList();
     @FXML
-             ObservableList<TouristPackage>  tP = FXCollections.observableArrayList();
-
-
-
+    ObservableList<TouristPackage>  tP = FXCollections.observableArrayList();
     String  clientID, passwordID,fullName, mail, phoneNumber, residence;
 
     public void initialize() {
+
+        choiceBoxGuias.setVisible(false);
+        seleccionarGuiaLabel.setVisible(false);
+
+        radioBttonSI.setToggleGroup(group);
+        radioBttonNO.setToggleGroup(group);
+
+        radioBttonSI.setOnAction(event -> {
+            choiceBoxGuias.setVisible(true);
+            seleccionarGuiaLabel.setVisible(true);
+        });
+
+        radioBttonNO.setOnAction(event -> {
+            choiceBoxGuias.getSelectionModel().clearSelection();
+            choiceBoxGuias.setVisible(false);
+            seleccionarGuiaLabel.setVisible(false);
+        });
+
         elementosSheaarchBar();
         seleccionDestinos();
 
@@ -161,19 +187,11 @@ public class HomeController {
             }
         });
 
-        //Cargas historial de reservaciones
-
-        packageColumn.setCellValueFactory(new PropertyValueFactory<>("touristPackageString"));
-        startDateColumn.setCellValueFactory(new PropertyValueFactory<>("startDateString"));
-        endDateColumn.setCellValueFactory(new PropertyValueFactory<>("endDateString"));
-        numberOfPeopleColumn.setCellValueFactory(new PropertyValueFactory<>("numberOfPeopleString"));
-
-        // Llama a travelagency.getReservations para obtener las reservaciones
-        List<Reservation> reservationsData = travelAgency.getReservations();
-
-        reservations.addAll(reservationsData);
-
-        historialReservacionesTable.setItems(reservations);
+        txtFldCuposDeseados.addEventFilter(KeyEvent.KEY_TYPED, event -> {
+            if (!event.getCharacter().matches("[0-9]")) {
+                event.consume(); // Bloquea la entrada no numérica
+            }
+        });
 
         //Hacer reservación
 
@@ -196,9 +214,50 @@ public class HomeController {
                 txtFldNombrePaquete.setText(newSelection.getName());
             }
         });
+
+    }
+
+    private void cargarTablaHistoricoReservas() {
+
+        Optional<Client> client = travelAgency.getClients().stream().filter(client1 -> client1.getUserId().equals(clientID)).findFirst();
+
+        List<Reservation> reservationsData = new ArrayList<>();
+
+        if (client.isPresent()){
+            reservationsData = client.get().getReservationList();
+        }
+
+        reservations = historialReservacionesTable.getItems();
+
+        reservations.addAll(reservationsData);
+
+        packageColumn.setCellValueFactory(cellData -> {
+            StringProperty property = new SimpleStringProperty();
+            TouristPackage touristPackage = cellData.getValue().getTouristPackage();
+            if (touristPackage != null) {
+                property.set(touristPackage.getName());
+            }
+            return property;
+        });
+        this.startDateColumn.setCellValueFactory(new PropertyValueFactory<>("startDate"));
+        this.endDateColumn.setCellValueFactory(new PropertyValueFactory<>("endDate"));
+        this.numberOfPeopleColumn.setCellValueFactory(new PropertyValueFactory<>("numberOfPeople"));
+    }
+
+    public void onHacerReservacionClick(ActionEvent actionEvent) throws AtributoVacioException, CuposInvalidosException {
+        travelAgency.hacerReservacion(clientID, group.getSelectedToggle(), radioBttonSI, radioBttonNO, choiceBoxGuias.getSelectionModel().getSelectedItem(), txtFldCuposDeseados.getText(), txtFldNombrePaquete.getText());
     }
 
     public void onReservarClick(ActionEvent actionEvent) {
+
+        List<String> guiasName = travelAgency.getTouristGuides().stream()
+                .map(TouristGuide::getFullName)
+                .toList();
+
+        if (!guiasName.equals(choiceBoxGuias.getItems())) {
+            choiceBoxGuias.getItems().setAll(guiasName);
+        }
+
         visibilitiesClient(false, true);
     }
 
@@ -259,6 +318,7 @@ public class HomeController {
     }
 
     public void onPerfilClick(MouseEvent mouseEvent) {
+        cargarTablaHistoricoReservas();
         visibilitiesClient(true, false);
     }
 
@@ -333,8 +393,6 @@ public class HomeController {
 
     private void elementosSheaarchBar() {
 
-
-
         this.colPqNombre.setCellValueFactory(new PropertyValueFactory<>("name"));
         this.colPqPrecio.setCellValueFactory(new PropertyValueFactory<>("price"));
         this.colPqCupo.setCellValueFactory(new PropertyValueFactory<>("quota"));
@@ -389,4 +447,5 @@ public class HomeController {
     public void onRegisterButtonClck(ActionEvent e) {
         visibilitiesRegister(false,false,true);
     }
+
 }

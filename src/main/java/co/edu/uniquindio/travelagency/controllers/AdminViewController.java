@@ -146,7 +146,7 @@ public class AdminViewController {
     private CategoryAxis packagesXAxis;
     @FXML
     private NumberAxis packagesYAxis;
-    private List<Reservation> reservations = TravelAgency.getInstance().getReservations();
+    private List<Reservation> reservations = travelAgency.getReservations();
 
     public void initialize(){
 
@@ -768,7 +768,7 @@ public class AdminViewController {
 
         }
 
-        choiceBoxDestinationName.setValue("");
+        choiceBoxDestinationName.getSelectionModel().clearSelection();
 
     }
 
@@ -899,9 +899,7 @@ public class AdminViewController {
 
         }
 
-        choiceBoxDestinationName.setValue("");
-
-
+        choiceBoxDestinationName.getSelectionModel().clearSelection();
 
     }
 

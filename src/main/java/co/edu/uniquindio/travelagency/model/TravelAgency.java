@@ -1,11 +1,14 @@
 package co.edu.uniquindio.travelagency.model;
 
+import co.edu.uniquindio.travelagency.enums.ReservationStatus;
 import co.edu.uniquindio.travelagency.exceptions.*;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.Toggle;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -58,12 +61,6 @@ public class TravelAgency {
 
             this.touristGuides = Objects.requireNonNullElseGet(aux, ArrayList::new);
 
-            for (TouristGuide guide : touristGuides) {
-                if (guide.getLanguages() == null) {
-                    guide.setLanguages(new ArrayList<>());
-                }
-            }
-
         }).start();
 
         //Cargar reservaciones
@@ -83,12 +80,6 @@ public class TravelAgency {
 
             this.touristPackages = Objects.requireNonNullElseGet(aux2, ArrayList::new);
 
-            for (TouristPackage aPackage : touristPackages){
-                if (aPackage.getDestinosName() == null){
-                    aPackage.setDestinosName(new ArrayList<>());
-                }
-            }
-
         }).start();
 
         //Cargar destinos
@@ -98,12 +89,6 @@ public class TravelAgency {
             ArrayList<Destino> aux3 = (ArrayList<Destino>) archiveUtils.deserializerObjet("src/main/resources/persistencia/destinos.ser");
 
             this.destinos = Objects.requireNonNullElseGet(aux3, ArrayList::new);
-
-            for (Destino destino : destinos){
-                if (destino.getImagesHTTPS() == null){
-                    destino.setImagesHTTPS(new ArrayList<>());
-                }
-            }
 
         }).start();
 
@@ -160,6 +145,111 @@ public class TravelAgency {
 
     public void serizalizarClientes(){
         archiveUtils.serializerObjet("src/main/resources/persistencia/clients.ser", clients);
+    }
+
+    public void serializarReservaciones(){
+        archiveUtils.serializerObjet("src/main/resources/persistencia/reservations.ser", reservations);
+    }
+
+    public void hacerReservacion(String clientID, Toggle selectedToggle, RadioButton radioBttonSI, RadioButton radioBttonNO, String selectedGuia, String nroCupos, String selectedPackageName) throws AtributoVacioException, CuposInvalidosException {
+
+        if (selectedToggle == null){
+
+            createAlertError("Campos obligatorios", "Los campos marcados con (*) son oblogatorios");
+            log.info("Se ha intentado agregar un destino con campos vacios.");
+            throw new AtributoVacioException("Se ha intentado agregar un destino con campos vacios.");
+        }
+
+        if (nroCupos == null || nroCupos.isEmpty() ||
+                selectedPackageName == null || selectedPackageName.isEmpty()) {
+
+            createAlertError("Campos obligatorios", "Los campos marcados con (*) son oblogatorios");
+            log.info("Se ha intentado agregar un destino con campos vacios.");
+            throw new AtributoVacioException("Se ha intentado agregar un destino con campos vacios.");
+        }
+
+        if (selectedToggle.equals(radioBttonSI)) {
+
+            if (selectedGuia == null || selectedGuia.isEmpty()) {
+
+                createAlertError("Campos obligatorios", "Los campos marcados con (*) son oblogatorios");
+                log.info("Se ha intentado agregar un destino con campos vacios.");
+                throw new AtributoVacioException("Se ha intentado agregar un destino con campos vacios.");
+            }
+
+            Optional<TouristPackage> touristPackage = touristPackages.stream().filter(touristPackage1 -> touristPackage1.getName().equals(selectedPackageName)).findFirst();
+
+            if (Integer.parseInt(nroCupos) > touristPackage.get().getQuota()){
+
+                createAlertError("Cupos inválidos", "La cantidad de cupos con los que desea reservar exceden los permitidos en el paquete");
+                log.info("Cupos inválidos.");
+                throw new CuposInvalidosException("Cupos inválidos.");
+            }
+
+            Reservation nuevaReservacion = Reservation.builder()
+                    .touristPackage(touristPackage.get())
+                    .requestDate(LocalDate.now())
+                    .reservationStatus(ReservationStatus.CONFIRMED)
+                    .startDate(touristPackage.get().getStartDate())
+                    .endDate(touristPackage.get().getEndDate())
+                    .touristGuide(true)
+                    .numberOfPeople(Integer.valueOf(nroCupos))
+                    .build();
+
+            createAlertInfo("Reservación éxitosa.","Información","Has hecho una reservación del paquete " + selectedPackageName + " para el " + touristPackage.get().getStartDate() + ".");
+            log.info("se ha hecho una reservación del paquete " + selectedPackageName + " para el " + touristPackage.get().getStartDate() + ".");
+
+            Optional<Client> client = clients.stream().filter(client1 -> client1.getUserId().equals(clientID)).findFirst();
+
+            if (client.isPresent()){
+                if (client.get().getReservationList() == null){
+                    client.get().setReservationList(new ArrayList<>());
+                    client.get().getReservationList().add(nuevaReservacion);
+                } else {
+                    client.get().getReservationList().add(nuevaReservacion);
+                }
+            }
+
+        }
+
+        if (selectedToggle.equals(radioBttonNO)) {
+
+            Optional<TouristPackage> touristPackage = touristPackages.stream().filter(touristPackage1 -> touristPackage1.getName().equals(selectedPackageName)).findFirst();
+
+            if (Integer.parseInt(nroCupos) > touristPackage.get().getQuota()){
+
+                createAlertError("Cupos inválidos", "La cantidad de cupos con los que desea reservar exceden los permitidos en el paquete");
+                log.info("Cupos inválidos.");
+                throw new CuposInvalidosException("Cupos inválidos.");
+            }
+
+            Reservation nuevaReservacion = Reservation.builder()
+                    .touristPackage(touristPackage.get())
+                    .requestDate(LocalDate.now())
+                    .reservationStatus(ReservationStatus.CONFIRMED)
+                    .startDate(touristPackage.get().getStartDate())
+                    .endDate(touristPackage.get().getEndDate())
+                    .touristGuide(false)
+                    .numberOfPeople(Integer.valueOf(nroCupos))
+                    .build();
+
+            createAlertInfo("Reservación éxitosa.","Información","Has hecho una reservación del paquete " + selectedPackageName + " para el " + touristPackage.get().getStartDate() + ".");
+            log.info("se ha hecho una reservación del paquete " + selectedPackageName + " para el " + touristPackage.get().getStartDate() + ".");
+
+            Optional<Client> client = clients.stream().filter(client1 -> client1.getUserId().equals(clientID)).findFirst();
+
+            if (client.isPresent()){
+                if (client.get().getReservationList() == null){
+                    client.get().setReservationList(new ArrayList<>());
+                    client.get().getReservationList().add(nuevaReservacion);
+                } else {
+                    client.get().getReservationList().add(nuevaReservacion);
+                }
+            }
+
+        }
+
+        serizalizarClientes();
     }
 
     public void modificarDestino(Destino selectedDestino, String nuevoNombre, String nuevaCiudad, String nuevaDescrpcion, String nuevaLocalDate) throws AtributoVacioException {
