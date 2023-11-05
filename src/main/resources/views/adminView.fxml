@@ -133,8 +133,8 @@
             <columns>
                 <TableColumn fx:id="namePackageCol" prefWidth="127.0" text="Nombre" />
                 <TableColumn fx:id="priceCol" prefWidth="114.0" text="Precio" />
-                <TableColumn fx:id="quotaCol" prefWidth="39.0" text="Cupo" />
-                <TableColumn fx:id="startDateCol" minWidth="0.0" prefWidth="134.0" text="Fecha inicio" />
+                <TableColumn fx:id="quotaCol" prefWidth="48.0" text="Cupo" />
+                <TableColumn fx:id="startDateCol" minWidth="0.0" prefWidth="125.0" text="Fecha inicio" />
                 <TableColumn fx:id="durationCol" minWidth="0.0" prefWidth="138.0" text="Duración" />
             </columns>
         </TableView>

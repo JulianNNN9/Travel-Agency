@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.Cursor?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="950.0" style="-fx-background-radius: 15; -fx-background-color: transparent;" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.travelagency.controllers.HomeController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="950.0" style="-fx-background-radius: 15; -fx-background-color: transparent;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.travelagency.controllers.HomeController">
    <children>
       <HBox fx:id="hboxPanePrincipal" alignment="CENTER" prefHeight="60.0" prefWidth="950.0" style="-fx-background-color: linear-gradient(to bottom, #d0986a, #888282); -fx-background-radius: 15;">
          <children>
@@ -61,7 +60,7 @@
             <Separator prefHeight="0.0" prefWidth="18.0" visible="false" />
            </children>
        </HBox>
-      <AnchorPane fx:id="homePane" layoutY="85.0" prefHeight="615.0" prefWidth="950.0" style="-fx-background-color: #383838; -fx-background-radius: 15;">
+      <AnchorPane fx:id="homePane" layoutY="92.0" prefHeight="608.0" prefWidth="950.0" style="-fx-background-color: #383838; -fx-background-radius: 15;">
           <Label layoutX="59.0" layoutY="96.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="¿Quienes Somos?"><font><Font size="60" /></font></Label>
           <Label layoutX="59.0" layoutY="219.0" style="-fx-text-fill: #D07943FF; -fx-font-family: 'Segoe UI Semibold'" text="Una agencia de viajes"><font><Font size="25" /></font></Label>
           <Label layoutX="59.0" layoutY="299.0" prefHeight="35.0" prefWidth="466.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="¡Descubre el mundo con nosotros! Viajar es más que un destino, es una experiencia."><font><Font size="12" /></font></Label>
@@ -70,40 +69,41 @@
             <Cursor fx:constant="DEFAULT" />
          </cursor>
       </AnchorPane>
-      <AnchorPane fx:id="nuestrosPaquetesPane" layoutY="89.0" prefHeight="615.0" prefWidth="950.0" style="-fx-background-color: #383838; -fx-background-radius: 15;">
+      <AnchorPane fx:id="nuestrosPaquetesPane" layoutY="89.0" prefHeight="615.0" prefWidth="950.0" style="-fx-background-color: #383838; -fx-background-radius: 15;" visible="false">
          <children>
 
-            <Label layoutX="25.0" layoutY="24.0" prefHeight="18.0" prefWidth="173.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="Conoce Nuestros Paquetes :" />
+            <Label layoutX="159.0" layoutY="26.0" prefHeight="18.0" prefWidth="173.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="Conoce Nuestros Paquetes :" />
 
-            <ImageView fitHeight="44.0" fitWidth="44.0" layoutX="210.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="340.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true">
                <image>
 
                   <Image url="@../icons/200941.png" />
                </image>
             </ImageView>
-            <TextField fx:id="barraBusquedaTF" layoutX="268.0" layoutY="16.0" prefHeight="35.0" prefWidth="349.0" />
+            <TextField fx:id="barraBusquedaTF" layoutX="385.0" layoutY="17.0" prefHeight="35.0" prefWidth="349.0" />
 
-            <TableView fx:id="tblPq" layoutX="20.0" layoutY="75.0" prefHeight="265.0" prefWidth="910.0">
+            <TableView fx:id="tblPq" layoutX="72.0" layoutY="78.0" prefHeight="202.0" prefWidth="806.0">
               <columns>
-                <TableColumn fx:id="colPqNombre" prefWidth="240.0" text="Nombre" />
-                <TableColumn fx:id="colPqPrecio" minWidth="4.0" prefWidth="112.0" text="Precio" />
-                  <TableColumn fx:id="colPqCupo" prefWidth="85.0" text="Cupo" />
-                  <TableColumn fx:id="colPqFechaInicio" minWidth="0.0" prefWidth="103.0" text="Fecha incio" />
-                  <TableColumn fx:id="colPqFechaFinal" prefWidth="152.0" text="Fecha final" />
-                  <TableColumn fx:id="colPqDuration" minWidth="0.0" prefWidth="217.0" text="Duracion" />
+                <TableColumn fx:id="colPqNombre" prefWidth="192.0" text="Nombre" />
+                <TableColumn fx:id="colPqPrecio" minWidth="4.0" prefWidth="131.0" text="Precio" />
+                  <TableColumn fx:id="colPqCupo" prefWidth="71.0" text="Cupo" />
+                  <TableColumn fx:id="colPqFechaInicio" minWidth="0.0" prefWidth="154.0" text="Fecha incio" />
+                  <TableColumn fx:id="colPqFechaFinal" prefWidth="144.0" text="Fecha final" />
+                  <TableColumn fx:id="colPqDuration" minWidth="0.0" prefWidth="107.0" text="Duracion" />
               </columns>
             </TableView>
 
-            <TableView fx:id="tblDe" layoutX="28.0" layoutY="358.0" prefHeight="233.0" prefWidth="531.0">
+            <TableView fx:id="tblDe" layoutX="71.0" layoutY="301.0" prefHeight="290.0" prefWidth="401.0">
               <columns>
-                <TableColumn fx:id="colDeNombre" prefWidth="137.0" text="Nombre" />
-                <TableColumn fx:id="colDeCiudad" prefWidth="146.0" text="Ciudad" />
-                  <TableColumn fx:id="colDeDescription" prefWidth="152.0" text="Descripcion" />
-                  <TableColumn fx:id="colDeClima" prefWidth="95.0" text="Clima" />
+                <TableColumn fx:id="colDeNombre" prefWidth="102.0" text="Nombre" />
+                <TableColumn fx:id="colDeCiudad" prefWidth="94.0" text="Ciudad" />
+                  <TableColumn fx:id="colDeDescription" prefWidth="124.0" text="Descripcion" />
+                  <TableColumn fx:id="colDeClima" prefWidth="76.0" text="Clima" />
               </columns>
             </TableView>
 
             <ImageView fx:id="mostrarDestinoImg" fitHeight="233.0" fitWidth="287.0" layoutX="614.0" layoutY="358.0" pickOnBounds="true" preserveRatio="true" />
+
          </children></AnchorPane>
 
       <AnchorPane fx:id="nuestrosGuiasPane" layoutY="89.0" prefHeight="615.0" prefWidth="950.0" style="-fx-background-color: #383838; -fx-background-radius: 15;" visible="false">
@@ -197,6 +197,7 @@
              </ImageView>
          </children>
       </AnchorPane>
+
       <Pane fx:id="perfilPane" layoutY="85.0" prefHeight="615.0" prefWidth="950.0" style="-fx-background-color: #383838; -fx-background-radius: 15;" visible="false">
          <children>
             <VBox prefHeight="615.0" prefWidth="258.0">
@@ -229,7 +230,7 @@
                   </Pane>
                </children>
             </VBox>
-            <Pane layoutX="258.0" prefHeight="615.0" prefWidth="694.0" visible="false">
+            <Pane layoutX="258.0" prefHeight="615.0" prefWidth="694.0">
                <children>
                    <Label layoutX="225.0" layoutY="35.0" prefHeight="36.0" prefWidth="265.0" style="-fx-text-fill: #D07943FF; -fx-font-family: 'Segoe UI Semibold'" text="Histórico de reservas"><font><Font size="25" /></font></Label>
                    <TableView fx:id="historialReservacionesTable" layoutX="77.0" layoutY="98.0" prefHeight="472.0" prefWidth="560.0">
@@ -244,15 +245,16 @@
             </Pane>
          </children>
       </Pane>
+
        <Pane fx:id="reservarPane" layoutY="85.0" prefHeight="615.0" prefWidth="950.0" style="-fx-background-color: #383838; -fx-background-radius: 15;" visible="false">
          <children>
             <Label layoutX="275.0" layoutY="71.0" prefHeight="17.0" prefWidth="128.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="¿Desea tener un guía?" />
             <Label layoutX="273.0" layoutY="164.0" prefHeight="17.0" prefWidth="193.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="Numero de personajes que viajan :" />
             <Label layoutX="273.0" layoutY="217.0" prefHeight="17.0" prefWidth="132.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="Paquete seleccionado :" />
             <Label layoutX="27.0" layoutY="25.0" prefHeight="30.0" prefWidth="132.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'; -fx-font-size: 20" text="Reservando..." />
-            <ChoiceBox layoutX="585.0" layoutY="67.0" prefWidth="150.0" />
-            <RadioButton layoutX="275.0" layoutY="97.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="52.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="SI" />
-            <RadioButton layoutX="275.0" layoutY="126.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="52.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="NO" />
+            <ChoiceBox fx:id="choiceBoxGuias" layoutX="585.0" layoutY="67.0" prefWidth="150.0" />
+            <RadioButton fx:id="radioBttonSI" layoutX="275.0" layoutY="101.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="52.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="SI" />
+            <RadioButton fx:id="radioBttonNO" layoutX="275.0" layoutY="124.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="52.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="NO" />
             <TextField fx:id="txtFldCuposDeseados" layoutX="490.0" layoutY="160.0" prefHeight="25.0" prefWidth="42.0" />
             <TextField fx:id="txtFldNombrePaquete" layoutX="490.0" layoutY="213.0" />
              <TableView fx:id="packagesTable" layoutX="195.0" layoutY="267.0" prefHeight="259.0" prefWidth="561.0">
@@ -264,8 +266,11 @@
                      <TableColumn fx:id="durationCol" minWidth="0.0" prefWidth="138.0" text="Duración" />
                  </columns>
              </TableView>
-            <Button layoutX="432.0" layoutY="554.0" mnemonicParsing="false" style="-fx-border-radius: 35; -fx-background-radius: 35; -fx-border-style: none; -fx-border-color: #a26740; -fx-background-color: #d07943; -fx-font-family: 'Segoe UI Semibold';" text="Hacer reservación" />
-            <Label layoutX="454.0" layoutY="71.0" prefHeight="17.0" prefWidth="115.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="Seleccione un guía :" />
+            <Button fx:id="hacerReservacionButton" layoutX="432.0" layoutY="554.0" mnemonicParsing="false" onAction="#onHacerReservacionClick" style="-fx-border-radius: 35; -fx-background-radius: 35; -fx-border-style: none; -fx-border-color: #a26740; -fx-background-color: #d07943; -fx-font-family: 'Segoe UI Semibold';" text="Hacer reservación">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
+            <Label fx:id="seleccionarGuiaLabel" layoutX="454.0" layoutY="71.0" prefHeight="17.0" prefWidth="115.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="Seleccione un guía :" />
          </children>
        </Pane>
    </children>
