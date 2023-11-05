@@ -715,4 +715,9 @@ public class TravelAgency {
         alert.setContentText(contentError);
         alert.show();
     }
+
+    public void cambiarEstadoReserva(Reservation reserva) {
+        reserva.setReservationStatus(ReservationStatus.CANCELED);
+        serizalizarClientes();
+    }
 }
