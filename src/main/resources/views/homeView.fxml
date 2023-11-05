@@ -233,14 +233,20 @@
             <Pane layoutX="258.0" prefHeight="615.0" prefWidth="694.0">
                <children>
                    <Label layoutX="225.0" layoutY="35.0" prefHeight="36.0" prefWidth="265.0" style="-fx-text-fill: #D07943FF; -fx-font-family: 'Segoe UI Semibold'" text="Histórico de reservas"><font><Font size="25" /></font></Label>
-                   <TableView fx:id="historialReservacionesTable" layoutX="77.0" layoutY="98.0" prefHeight="472.0" prefWidth="560.0">
+                   <TableView fx:id="historialReservacionesTable" layoutX="77.0" layoutY="98.0" prefHeight="451.0" prefWidth="560.0">
                     <columns>
-                      <TableColumn fx:id="packageColumn" prefWidth="150.0" text="Paquete turístico" />
-                        <TableColumn fx:id="startDateColumn" minWidth="0.0" prefWidth="150.0" text="Fecha inicio" />
-                        <TableColumn fx:id="endDateColumn" prefWidth="141.0" text="Fecha fin" />
-                        <TableColumn fx:id="numberOfPeopleColumn" prefWidth="112.0" text="Número personas" />
+                      <TableColumn fx:id="packageColumn" prefWidth="157.0" text="Paquete turístico" />
+                        <TableColumn fx:id="startDateColumn" minWidth="0.0" prefWidth="89.0" text="Fecha inicio" />
+                        <TableColumn fx:id="endDateColumn" prefWidth="100.0" text="Fecha fin" />
+                        <TableColumn fx:id="numberOfPeopleColumn" minWidth="0.0" prefWidth="122.0" text="Número personas" />
+                        <TableColumn fx:id="estadoReserva" prefWidth="86.0" text="Estado" />
                     </columns>
                   </TableView>
+                  <Button fx:id="cancelarReservaButton" layoutX="297.0" layoutY="562.0" mnemonicParsing="false" style="-fx-border-radius: 35; -fx-background-radius: 35; -fx-border-style: none; -fx-border-color: #a26740; -fx-background-color: #d07943; -fx-font-family: 'Segoe UI Semibold';" text="Cancelar reserva">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
                </children>
             </Pane>
          </children>

@@ -1,5 +1,6 @@
 package co.edu.uniquindio.travelagency.controllers;
 
+import co.edu.uniquindio.travelagency.enums.ReservationStatus;
 import co.edu.uniquindio.travelagency.exceptions.*;
 import co.edu.uniquindio.travelagency.model.*;
 import javafx.beans.property.SimpleStringProperty;
@@ -61,15 +62,11 @@ public class HomeController {
     @FXML
     public TableView<Reservation> historialReservacionesTable;
     @FXML
-    private TableColumn<Reservation, String> packageColumn;
-    @FXML
-    private TableColumn<Reservation, String> startDateColumn;
-    @FXML
-    private TableColumn<Reservation, String> endDateColumn;
-    @FXML
-    private TableColumn<Reservation, String> numberOfPeopleColumn;
+    private TableColumn<Reservation, String> packageColumn, startDateColumn, endDateColumn, numberOfPeopleColumn, estadoReserva;
     @FXML
     private ObservableList<Reservation> reservations = FXCollections.observableArrayList();
+    @FXML
+    public Button cancelarReservaButton;
 
     //----------------------Reservar----------------------
     @FXML
@@ -150,6 +147,8 @@ public class HomeController {
     String  clientID, passwordID,fullName, mail, phoneNumber, residence;
 
     public void initialize() {
+
+        cancelarReservaButton.setVisible(false);
 
         choiceBoxGuias.setVisible(false);
         seleccionarGuiaLabel.setVisible(false);
@@ -242,6 +241,30 @@ public class HomeController {
         this.startDateColumn.setCellValueFactory(new PropertyValueFactory<>("startDate"));
         this.endDateColumn.setCellValueFactory(new PropertyValueFactory<>("endDate"));
         this.numberOfPeopleColumn.setCellValueFactory(new PropertyValueFactory<>("numberOfPeople"));
+        this.estadoReserva.setCellValueFactory(new PropertyValueFactory<>("reservationStatus"));
+
+        historialReservacionesTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+
+                if (newSelection.getReservationStatus() == ReservationStatus.CONFIRMED){
+                    cancelarReservaButton.setVisible(true);
+                    cancelarReservaButton.setOnAction(event -> {
+                        travelAgency.cambiarEstadoReserva(newSelection);
+                        cancelarReservaButton.setVisible(false);
+                    });
+                }
+                if (newSelection.getReservationStatus() == ReservationStatus.PENDING){
+                    cancelarReservaButton.setVisible(true);
+                    cancelarReservaButton.setOnAction(event -> {
+                        travelAgency.cambiarEstadoReserva(newSelection);
+                        cancelarReservaButton.setVisible(false);
+                    });
+                }
+                if (newSelection.getReservationStatus() == ReservationStatus.CANCELED){
+                    cancelarReservaButton.setVisible(false);
+                }
+            }
+        });
     }
 
     public void onHacerReservacionClick(ActionEvent actionEvent) throws AtributoVacioException, CuposInvalidosException {
@@ -447,5 +470,4 @@ public class HomeController {
     public void onRegisterButtonClck(ActionEvent e) {
         visibilitiesRegister(false,false,true);
     }
-
 }
