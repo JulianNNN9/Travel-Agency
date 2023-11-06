@@ -555,7 +555,13 @@ public class TravelAgency {
 
         for (TouristPackage t : touristPackages) {
             if (t.equals(touristPackage)) {
-                t.getDestinosName().add(selectedItem);
+                if (t.getDestinosName() != null){
+                    t.getDestinosName().add(selectedItem);
+                } else {
+                    t.setDestinosName(new ArrayList<>());
+                    t.getDestinosName().add(selectedItem);
+                }
+
                 break;
             }
         }

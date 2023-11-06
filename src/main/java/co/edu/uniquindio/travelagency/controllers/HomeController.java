@@ -70,6 +70,8 @@ public class HomeController {
     private ObservableList<Reservation> reservations = FXCollections.observableArrayList();
     @FXML
     public Button cancelarReservaButton;
+    private boolean isTableLoaded = false;
+    private List<Reservation> reservationsData = new ArrayList<>();
 
     //----------------------Reservar----------------------
     @FXML
@@ -226,57 +228,78 @@ public class HomeController {
 
     private void cargarTablaHistoricoReservas() {
 
-        Optional<Client> client = travelAgency.getClients().stream().filter(client1 -> client1.getUserId().equals(clientID)).findFirst();
+        if (!isTableLoaded) {
 
-        List<Reservation> reservationsData = new ArrayList<>();
+            isTableLoaded = true;
 
-        if (client.isPresent()){
-            reservationsData = client.get().getReservationList();
+            Optional<Client> client = travelAgency.getClients().stream().filter(client1 -> client1.getUserId().equals(clientID)).findFirst();
+
+            List<Reservation> reservationsData = new ArrayList<>();
+
+            if (client.isPresent()) {
+                reservationsData = client.get().getReservationList();
+            }
+
+            reservations = historialReservacionesTable.getItems();
+
+            List<Reservation> existingReservations = new ArrayList<>(reservations);
+
+            for (Reservation newReservation : reservationsData) {
+                if (!existingReservations.contains(newReservation)) {
+                    reservations.add(newReservation);
+                    historialReservacionesTable.refresh();
+                }
+            }
+
+            historialReservacionesTable.setItems(FXCollections.observableArrayList(reservations));
+
+            packageColumn.setCellValueFactory(cellData -> {
+                StringProperty property = new SimpleStringProperty();
+                TouristPackage touristPackage = cellData.getValue().getTouristPackage();
+                if (touristPackage != null) {
+                    property.set(touristPackage.getName());
+                }
+                return property;
+            });
+            this.startDateColumn.setCellValueFactory(new PropertyValueFactory<>("startDate"));
+            this.endDateColumn.setCellValueFactory(new PropertyValueFactory<>("endDate"));
+            this.numberOfPeopleColumn.setCellValueFactory(new PropertyValueFactory<>("numberOfPeople"));
+            this.estadoReserva.setCellValueFactory(new PropertyValueFactory<>("reservationStatus"));
+
+            historialReservacionesTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+                if (newSelection != null) {
+                    if (newSelection.getReservationStatus() == ReservationStatus.CONFIRMED) {
+                        cancelarReservaButton.setVisible(true);
+                        cancelarReservaButton.setOnAction(event -> {
+                            travelAgency.cambiarEstadoReserva(newSelection);
+                            cancelarReservaButton.setVisible(false);
+                            historialReservacionesTable.refresh();
+                        });
+                    }
+                    if (newSelection.getReservationStatus() == ReservationStatus.PENDING) {
+                        cancelarReservaButton.setVisible(true);
+                        cancelarReservaButton.setOnAction(event -> {
+                            travelAgency.cambiarEstadoReserva(newSelection);
+                            cancelarReservaButton.setVisible(false);
+                            historialReservacionesTable.refresh();
+                        });
+                    }
+                    if (newSelection.getReservationStatus() == ReservationStatus.CANCELED) {
+                        cancelarReservaButton.setVisible(false);
+                    }
+                }
+            });
         }
-
-        reservations = historialReservacionesTable.getItems();
-
-        reservations.addAll(reservationsData);
-
-        packageColumn.setCellValueFactory(cellData -> {
-            StringProperty property = new SimpleStringProperty();
-            TouristPackage touristPackage = cellData.getValue().getTouristPackage();
-            if (touristPackage != null) {
-                property.set(touristPackage.getName());
-            }
-            return property;
-        });
-        this.startDateColumn.setCellValueFactory(new PropertyValueFactory<>("startDate"));
-        this.endDateColumn.setCellValueFactory(new PropertyValueFactory<>("endDate"));
-        this.numberOfPeopleColumn.setCellValueFactory(new PropertyValueFactory<>("numberOfPeople"));
-        this.estadoReserva.setCellValueFactory(new PropertyValueFactory<>("reservationStatus"));
-
-        historialReservacionesTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-            if (newSelection != null) {
-
-                if (newSelection.getReservationStatus() == ReservationStatus.CONFIRMED){
-                    cancelarReservaButton.setVisible(true);
-                    cancelarReservaButton.setOnAction(event -> {
-                        travelAgency.cambiarEstadoReserva(newSelection);
-                        cancelarReservaButton.setVisible(false);
-                    });
-                }
-                if (newSelection.getReservationStatus() == ReservationStatus.PENDING){
-                    cancelarReservaButton.setVisible(true);
-                    cancelarReservaButton.setOnAction(event -> {
-                        travelAgency.cambiarEstadoReserva(newSelection);
-                        cancelarReservaButton.setVisible(false);
-                    });
-                }
-                if (newSelection.getReservationStatus() == ReservationStatus.CANCELED){
-                    cancelarReservaButton.setVisible(false);
-                }
-            }
-        });
     }
 
     public void onHacerReservacionClick(ActionEvent actionEvent) throws AtributoVacioException, CuposInvalidosException {
         travelAgency.hacerReservacion(clientID, group.getSelectedToggle(), radioBttonSI, radioBttonNO, choiceBoxGuias.getSelectionModel().getSelectedItem(), txtFldCuposDeseados.getText(), txtFldNombrePaquete.getText());
+        group.getSelectedToggle().setSelected(false);
+        choiceBoxGuias.getSelectionModel().clearSelection();
+        txtFldCuposDeseados.clear();
+        txtFldNombrePaquete.clear();
+        seleccionarGuiaLabel.setVisible(false);
+        choiceBoxGuias.setVisible(false);
     }
 
     public void onReservarClick(ActionEvent actionEvent) {
