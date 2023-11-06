@@ -5,7 +5,7 @@ module co.edu.uniquindio.travelagency {
     requires java.logging;
     requires javafx.graphics;
     requires static lombok;
-
+    requires java.mail;
 
 
     opens co.edu.uniquindio.travelagency.app to javafx.fxml;

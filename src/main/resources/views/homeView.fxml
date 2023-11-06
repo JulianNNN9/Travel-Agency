@@ -61,12 +61,12 @@
 
             <Separator prefHeight="3.0" prefWidth="24.0" visible="false" />
 
-               <ImageView fx:id="cerrarVentanaImgvCliente" fitHeight="35.0" fitWidth="46.0" onMouseClicked="#onLogOutButtonClick" pickOnBounds="true" preserveRatio="true">
+               <ImageView fx:id="cerrarVentanaImgvCliente" fitHeight="28.0" fitWidth="25.0" onMouseClicked="#onLogOutButtonClick" pickOnBounds="true" preserveRatio="true">
                    <Image url="@../icons/LogOut.png" />
                    <cursor><Cursor fx:constant="HAND" /></cursor>
                </ImageView>
 
-            <Separator prefHeight="0.0" prefWidth="18.0" visible="false" />
+            <Separator prefHeight="1.0" prefWidth="5.0" visible="false" />
            </children>
        </HBox>
 
