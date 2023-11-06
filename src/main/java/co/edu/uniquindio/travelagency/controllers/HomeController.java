@@ -63,9 +63,8 @@ public class HomeController {
     @FXML
     private ObservableList<Reservation> reservations = FXCollections.observableArrayList();
     @FXML
-    public Button cancelarReservaButton;
+    public Button cancelarReservaButton, confirmarReservaButton;
     private boolean isTableLoaded = false;
-    private List<Reservation> reservationsData = new ArrayList<>();
 
     //----------------------Reservar----------------------
     @FXML
@@ -77,7 +76,7 @@ public class HomeController {
     @FXML
     public TableView<TouristPackage> packagesTable;
     @FXML
-    ObservableList<TouristPackage> packageObservableList = FXCollections.observableArrayList();;
+    ObservableList<TouristPackage> packageObservableList = FXCollections.observableArrayList();
     @FXML
     public TableColumn<TouristPackage, TouristPackage> namePackageCol, priceCol, quotaCol, startDateCol, durationCol;
     @FXML
@@ -149,6 +148,7 @@ public class HomeController {
         imagenSiguienteImg.setVisible(false);
 
         cancelarReservaButton.setVisible(false);
+        confirmarReservaButton.setVisible(false);
 
         choiceBoxGuias.setVisible(false);
         seleccionarGuiaLabel.setVisible(false);
@@ -260,17 +260,33 @@ public class HomeController {
                 if (newSelection != null) {
                     if (newSelection.getReservationStatus() == ReservationStatus.CONFIRMED) {
                         cancelarReservaButton.setVisible(true);
+                        confirmarReservaButton.setVisible(true);
+
                         cancelarReservaButton.setOnAction(event -> {
-                            travelAgency.cambiarEstadoReserva(newSelection);
+                            travelAgency.cancelarReserva(newSelection);
                             cancelarReservaButton.setVisible(false);
+                            historialReservacionesTable.refresh();
+                        });
+
+                        confirmarReservaButton.setOnAction(actionEvent -> {
+                            travelAgency.confirmarReserva(newSelection);
+                            confirmarReservaButton.setVisible(false);
                             historialReservacionesTable.refresh();
                         });
                     }
                     if (newSelection.getReservationStatus() == ReservationStatus.PENDING) {
                         cancelarReservaButton.setVisible(true);
+                        confirmarReservaButton.setVisible(true);
+
                         cancelarReservaButton.setOnAction(event -> {
-                            travelAgency.cambiarEstadoReserva(newSelection);
+                            travelAgency.cancelarReserva(newSelection);
                             cancelarReservaButton.setVisible(false);
+                            historialReservacionesTable.refresh();
+                        });
+
+                        confirmarReservaButton.setOnAction(actionEvent -> {
+                            travelAgency.confirmarReserva(newSelection);
+                            confirmarReservaButton.setVisible(false);
                             historialReservacionesTable.refresh();
                         });
                     }
@@ -283,7 +299,7 @@ public class HomeController {
     }
 
     public void onHacerReservacionClick() throws AtributoVacioException, CuposInvalidosException {
-        travelAgency.hacerReservacion(clientID, group.getSelectedToggle(), radioBttonSI, radioBttonNO, choiceBoxGuias.getSelectionModel().getSelectedItem(), txtFldCuposDeseados.getText(), txtFldNombrePaquete.getText());
+        travelAgency.hacerReservacion(clientID, mail, group.getSelectedToggle(), radioBttonSI, radioBttonNO, choiceBoxGuias.getSelectionModel().getSelectedItem(), txtFldCuposDeseados.getText(), txtFldNombrePaquete.getText());
         group.getSelectedToggle().setSelected(false);
         choiceBoxGuias.getSelectionModel().clearSelection();
         txtFldCuposDeseados.clear();
@@ -486,6 +502,9 @@ public class HomeController {
         }
 
     }
+    public void onConocerNuestrosPaquetesClick() {
+        visibilitiesPrincipal(false,true,false,false);
+    }
 
     private void elementosSheaarchBar() {
 
@@ -501,31 +520,29 @@ public class HomeController {
         tblPq.setItems(tP);
 
         FilteredList<TouristPackage> filterData = new FilteredList<>(tP,b->true);
-        barraBusquedaTF.textProperty().addListener((observable, oldValue, newValue) -> {
-            filterData.setPredicate(touristPackage ->{
-                if(newValue.isEmpty() || newValue.isBlank()){
-                    return true;
-                }
+        barraBusquedaTF.textProperty().addListener((observable, oldValue, newValue) -> filterData.setPredicate(touristPackage ->{
 
-                String searchKeyword = newValue.toLowerCase();
+            if(newValue.isEmpty() || newValue.isBlank()){
+                return true;
+            }
 
-                if(touristPackage.getName().toLowerCase().contains(searchKeyword)){
-                    return true;
+            String searchKeyword = newValue.toLowerCase();
 
-                }else if(touristPackage.getPrice().toString().contains(searchKeyword)){
-                    return true;
+            if(touristPackage.getName().toLowerCase().contains(searchKeyword)){
+                return true;
 
-                }else if(touristPackage.getQuota().toString().contains(searchKeyword)){
-                    return true;
+            }else if(touristPackage.getPrice().toString().contains(searchKeyword)){
+                return true;
 
-                }else if(touristPackage.getStartDate().toString().contains(searchKeyword)){
-                    return true;
+            }else if(touristPackage.getQuota().toString().contains(searchKeyword)){
+                return true;
 
-                }else return touristPackage.getEndDate().toString().contains(searchKeyword);
+            }else if(touristPackage.getStartDate().toString().contains(searchKeyword)){
+                return true;
 
-            });
+            }else return touristPackage.getEndDate().toString().contains(searchKeyword);
 
-        });
+        }));
 
         SortedList<TouristPackage> sortedData = new SortedList<>(filterData);
         sortedData.comparatorProperty().bind(tblPq.comparatorProperty());
@@ -553,5 +570,4 @@ public class HomeController {
         Stage stage1 = (Stage) cerrarVentanaImgvCliente.getScene().getWindow();
         stage1.close();
     }
-
 }
