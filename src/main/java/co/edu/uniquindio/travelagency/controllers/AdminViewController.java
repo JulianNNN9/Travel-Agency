@@ -472,6 +472,12 @@ public class AdminViewController {
 
     public void onLimpiarCamposDestinoClick(ActionEvent actionEvent) {
         limpiarCamposDestinations();
+        imagesRoutesTable.setDisable(true);
+        imagesRoutesTable.getItems().clear();
+        examinarRutaButton.setDisable(true);
+        addButtonImageDestination.setDisable(true);
+        deleteButtonImageDestination.setDisable(true);
+        txtFldRuta.setDisable(true);
     }
 
     @FXML
@@ -630,6 +636,11 @@ public class AdminViewController {
 
     public void onLimpiarCamposPaquetesClick(ActionEvent actionEvent) {
         limpiarCamposPackages();
+        destinationsNameTable.setDisable(true);
+        destinationsNameTable.getItems().clear();
+        addButtonDestinationName.setDisable(true);
+        deleteButtonDestinationName.setDisable(true);
+        choiceBoxDestinationName.setDisable(true);
     }
 
     @FXML
@@ -785,6 +796,11 @@ public class AdminViewController {
 
     public void onLimpiarCamposGuiasClick(ActionEvent actionEvent) {
         limpiarCamposGuias();
+        guidesLenguajeTable.setDisable(true);
+        guidesLenguajeTable.getItems().clear();
+        addLenguajeButton.setDisable(true);
+        deleteLenguajeButton.setDisable(true);
+        txtFldLenguaje.setDisable(true);
     }
 
     @FXML
