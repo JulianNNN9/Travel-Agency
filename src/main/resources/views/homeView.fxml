@@ -87,7 +87,7 @@
         <Separator prefHeight="1.0" prefWidth="5.0" visible="false" />
     </HBox>
 
-    <AnchorPane fx:id="homePane" layoutY="66.0" prefHeight="615.0" prefWidth="950.0" style="-fx-background-color: #383838; -fx-background-radius: 15;" visible="false">
+    <AnchorPane fx:id="homePane" layoutY="66.0" prefHeight="615.0" prefWidth="950.0" style="-fx-background-color: #383838; -fx-background-radius: 15;">
         <Label layoutX="59.0" layoutY="96.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="¿Quienes Somos?">
             <font>
                 <Font size="60" />
@@ -253,7 +253,7 @@
         </ImageView>
     </AnchorPane>
 
-    <Pane fx:id="perfilPane" layoutY="66.0" prefHeight="615.0" prefWidth="950.0" style="-fx-background-color: #383838; -fx-background-radius: 15;">
+    <Pane fx:id="perfilPane" layoutY="66.0" prefHeight="615.0" prefWidth="950.0" style="-fx-background-color: #383838; -fx-background-radius: 15;" visible="false">
         <VBox prefHeight="615.0" prefWidth="258.0">
             <Pane prefHeight="235.0" prefWidth="258.0">
                 <Button layoutX="83.0" layoutY="163.0" mnemonicParsing="false" onAction="#onModificarPerfilClick" style="-fx-background-color: transparent; -fx-border-color: transparent; -fx-effect: inherit; -fx-underline: true; -fx-alignment: center; -fx-font-family: 'Segoe UI Semibold';" text="Modificar perfil" textFill="#d07943">
@@ -336,4 +336,9 @@
         </Button>
         <Label fx:id="seleccionarGuiaLabel" layoutX="454.0" layoutY="71.0" prefHeight="17.0" prefWidth="115.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="Seleccione un guía :" />
     </Pane>
+
+    <Pane fx:id="bienvenidoPane" layoutY="66.0" prefHeight="615.0" prefWidth="950.0" style="-fx-background-color: #383838; -fx-background-radius: 15;" visible="false">
+        <Label fx:id="bienvenidoLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="66.0" layoutY="77.0" prefHeight="73.0" prefWidth="828.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'; -fx-font-size: 50" textAlignment="CENTER" />
+    </Pane>
+
 </AnchorPane>
