@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import java.io.File;
 import java.io.IOException;
-import java.util.Objects;
+import java.util.Arrays;
 
 public class TravelAgencyApp extends Application {
 
@@ -22,6 +22,7 @@ public class TravelAgencyApp extends Application {
 
         stage.initStyle(StageStyle.TRANSPARENT);
         Scene scene = new Scene(parent);
+        //scene.getStylesheets().add(getClass().getClassLoader().getResource("../views/styles.css").toExternalForm());
         scene.setFill(Color.TRANSPARENT);
         stage.setScene(scene);
         stage.show();
