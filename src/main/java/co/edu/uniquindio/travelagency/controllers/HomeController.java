@@ -19,21 +19,17 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-
 import java.io.File;
 import java.io.IOException;
-import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.function.Predicate;
 import java.util.Optional;
 
 public class HomeController {
@@ -48,8 +44,6 @@ public class HomeController {
     public TableView<TouristPackage> tblPq;
     @FXML
     public Pane perfilPane;
-    @FXML
-    private ImageView PerfilImgv;
     @FXML
     public TextField txtFldNombre;
     @FXML
@@ -102,10 +96,6 @@ public class HomeController {
     private AnchorPane registroPanee;
     @FXML
     public TextField nombreTF, idTF ,passTF,mailTF ,telefonoTF,residenciaTF;
-    @FXML
-    private ImageView registroExit;
-    @FXML
-    private Button confirRegistroButtom;
 
     //----------------------Home pane----------------------
     @FXML
@@ -136,7 +126,7 @@ public class HomeController {
     @FXML
     public TextField txtFldID, txtFldPassword;
     @FXML
-    private Button iniciaSecionBtn,btnLogIn,btnRegister;
+    private Button iniciaSecionBtn;
     @FXML
     private AnchorPane iniciarsesionPane;
     @FXML
@@ -292,7 +282,7 @@ public class HomeController {
         }
     }
 
-    public void onHacerReservacionClick(ActionEvent actionEvent) throws AtributoVacioException, CuposInvalidosException {
+    public void onHacerReservacionClick() throws AtributoVacioException, CuposInvalidosException {
         travelAgency.hacerReservacion(clientID, group.getSelectedToggle(), radioBttonSI, radioBttonNO, choiceBoxGuias.getSelectionModel().getSelectedItem(), txtFldCuposDeseados.getText(), txtFldNombrePaquete.getText());
         group.getSelectedToggle().setSelected(false);
         choiceBoxGuias.getSelectionModel().clearSelection();
@@ -302,7 +292,7 @@ public class HomeController {
         choiceBoxGuias.setVisible(false);
     }
 
-    public void onReservarClick(ActionEvent actionEvent) {
+    public void onReservarClick() {
 
         List<String> guiasName = travelAgency.getTouristGuides().stream()
                 .map(TouristGuide::getFullName)
@@ -404,7 +394,7 @@ public class HomeController {
         residence = client.getResidence();
     }
 
-    public void onModificarPerfilClick(ActionEvent actionEvent) {
+    public void onModificarPerfilClick() {
         txtFldNombre.setEditable(true);
         txtFldMail.setEditable(true);
         txtFldNumero.setEditable(true);
@@ -412,7 +402,7 @@ public class HomeController {
         confirmarEdicionButton.setVisible(true);
     }
 
-    public void onConfirmarEdicionClick(ActionEvent actionEvent) throws AtributoVacioException {
+    public void onConfirmarEdicionClick() throws AtributoVacioException {
 
         travelAgency.modificarPerfil(clientID, txtFldNombre.getText(), txtFldMail.getText(), txtFldNumero.getText(), txtFldResidencia.getText());
 
@@ -423,7 +413,7 @@ public class HomeController {
         confirmarEdicionButton.setVisible(false);
     }
 
-    public void onPerfilClick(MouseEvent mouseEvent) {
+    public void onPerfilClick() {
         cargarTablaHistoricoReservas();
         visibilitiesClient(true, false);
     }
@@ -519,23 +509,19 @@ public class HomeController {
 
                 String searchKeyword = newValue.toLowerCase();
 
-                if(touristPackage.getName().toLowerCase().indexOf(searchKeyword)> -1){
+                if(touristPackage.getName().toLowerCase().contains(searchKeyword)){
                     return true;
 
-                }else if(touristPackage.getPrice().toString().indexOf(searchKeyword)>-1){
+                }else if(touristPackage.getPrice().toString().contains(searchKeyword)){
                     return true;
 
-                }else if(touristPackage.getQuota().toString().indexOf(searchKeyword)>-1){
+                }else if(touristPackage.getQuota().toString().contains(searchKeyword)){
                     return true;
 
-                }else if(touristPackage.getStartDate().toString().indexOf(searchKeyword)>-1){
+                }else if(touristPackage.getStartDate().toString().contains(searchKeyword)){
                     return true;
 
-                }else if(touristPackage.getEndDate().toString().indexOf(searchKeyword)>-1){
-                    return true;
-
-                }else
-                    return false;
+                }else return touristPackage.getEndDate().toString().contains(searchKeyword);
 
             });
 
@@ -549,12 +535,10 @@ public class HomeController {
         dE = tblDe.getItems();
     }
 
-    public void registroExit(MouseEvent e) {visibilitiesRegister(true,false);}
-    public void onRegisterButtonClck(ActionEvent e) {
-        visibilitiesRegister(false,true);
-    }
+    public void registroExit() {visibilitiesRegister(true,false);}
+    public void onRegisterButtonClck() {visibilitiesRegister(false,true);}
 
-    public void onLogOutButtonClick(MouseEvent mouseEvent) throws IOException {
+    public void onLogOutButtonClick() throws IOException {
 
         File url = new File("src/main/resources/views/homeView.fxml");
         FXMLLoader loader = new FXMLLoader(url.toURL());

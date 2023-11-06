@@ -160,7 +160,7 @@ public class AdminViewController {
         imgViewBackGuidesButton.setImage(backButton);
         imgViewBackStatisticsButton.setImage(backButton);
 
-        File file1 = new File("src/main/resources/icons/cerrarVentana.png");
+        File file1 = new File("src/main/resources/icons/LogOut.png");
         Image exitButton = new Image(String.valueOf(file1.toURI()));
 
         imgViewExitButton.setImage(exitButton);
@@ -470,7 +470,7 @@ public class AdminViewController {
 
     //----------------------------Destinations-----------------------------
 
-    public void onLimpiarCamposDestinoClick(ActionEvent actionEvent) {
+    public void onLimpiarCamposDestinoClick() {
         limpiarCamposDestinations();
         imagesRoutesTable.setDisable(true);
         imagesRoutesTable.getItems().clear();
@@ -481,7 +481,7 @@ public class AdminViewController {
     }
 
     @FXML
-    private void agregarElementoDestinations(ActionEvent event) throws RepeatedInformationException, AtributoVacioException {
+    private void agregarElementoDestinations() throws RepeatedInformationException, AtributoVacioException {
 
         Destino nuevoDestino = Destino.builder()
                 .name(txtFldName.getText())
@@ -506,7 +506,7 @@ public class AdminViewController {
     }
 
     @FXML
-    private void modificarElementoDestinations(ActionEvent event) throws AtributoVacioException {
+    private void modificarElementoDestinations() throws AtributoVacioException {
         if (destinationsTable.getSelectionModel().getSelectedIndex() >= 0) {
 
             Destino selectedDestino = destinationsTable.getSelectionModel().getSelectedItem();
@@ -532,7 +532,7 @@ public class AdminViewController {
     }
 
     @FXML
-    private void eliminarElementoDestinations(ActionEvent event) {
+    private void eliminarElementoDestinations() {
         if (destinationsTable.getSelectionModel().getSelectedIndex() >= 0) {
 
             Destino selectedDestino = destinationsTable.getSelectionModel().getSelectedItem();
@@ -553,7 +553,7 @@ public class AdminViewController {
     }
 
     @FXML
-    public void seleccionarImagen(ActionEvent actionEvent) {
+    public void seleccionarImagen() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("Imágenes", "*.jpg", "*.jpeg", "*.png", "*.gif", "*.bmp")
@@ -573,7 +573,7 @@ public class AdminViewController {
     }
 
     @FXML
-    public void agregarRutaImagenDestinations(ActionEvent actionEvent) throws RepeatedInformationException, AtributoVacioException, RutaInvalidaException {
+    public void agregarRutaImagenDestinations() throws RepeatedInformationException, AtributoVacioException, RutaInvalidaException {
 
         String destinoName = txtFldName.getText();
 
@@ -604,7 +604,7 @@ public class AdminViewController {
     }
 
     @FXML
-    public void eliminarRutaImagenDestinations(ActionEvent actionEvent) {
+    public void eliminarRutaImagenDestinations() {
 
         if (imagesRoutesTable.getSelectionModel().getSelectedIndex() >= 0) {
 
@@ -634,7 +634,7 @@ public class AdminViewController {
 
     //----------------------------Packages-----------------------------
 
-    public void onLimpiarCamposPaquetesClick(ActionEvent actionEvent) {
+    public void onLimpiarCamposPaquetesClick() {
         limpiarCamposPackages();
         destinationsNameTable.setDisable(true);
         destinationsNameTable.getItems().clear();
@@ -644,7 +644,7 @@ public class AdminViewController {
     }
 
     @FXML
-    private void agregarElementoPackages(ActionEvent event) throws RepeatedInformationException, AtributoVacioException, ErrorEnIngresoFechasException {
+    private void agregarElementoPackages() throws RepeatedInformationException, AtributoVacioException, ErrorEnIngresoFechasException {
 
         long duration = 0;
 
@@ -681,7 +681,7 @@ public class AdminViewController {
     }
 
     @FXML
-    private void modificarElementoPackages(ActionEvent event) throws AtributoVacioException {
+    private void modificarElementoPackages() throws AtributoVacioException {
 
         if (packagesTable.getSelectionModel().getSelectedIndex() >= 0) {
 
@@ -707,7 +707,7 @@ public class AdminViewController {
     }
 
     @FXML
-    private void eliminarElementoPackages(ActionEvent event) {
+    private void eliminarElementoPackages() {
         if (packagesTable.getSelectionModel().getSelectedIndex() >= 0) {
             TouristPackage selectedPackage = packagesTable.getSelectionModel().getSelectedItem();
 
@@ -725,7 +725,7 @@ public class AdminViewController {
     }
 
     @FXML
-    public void agregarDestinoEnPaquete(ActionEvent actionEvent) throws RepeatedInformationException, AtributoVacioException, ErrorEnIngresoFechasException {
+    public void agregarDestinoEnPaquete() throws RepeatedInformationException, AtributoVacioException, ErrorEnIngresoFechasException {
 
         String paqueteName = txtFldPackageName.getText();
 
@@ -762,7 +762,7 @@ public class AdminViewController {
     }
 
     @FXML
-    public void eliminarDestinoEnPaquete(ActionEvent actionEvent) {
+    public void eliminarDestinoEnPaquete() {
 
         if (destinationsNameTable.getSelectionModel().getSelectedIndex() >= 0) {
 
@@ -794,7 +794,7 @@ public class AdminViewController {
 
     //----------------------------Guides-----------------------------
 
-    public void onLimpiarCamposGuiasClick(ActionEvent actionEvent) {
+    public void onLimpiarCamposGuiasClick() {
         limpiarCamposGuias();
         guidesLenguajeTable.setDisable(true);
         guidesLenguajeTable.getItems().clear();
@@ -804,7 +804,7 @@ public class AdminViewController {
     }
 
     @FXML
-    public void agregarGuiaButton(ActionEvent actionEvent) throws RepeatedInformationException, AtributoVacioException {
+    public void agregarGuiaButton() throws RepeatedInformationException, AtributoVacioException {
 
         TouristGuide nuevoGuia = TouristGuide.builder()
                 .id(txtFldGuideId.getText())
@@ -828,7 +828,7 @@ public class AdminViewController {
     }
 
     @FXML
-    public void modificarGuiaButton(ActionEvent actionEvent) throws AtributoVacioException {
+    public void modificarGuiaButton() throws AtributoVacioException {
 
         if (guidesTable.getSelectionModel().getSelectedIndex() >= 0) {
 
@@ -851,7 +851,7 @@ public class AdminViewController {
     }
 
     @FXML
-    public void eliminarGuiaButton(ActionEvent actionEvent) {
+    public void eliminarGuiaButton() {
         if (guidesTable.getSelectionModel().getSelectedIndex() >= 0) {
 
             TouristGuide selectedGuia = guidesTable.getSelectionModel().getSelectedItem();
@@ -870,7 +870,7 @@ public class AdminViewController {
     }
 
     @FXML
-    public void agregarLenguajeGuia(ActionEvent actionEvent) throws RepeatedInformationException, AtributoVacioException {
+    public void agregarLenguajeGuia() throws RepeatedInformationException, AtributoVacioException {
 
         String guiaID = txtFldGuideId.getText();
 
@@ -898,7 +898,7 @@ public class AdminViewController {
     }
 
     @FXML
-    public void elimiarLenguajeGuia(ActionEvent actionEvent) {
+    public void elimiarLenguajeGuia() {
 
         if (guidesLenguajeTable.getSelectionModel().getSelectedIndex() >= 0) {
 
