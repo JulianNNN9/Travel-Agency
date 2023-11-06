@@ -37,6 +37,11 @@ public class HomeController {
     private final TravelAgency travelAgency = TravelAgency.getInstance();
 
 
+    @FXML
+    public Label bienvenidoLabel;
+    @FXML
+    public Pane bienvenidoPane;
+
     //----------------------Modificar perfil----------------------
     @FXML
     private HBox hboxCliente;
@@ -318,7 +323,7 @@ public class HomeController {
             choiceBoxGuias.getItems().setAll(guiasName);
         }
 
-        visibilitiesClient(false, true);
+        visibilitiesClient(false, false, true);
     }
 
     private void seleccionDestinos() {
@@ -431,7 +436,7 @@ public class HomeController {
 
     public void onPerfilClick() {
         cargarTablaHistoricoReservas();
-        visibilitiesClient(true, false);
+        visibilitiesClient(false, true, false);
     }
 
     public void onConfiRegistrarClienteClick() throws RepeatedInformationException, AtributoVacioException {
@@ -462,9 +467,10 @@ public class HomeController {
         iniciarsesionPane.setVisible(pane5);
     }
 
-    public void visibilitiesClient(boolean pane1, boolean pane2){
-        perfilPane.setVisible(pane1);
-        reservarPane.setVisible(pane2);
+    public void visibilitiesClient(boolean pane1,boolean pane2, boolean pane3){
+        bienvenidoPane.setVisible(pane1);
+        perfilPane.setVisible(pane2);
+        reservarPane.setVisible(pane3);
     }
 
     public void visibilitiesRegister(boolean pan1, boolean pan2){
@@ -481,17 +487,22 @@ public class HomeController {
 
         String sesion = travelAgency.LogIn(txtFldID.getText(), txtFldPassword.getText());
 
+
         Optional<Client> optionalClient = travelAgency.getClients().stream().filter(client -> client.getUserId().equals(txtFldID.getText())).findFirst();
 
         if(sesion.equals("Client")){
 
             hboxPanePrincipal.setVisible(false);
             hboxCliente.setVisible(true);
-            visibilitiesPrincipal(true, false, false, false);
+            visibilitiesClient(true, false, false);
 
             optionalClient.ifPresent(this::sesionIniciada);
 
             cargarDatos();
+
+            String[] firstName = fullName.split(" ");
+
+            bienvenidoLabel.setText("Bienvenido de nuevo, " + firstName[0]);
 
         } else if (sesion.equals("Admin")) {
 

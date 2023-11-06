@@ -215,7 +215,7 @@ public class TravelAgency {
 
                 createAlertInfo("Reservación éxitosa.", "Información", "Has hecho una reservación del paquete " + selectedPackageName + " para el " + touristPackage.get().getStartDate() + ".");
                 log.info("se ha hecho una reservación del paquete " + selectedPackageName + " para el " + touristPackage.get().getStartDate() + ".");
-                emailService.enviarCorreoReserva(mailClient, detallesReserva);
+                //emailService.enviarCorreoReserva(mailClient, detallesReserva);
 
                 Optional<Client> client = clients.stream().filter(client1 -> client1.getUserId().equals(clientID)).findFirst();
 
@@ -255,7 +255,7 @@ public class TravelAgency {
 
             createAlertInfo("Reservación éxitosa.","Información","Has hecho una reservación del paquete " + selectedPackageName + " para el " + touristPackage.get().getStartDate() + ".");
             log.info("se ha hecho una reservación del paquete " + selectedPackageName + " para el " + touristPackage.get().getStartDate() + ".");
-            emailService.enviarCorreoReserva(mailClient, detallesReserva);
+            //emailService.enviarCorreoReserva(mailClient, detallesReserva);
 
             Optional<Client> client = clients.stream().filter(client1 -> client1.getUserId().equals(clientID)).findFirst();
 
