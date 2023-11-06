@@ -205,8 +205,10 @@ public class TravelAgency {
                 if (client.get().getReservationList() == null){
                     client.get().setReservationList(new ArrayList<>());
                     client.get().getReservationList().add(nuevaReservacion);
+                    reservations.add(nuevaReservacion);
                 } else {
                     client.get().getReservationList().add(nuevaReservacion);
+                    reservations.add(nuevaReservacion);
                 }
             }
 
@@ -242,14 +244,17 @@ public class TravelAgency {
                 if (client.get().getReservationList() == null){
                     client.get().setReservationList(new ArrayList<>());
                     client.get().getReservationList().add(nuevaReservacion);
+                    reservations.add(nuevaReservacion);
                 } else {
                     client.get().getReservationList().add(nuevaReservacion);
+                    reservations.add(nuevaReservacion);
                 }
             }
 
         }
 
         serizalizarClientes();
+        serializarReservaciones();
     }
 
     public void modificarDestino(Destino selectedDestino, String nuevoNombre, String nuevaCiudad, String nuevaDescrpcion, String nuevaLocalDate) throws AtributoVacioException {

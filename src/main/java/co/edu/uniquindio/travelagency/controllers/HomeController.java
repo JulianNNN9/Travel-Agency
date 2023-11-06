@@ -11,6 +11,9 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
@@ -20,7 +23,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.File;
 import java.io.IOException;
@@ -41,8 +46,6 @@ public class HomeController {
     private HBox hboxCliente;
     @FXML
     public TableView<TouristPackage> tblPq;
-    @FXML
-    private ImageView cerrarVentanaImgv;
     @FXML
     public Pane perfilPane;
     @FXML
@@ -118,6 +121,8 @@ public class HomeController {
     public TextField barraBusquedaTF;
     @FXML
     private Button paquetesBtn;
+    @FXML
+    public ImageView mostrarDestinoImg, imagenSiguienteImg, imagenAnteriorImg;
 
     //----------------------Guias pane----------------------
     @FXML
@@ -147,6 +152,9 @@ public class HomeController {
     String  clientID, passwordID,fullName, mail, phoneNumber, residence;
 
     public void initialize() {
+
+        imagenAnteriorImg.setVisible(false);
+        imagenSiguienteImg.setVisible(false);
 
         cancelarReservaButton.setVisible(false);
 
@@ -285,25 +293,77 @@ public class HomeController {
     }
 
     private void seleccionDestinos() {
+
         dE = tblDe.getItems();
 
         tblPq.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
 
             boolean seleccionado = newValue != null;
 
-
-
             if (seleccionado) {
                 if (Objects.requireNonNull(newValue).getDestinosName() != null) {
-                    dE.setAll( newValue.getDestinosName());
+                    dE.clear();
+                    dE.addAll(newValue.getDestinosName());
+                    }
                 }
+        });
+
+        tblDe.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+
+            boolean seleccionado = newValue != null;
+
+            if (seleccionado){
+                Optional<Destino> optionalDestino =  travelAgency.getDestinos().stream().filter(destino -> destino.getName().equals(newValue)).findFirst();
+
+                List<String> listaRutas;
+
+                if (optionalDestino.isPresent()){
+                    listaRutas = optionalDestino.get().getImagesHTTPS();
+                    if (!listaRutas.isEmpty()){
+                        mostrarDestinoImg.setImage(cargarImagen(listaRutas.get(0)));
+                        imagenAnteriorImg.setVisible(true);
+                        imagenSiguienteImg.setVisible(true);
+                    } else {
+                        mostrarDestinoImg.setImage(null);
+                        imagenAnteriorImg.setVisible(false);
+                        imagenSiguienteImg.setVisible(false);
+                    }
+                } else {
+                    listaRutas = null;
+                }
+
+                if (listaRutas != null){
+
+                    final int[] i = {0};
+
+                    imagenSiguienteImg.setOnMouseClicked(mouseEvent -> {
+                        if (i[0] + 1 < listaRutas.size()) {
+                            ++i[0]; // Incrementa i solo si no se desborda de la lista
+                            mostrarDestinoImg.setImage(cargarImagen(listaRutas.get(i[0])));
+                        }
+                    });
+
+                    imagenAnteriorImg.setOnMouseClicked(mouseEvent -> {
+                        if (i[0] > 0) {
+                            --i[0]; // Resta 1 a i solo si no se vuelve menor que 0
+                            mostrarDestinoImg.setImage(cargarImagen(listaRutas.get(i[0])));
+                        }
+                    });
+                }
+
+
             }
 
-            this.colDeNombre.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue()));
-
         });
+
+        this.colDeNombre.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue()));
+
     }
 
+    public Image cargarImagen(String ruta){
+        File file = new File(ruta);
+        return new Image(String.valueOf(file.toURI()));
+    }
 
     public void cargarDatos(){
         txtFldNombre.setText(fullName);
@@ -346,6 +406,7 @@ public class HomeController {
     }
 
     public void onConfiRegistrarClienteClick() throws RepeatedInformationException, AtributoVacioException {
+        visibilitiesRegister(true, false);
         travelAgency.registrarCliente(idTF.getText(),passTF.getText(),nombreTF.getText(),mailTF.getText(),telefonoTF.getText(),residenciaTF.getText());
         travelAgency.createAlertInfo("Registro de cliente","Informacion","se ha registrado el cliente con la ID" + idTF.getText());
     }
@@ -377,10 +438,9 @@ public class HomeController {
         reservarPane.setVisible(pane2);
     }
 
-    public void visibilitiesRegister(boolean pan1, boolean pan2, boolean pan3){
-        hboxPanePrincipal.setVisible(pan1);
-        iniciarsesionPane.setVisible(pan2);
-        registroPanee.setVisible(pan3);
+    public void visibilitiesRegister(boolean pan1, boolean pan2){
+        iniciarsesionPane.setVisible(pan1);
+        registroPanee.setVisible(pan2);
     }
 
     public void onExitButtonClick() {
@@ -465,9 +525,26 @@ public class HomeController {
 
         dE = tblDe.getItems();
     }
-    public void registroExit(MouseEvent e) {
-        visibilitiesRegister(true,true,false);}
+
+    public void registroExit(MouseEvent e) {visibilitiesRegister(true,false);}
     public void onRegisterButtonClck(ActionEvent e) {
-        visibilitiesRegister(false,false,true);
+        visibilitiesRegister(false,true);
     }
+
+    public void onLogOutButtonClick(MouseEvent mouseEvent) throws IOException {
+
+        File url = new File("src/main/resources/views/homeView.fxml");
+        FXMLLoader loader = new FXMLLoader(url.toURL());
+        Parent parent = loader.load();
+        Scene scene = new Scene(parent);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.initStyle(StageStyle.TRANSPARENT);
+        scene.setFill(Color.TRANSPARENT);
+        stage.show();
+
+        Stage stage1 = (Stage) cerrarVentanaImgvCliente.getScene().getWindow();
+        stage1.close();
+    }
+
 }

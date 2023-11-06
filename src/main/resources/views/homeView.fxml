@@ -6,7 +6,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="950.0" style="-fx-background-radius: 15; -fx-background-color: transparent;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.travelagency.controllers.HomeController">
+<!--stylesheets="styles.css"-->
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="681.0" prefWidth="950.0" style="-fx-background-radius: 15; -fx-background-color: transparent;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.travelagency.controllers.HomeController">
    <children>
       <HBox fx:id="hboxPanePrincipal" alignment="CENTER" prefHeight="60.0" prefWidth="950.0" style="-fx-background-color: linear-gradient(to bottom, #d0986a, #888282); -fx-background-radius: 15;">
          <children>
@@ -42,41 +44,51 @@
 
                <Separator prefHeight="8.0" prefWidth="562.0" visible="false" />
 
-            <Button fx:id="reservarButton" mnemonicParsing="false" onAction="#onReservarClick" prefHeight="60.0" prefWidth="83.0" style="-fx-border-radius: 35; -fx-background-radius: 35; -fx-border-style: none; -fx-border-color: transparent; -fx-background-color: transparent; -fx-font-family: 'Segoe UI Semibold'; -fx-font-size: 15;" text="Reservar" />
+               <Button fx:id="reservarButton" mnemonicParsing="false" onAction="#onReservarClick" prefHeight="60.0" prefWidth="83.0" style="-fx-border-radius: 35; -fx-background-radius: 35; -fx-border-style: none; -fx-border-color: transparent; -fx-background-color: transparent; -fx-font-family: 'Segoe UI Semibold'; -fx-font-size: 15;" text="Reservar">
+                   <cursor>
+                       <Cursor fx:constant="HAND" />
+                   </cursor>
+               </Button>
 
             <Separator prefHeight="0.0" prefWidth="0.0" visible="false" />
 
                <ImageView fx:id="PerfilImgv" fitHeight="43.0" fitWidth="50.0" onMouseClicked="#onPerfilClick" pickOnBounds="true" preserveRatio="true">
                    <Image url="@../icons/user.png" />
+                   <cursor>
+                       <Cursor fx:constant="HAND" />
+                   </cursor>
                </ImageView>
 
             <Separator prefHeight="3.0" prefWidth="24.0" visible="false" />
 
-               <ImageView fx:id="cerrarVentanaImgvCliente" fitHeight="35.0" fitWidth="46.0" onMouseClicked="#onExitButtonClick" pickOnBounds="true" preserveRatio="true">
-                   <Image url="@../icons/cerrarVentana.png" />
+               <ImageView fx:id="cerrarVentanaImgvCliente" fitHeight="35.0" fitWidth="46.0" onMouseClicked="#onLogOutButtonClick" pickOnBounds="true" preserveRatio="true">
+                   <Image url="@../icons/LogOut.png" />
                    <cursor><Cursor fx:constant="HAND" /></cursor>
                </ImageView>
 
             <Separator prefHeight="0.0" prefWidth="18.0" visible="false" />
            </children>
        </HBox>
-      <AnchorPane fx:id="homePane" layoutY="92.0" prefHeight="608.0" prefWidth="950.0" style="-fx-background-color: #383838; -fx-background-radius: 15;">
+
+      <AnchorPane fx:id="homePane" layoutY="66.0" prefHeight="615.0" prefWidth="950.0" style="-fx-background-color: #383838; -fx-background-radius: 15;">
           <Label layoutX="59.0" layoutY="96.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="¿Quienes Somos?"><font><Font size="60" /></font></Label>
           <Label layoutX="59.0" layoutY="219.0" style="-fx-text-fill: #D07943FF; -fx-font-family: 'Segoe UI Semibold'" text="Una agencia de viajes"><font><Font size="25" /></font></Label>
           <Label layoutX="59.0" layoutY="299.0" prefHeight="35.0" prefWidth="466.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="¡Descubre el mundo con nosotros! Viajar es más que un destino, es una experiencia."><font><Font size="12" /></font></Label>
-          <Button layoutX="59.0" layoutY="408.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="271.0" style="-fx-border-radius: 35; -fx-background-radius: 35; -fx-border-style: none; -fx-border-color: #a26740; -fx-background-color: #d07943; -fx-font-family: 'Segoe UI Semibold'; -fx-font-size: 15" text="Conoce nuestros paquetes" />
-         <cursor>
-            <Cursor fx:constant="DEFAULT" />
-         </cursor>
+          <Button layoutX="59.0" layoutY="408.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="271.0" style="-fx-border-radius: 35; -fx-background-radius: 35; -fx-border-style: none; -fx-border-color: #a26740; -fx-background-color: #d07943; -fx-font-family: 'Segoe UI Semibold'; -fx-font-size: 15" text="Conoce nuestros paquetes">
+              <cursor>
+                  <Cursor fx:constant="HAND" />
+              </cursor>
+          </Button>
+
       </AnchorPane>
-      <AnchorPane fx:id="nuestrosPaquetesPane" layoutY="89.0" prefHeight="615.0" prefWidth="950.0" style="-fx-background-color: #383838; -fx-background-radius: 15;" visible="false">
+
+      <AnchorPane fx:id="nuestrosPaquetesPane" layoutY="66.0" prefHeight="615.0" prefWidth="950.0" style="-fx-background-color: #383838; -fx-background-radius: 15;" visible="false">
          <children>
 
             <Label layoutX="159.0" layoutY="26.0" prefHeight="18.0" prefWidth="173.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="Conoce Nuestros Paquetes :" />
 
             <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="340.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true">
                <image>
-
                   <Image url="@../icons/200941.png" />
                </image>
             </ImageView>
@@ -102,11 +114,24 @@
               </columns>
             </TableView>
 
-            <ImageView fx:id="mostrarDestinoImg" fitHeight="233.0" fitWidth="287.0" layoutX="614.0" layoutY="358.0" pickOnBounds="true" preserveRatio="true" />
+             <ImageView fx:id="mostrarDestinoImg" fitHeight="233.0" fitWidth="287.0" layoutX="571.0" layoutY="301.0" pickOnBounds="true" preserveRatio="true" />
+             <ImageView fx:id="imagenAnteriorImg" fitHeight="36.0" fitWidth="35.0" layoutX="623.0" layoutY="555.0" pickOnBounds="true" preserveRatio="true">
+                 <image>
+                     <Image url="@../icons/izquierda.png" />
+                 </image>
+                 <cursor>
+                     <Cursor fx:constant="HAND" />
+                 </cursor>
+             </ImageView>
+             <ImageView fx:id="imagenSiguienteImg" fitHeight="36.0" fitWidth="35.0" layoutX="765.0" layoutY="555.0" pickOnBounds="true" preserveRatio="true">
+                 <image>
+                     <Image url="@../icons/derecha.png" />
+                 </image><cursor><Cursor fx:constant="HAND" /></cursor>
+             </ImageView>
 
          </children></AnchorPane>
 
-      <AnchorPane fx:id="nuestrosGuiasPane" layoutY="89.0" prefHeight="615.0" prefWidth="950.0" style="-fx-background-color: #383838; -fx-background-radius: 15;" visible="false">
+      <AnchorPane fx:id="nuestrosGuiasPane" layoutY="66.0" prefHeight="615.0" prefWidth="950.0" style="-fx-background-color: #383838; -fx-background-radius: 15;" visible="false">
          <children>
             <Label layoutX="387.0" layoutY="33.0" text="Guias pane" textFill="#eeeaea">
                <font>
@@ -115,7 +140,7 @@
             </Label>
          </children></AnchorPane>
 
-      <AnchorPane fx:id="iniciarsesionPane" layoutY="89.0" prefHeight="615.0" prefWidth="950.0" style="-fx-background-color: #383838; -fx-background-radius: 15;" visible="false">
+      <AnchorPane fx:id="iniciarsesionPane" layoutY="66.0" prefHeight="615.0" prefWidth="950.0" style="-fx-background-color: #383838; -fx-background-radius: 15;" visible="false">
          <children>
              <Pane layoutX="346.0" layoutY="141.0" prefHeight="333.0" prefWidth="258.0" style="-fx-background-color: linear-gradient(to bottom, #d0986a, #888282); -fx-background-radius: 15">
                  <children>
@@ -136,7 +161,11 @@
                              <Font name="Constantia" size="13.0" />
                          </font>
                      </Label>
-                     <Button fx:id="btnRegister" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="132.0" layoutY="271.0" mnemonicParsing="false" onAction="#onRegisterButtonClck" prefHeight="27.0" prefWidth="112.0" style="-fx-background-color: transparent; -fx-border-color: transparent; -fx-effect: inherit; -fx-underline: true; -fx-alignment: center; -fx-font-family: Constantia" text="Registrate" textAlignment="CENTER" />
+                     <Button fx:id="btnRegister" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="132.0" layoutY="271.0" mnemonicParsing="false" onAction="#onRegisterButtonClck" prefHeight="27.0" prefWidth="112.0" style="-fx-background-color: transparent; -fx-border-color: transparent; -fx-effect: inherit; -fx-underline: true; -fx-alignment: center; -fx-font-family: Constantia" text="Registrate" textAlignment="CENTER">
+                         <cursor>
+                             <Cursor fx:constant="HAND" />
+                         </cursor>
+                     </Button>
                   <Button fx:id="btnLogIn" layoutX="85.0" layoutY="225.0" mnemonicParsing="false" onAction="#onLogInButtonClick" style="-fx-border-radius: 35; -fx-background-radius: 35; -fx-border-color: #a26740; -fx-background-color: #d07943; -fx-font-family: 'Segoe UI Semibold';" text="Iniciar sesión">
                      <cursor>
                         <Cursor fx:constant="HAND" />
@@ -145,7 +174,7 @@
              </Pane>
          </children></AnchorPane>
 
-      <AnchorPane fx:id="registroPanee" layoutY="89.0" prefHeight="615.0" prefWidth="950.0" style="-fx-background-color: #383838; -fx-background-radius: 15;" visible="false">
+      <AnchorPane fx:id="registroPanee" layoutY="66.0" prefHeight="615.0" prefWidth="950.0" style="-fx-background-color: #383838; -fx-background-radius: 15;" visible="false">
          <children>
             <Label fx:id="registroPane" alignment="TOP_CENTER" layoutX="305.0" layoutY="14.0" prefHeight="17.0" prefWidth="341.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="Registrarse">
                <font>
@@ -190,15 +219,22 @@
             <TextField fx:id="telefonoTF" layoutX="468.0" layoutY="378.0" />
             <TextField fx:id="residenciaTF" layoutX="468.0" layoutY="439.0" />
 
-            <Button fx:id="confirRegistroButtom" layoutX="410.0" layoutY="520.0" mnemonicParsing="false" onAction="#onConfiRegistrarClienteClick" prefHeight="35.0" prefWidth="132.0" style="-fx-border-radius: 35; -fx-background-radius: 35; -fx-border-style: none; -fx-border-color: #a26740; -fx-background-color: #d07943; -fx-font-family: 'Segoe UI Semibold';" text="Confirmar" />
+             <Button fx:id="confirRegistroButtom" layoutX="410.0" layoutY="520.0" mnemonicParsing="false" onAction="#onConfiRegistrarClienteClick" prefHeight="35.0" prefWidth="132.0" style="-fx-border-radius: 35; -fx-background-radius: 35; -fx-border-style: none; -fx-border-color: #a26740; -fx-background-color: #d07943; -fx-font-family: 'Segoe UI Semibold';" text="Confirmar">
+                 <cursor>
+                     <Cursor fx:constant="HAND" />
+                 </cursor>
+             </Button>
 
              <ImageView fx:id="registroExit" fitHeight="35.0" fitWidth="35.0" layoutX="895.0" layoutY="14.0" onMouseClicked="#registroExit" pickOnBounds="true" preserveRatio="true">
                  <Image url="@../icons/4103083.png" />
+                 <cursor>
+                     <Cursor fx:constant="HAND" />
+                 </cursor>
              </ImageView>
          </children>
       </AnchorPane>
 
-      <Pane fx:id="perfilPane" layoutY="85.0" prefHeight="615.0" prefWidth="950.0" style="-fx-background-color: #383838; -fx-background-radius: 15;" visible="false">
+      <Pane fx:id="perfilPane" layoutY="66.0" prefHeight="615.0" prefWidth="950.0" style="-fx-background-color: #383838; -fx-background-radius: 15;" visible="false">
          <children>
             <VBox prefHeight="615.0" prefWidth="258.0">
                <children>
@@ -252,7 +288,7 @@
          </children>
       </Pane>
 
-       <Pane fx:id="reservarPane" layoutY="85.0" prefHeight="615.0" prefWidth="950.0" style="-fx-background-color: #383838; -fx-background-radius: 15;" visible="false">
+       <Pane fx:id="reservarPane" layoutY="66.0" prefHeight="615.0" prefWidth="950.0" style="-fx-background-color: #383838; -fx-background-radius: 15;" visible="false">
          <children>
             <Label layoutX="275.0" layoutY="71.0" prefHeight="17.0" prefWidth="128.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="¿Desea tener un guía?" />
             <Label layoutX="273.0" layoutY="164.0" prefHeight="17.0" prefWidth="193.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="Numero de personajes que viajan :" />
