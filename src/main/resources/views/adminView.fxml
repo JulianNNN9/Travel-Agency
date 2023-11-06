@@ -18,36 +18,42 @@
 
       <ImageView fx:id="imgViewExitButton" fitHeight="27.0" fitWidth="28.0" layoutX="900.0" layoutY="14.0" onMouseClicked="#onExitButtonClick" pickOnBounds="true" preserveRatio="true"><cursor><Cursor fx:constant="HAND" /></cursor></ImageView>
 
-      <VBox alignment="CENTER" layoutX="334.0" layoutY="332.0" prefHeight="200.0" prefWidth="265.0">
-         <children>
+        <VBox alignment="CENTER" layoutX="334.0" layoutY="332.0" prefHeight="200.0" prefWidth="265.0">
 
-                   <Button fx:id="manageDestinationsButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="27.0" prefWidth="131.0" style="-fx-border-radius: 35; -fx-background-radius: 35; -fx-border-color: #a26740; -fx-background-color: #d07943; -fx-font-family: 'Segoe UI Semibold'" text="Gestionar destinos" textAlignment="CENTER">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
-            <Separator orientation="VERTICAL" prefHeight="25.0" prefWidth="106.0" visible="false" />
+            <Button fx:id="manageDestinationsButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false"
+                    onAction="#handleButtonAction" prefHeight="27.0" prefWidth="131.0"
+                    style="-fx-border-radius: 35; -fx-background-radius: 35; -fx-border-color: #a26740; -fx-background-color: #d07943; -fx-font-family: 'Segoe UI Semibold'"
+                    text="Gestionar destinos" textAlignment="CENTER">
+                <cursor>
+                    <Cursor fx:constant="HAND"/>
+                </cursor>
+     </Button>
+            <Separator orientation="VERTICAL" prefHeight="25.0" prefWidth="106.0" visible="false"/>
 
-                   <Button fx:id="managePackagesButton" mnemonicParsing="false" onAction="#handleButtonAction" style="-fx-border-radius: 35; -fx-background-radius: 35; -fx-border-color: #a26740; -fx-background-color: #d07943; -fx-font-family: 'Segoe UI Semibold'" text="Gestionar paquetes">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
-            <Separator orientation="VERTICAL" prefHeight="25.0" prefWidth="100.0" visible="false" />
-                   <Button fx:id="manageGuidesButton" mnemonicParsing="false" onAction="#handleButtonAction" style="-fx-border-radius: 35; -fx-background-radius: 35; -fx-border-color: #a26740; -fx-background-color: #d07943; -fx-font-family: 'Segoe UI Semibold'" text="Gestionar guias">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
-            <Separator orientation="VERTICAL" prefHeight="25.0" prefWidth="101.0" visible="false" />
-                   <Button fx:id="statisticsButton" mnemonicParsing="false" onAction="#handleButtonAction" style="-fx-border-radius: 35; -fx-background-radius: 35; -fx-border-color: #a26740; -fx-background-color: #d07943; -fx-font-family: 'Segoe UI Semibold'" text="Estadísticas">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
-         </children>
-
-      </VBox>
+            <Button fx:id="managePackagesButton" mnemonicParsing="false" onAction="#handleButtonAction"
+                    style="-fx-border-radius: 35; -fx-background-radius: 35; -fx-border-color: #a26740; -fx-background-color: #d07943; -fx-font-family: 'Segoe UI Semibold'"
+                    text="Gestionar paquetes">
+                <cursor>
+                    <Cursor fx:constant="HAND"/>
+                </cursor>
+     </Button>
+            <Separator orientation="VERTICAL" prefHeight="25.0" prefWidth="100.0" visible="false"/>
+            <Button fx:id="manageGuidesButton" mnemonicParsing="false" onAction="#handleButtonAction"
+                    style="-fx-border-radius: 35; -fx-background-radius: 35; -fx-border-color: #a26740; -fx-background-color: #d07943; -fx-font-family: 'Segoe UI Semibold'"
+                    text="Gestionar guias">
+                <cursor>
+                    <Cursor fx:constant="HAND"/>
+                </cursor>
+     </Button>
+            <Separator orientation="VERTICAL" prefHeight="25.0" prefWidth="101.0" visible="false"/>
+            <Button fx:id="statisticsButton" mnemonicParsing="false" onAction="#handleButtonAction"
+                    style="-fx-border-radius: 35; -fx-background-radius: 35; -fx-border-color: #a26740; -fx-background-color: #d07943; -fx-font-family: 'Segoe UI Semibold'"
+                    text="Estadísticas">
+                <cursor>
+                    <Cursor fx:constant="HAND"/>
+                </cursor>
+     </Button>
+        </VBox>
 
     </Pane>
 
