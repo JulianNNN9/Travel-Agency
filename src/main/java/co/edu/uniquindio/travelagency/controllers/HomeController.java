@@ -70,6 +70,8 @@ public class HomeController {
     @FXML
     public Button cancelarReservaButton, confirmarReservaButton;
     private boolean isTableLoaded = false;
+    private List<Reservation> reservationsData = new ArrayList<>();
+
 
     //----------------------Reservar----------------------
     @FXML
@@ -227,26 +229,9 @@ public class HomeController {
 
             isTableLoaded = true;
 
-            Optional<Client> client = travelAgency.getClients().stream().filter(client1 -> client1.getUserId().equals(clientID)).findFirst();
-
-            List<Reservation> reservationsData = new ArrayList<>();
-
-            if (client.isPresent()) {
-                reservationsData = client.get().getReservationList();
-            }
-
             reservations = historialReservacionesTable.getItems();
 
-            List<Reservation> existingReservations = new ArrayList<>(reservations);
-
-            for (Reservation newReservation : reservationsData) {
-                if (!existingReservations.contains(newReservation)) {
-                    reservations.add(newReservation);
-                    historialReservacionesTable.refresh();
-                }
-            }
-
-            historialReservacionesTable.setItems(FXCollections.observableArrayList(reservations));
+            historialReservacionesTable.setItems(reservations);
 
             packageColumn.setCellValueFactory(cellData -> {
                 StringProperty property = new SimpleStringProperty();
@@ -265,7 +250,7 @@ public class HomeController {
                 if (newSelection != null) {
                     if (newSelection.getReservationStatus() == ReservationStatus.CONFIRMED) {
                         cancelarReservaButton.setVisible(true);
-                        confirmarReservaButton.setVisible(true);
+                        confirmarReservaButton.setVisible(false);
 
                         cancelarReservaButton.setOnAction(event -> {
                             travelAgency.cancelarReserva(newSelection);
@@ -273,11 +258,6 @@ public class HomeController {
                             historialReservacionesTable.refresh();
                         });
 
-                        confirmarReservaButton.setOnAction(actionEvent -> {
-                            travelAgency.confirmarReserva(newSelection);
-                            confirmarReservaButton.setVisible(false);
-                            historialReservacionesTable.refresh();
-                        });
                     }
                     if (newSelection.getReservationStatus() == ReservationStatus.PENDING) {
                         cancelarReservaButton.setVisible(true);
@@ -297,9 +277,28 @@ public class HomeController {
                     }
                     if (newSelection.getReservationStatus() == ReservationStatus.CANCELED) {
                         cancelarReservaButton.setVisible(false);
+                        confirmarReservaButton.setVisible(false);
                     }
                 }
             });
+        } else {
+
+            Optional<Client> client = travelAgency.getClients().stream().filter(client1 -> client1.getUserId().equals(clientID)).findFirst();
+
+            List<Reservation> reservationsData = new ArrayList<>();
+
+            if (client.isPresent()) {
+                reservationsData = client.get().getReservationList();
+            }
+
+            List<Reservation> existingReservations = new ArrayList<>(reservations);
+
+            for (Reservation newReservation : reservationsData) {
+                if (!existingReservations.contains(newReservation)) {
+                    reservations.add(newReservation);
+                    historialReservacionesTable.refresh();
+                }
+            }
         }
     }
 
