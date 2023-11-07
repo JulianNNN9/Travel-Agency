@@ -19,7 +19,7 @@ public class Reservation implements Serializable {
     private ReservationStatus reservationStatus;
     private LocalDate startDate;
     private LocalDate endDate;
-    private Boolean touristGuide;
+    private TouristGuide touristGuide;
     private Integer numberOfPeople;
 
 }
