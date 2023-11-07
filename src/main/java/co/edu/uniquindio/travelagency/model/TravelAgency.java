@@ -152,9 +152,57 @@ public class TravelAgency {
         archiveUtils.serializerObjet("src/main/resources/persistencia/reservations.ser", reservations);
     }
 
+    public void calificarServicioGuia(Client client){
+        List<LocalDate> endDates = client.getReservationList().stream().map(Reservation::getEndDate).toList();
+
+        for (LocalDate localDate : endDates){
+            if (LocalDate.now().isAfter(localDate)){
+                /* TODO implementar un metodo que permita calificar el servicio del guia */
+            }
+        }
+    }
+
+    public void calificarDestino(Client client){
+        List<LocalDate> endDates = client.getReservationList().stream().map(Reservation::getEndDate).toList();
+
+        for (LocalDate localDate : endDates){
+            if (LocalDate.now().isAfter(localDate)){
+                /* TODO implementar un metodo que permita calificar los destinos visitados en el paquete con estrellas y comentarios */
+            }
+        }
+    }
+
+    /**
+     * Primer método adicional
+     * @param client
+     */
+    public void recompensasPorReservas(Client client){
+
+        if (client.getReservationList().size() > 2){
+            /* TODO implementar un metodo que avise al cliente que en la próximo reserva tendrá 10% de descuento */
+        }
+
+        if (client.getReservationList().size() > 4){
+            /* TODO implementar un metodo que avise al cliente que en la próximo reserva tendrá 20% de descuento */
+        }
+
+        if (client.getReservationList().size() > 7){
+            /* TODO implementar un metodo que avise al cliente que en la próximo reserva tendrá 30% de descuento */
+        }
+
+        /* TODO el ciente debería tener una nueva lista llamada descuentos, se deben ir añadiendo los descuentos según los gana y validarlos al momento de reservar y aplicar ese descuento*/
+    }
+
+    /**
+     * Segundo método adicinal
+     */
+    public void alertaOfertasEspeciales(){
+        /* TODO implementar un metodo que avise al cliente pos descuentos (Fin de año, navidad, semana santa)*/
+    }
+
     public void hacerReservacion(String clientID, String mailClient, Toggle selectedToggle, RadioButton radioBttonSI, RadioButton radioBttonNO, String selectedGuia, String nroCupos, String selectedPackageName) throws AtributoVacioException, CuposInvalidosException {
 
-        EmailService emailService = new EmailService("juliana.hoyos@uqvirtual.edu.co", "julian1011");
+        EmailService emailService = new EmailService("", "");
 
         Optional<TouristPackage> aPackage = touristPackages.stream().filter(touristPackage -> touristPackage.getName().equals(selectedPackageName)).findFirst();
 
@@ -196,6 +244,7 @@ public class TravelAgency {
             Optional<TouristPackage> touristPackage = touristPackages.stream().filter(touristPackage1 -> touristPackage1.getName().equals(selectedPackageName)).findFirst();
 
             if (touristPackage.isPresent()) {
+
                 if (Integer.parseInt(nroCupos) > touristPackage.get().getQuota()) {
 
                     createAlertError("Cupos inválidos", "La cantidad de cupos con los que desea reservar exceden los permitidos en el paquete");
@@ -203,6 +252,7 @@ public class TravelAgency {
                     throw new CuposInvalidosException("Cupos inválidos.");
                 }
 
+                Optional<TouristGuide> touristGuide = touristGuides.stream().filter(touristGuide1 -> touristGuide1.getFullName().equals(selectedGuia)).findFirst();
 
                 Reservation nuevaReservacion = Reservation.builder()
                         .touristPackage(touristPackage.get())
@@ -210,7 +260,7 @@ public class TravelAgency {
                         .reservationStatus(ReservationStatus.PENDING)
                         .startDate(touristPackage.get().getStartDate())
                         .endDate(touristPackage.get().getEndDate())
-                        .touristGuide(true)
+                        .touristGuide(touristGuide.get())
                         .numberOfPeople(Integer.valueOf(nroCupos))
                         .build();
 
@@ -250,7 +300,7 @@ public class TravelAgency {
                     .reservationStatus(ReservationStatus.PENDING)
                     .startDate(touristPackage.get().getStartDate())
                     .endDate(touristPackage.get().getEndDate())
-                    .touristGuide(false)
+                    .touristGuide(null)
                     .numberOfPeople(Integer.valueOf(nroCupos))
                     .build();
 
@@ -643,6 +693,7 @@ public class TravelAgency {
                 .build();
 
         clients.add(client);
+        createAlertInfo("Cuenta creada", "Información", "Se ha creado su cuenta correctamente.");
 
         serizalizarClientes();
 

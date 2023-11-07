@@ -121,6 +121,8 @@ public class HomeController {
     private Button paquetesBtn;
     @FXML
     public ImageView mostrarDestinoImg, imagenSiguienteImg, imagenAnteriorImg;
+    @FXML
+    public Label vistaPreviaLabel;
 
     //----------------------Guias pane----------------------
     @FXML
@@ -130,7 +132,9 @@ public class HomeController {
 
     //----------------------Iniciar Sesion Pane----------------------
     @FXML
-    public TextField txtFldID, txtFldPassword;
+    public TextField txtFldID;
+    @FXML
+    public PasswordField passwordFldInicioSesion;
     @FXML
     private Button iniciaSecionBtn;
     @FXML
@@ -153,6 +157,7 @@ public class HomeController {
 
         imagenAnteriorImg.setVisible(false);
         imagenSiguienteImg.setVisible(false);
+        vistaPreviaLabel.setVisible(false);
 
         cancelarReservaButton.setVisible(false);
         confirmarReservaButton.setVisible(false);
@@ -356,10 +361,12 @@ public class HomeController {
                         mostrarDestinoImg.setImage(cargarImagen(listaRutas.get(0)));
                         imagenAnteriorImg.setVisible(true);
                         imagenSiguienteImg.setVisible(true);
+                        vistaPreviaLabel.setVisible(true);
                     } else {
                         mostrarDestinoImg.setImage(null);
                         imagenAnteriorImg.setVisible(false);
                         imagenSiguienteImg.setVisible(false);
+                        vistaPreviaLabel.setVisible(false);
                     }
                 } else {
                     listaRutas = null;
@@ -371,14 +378,14 @@ public class HomeController {
 
                     imagenSiguienteImg.setOnMouseClicked(mouseEvent -> {
                         if (i[0] + 1 < listaRutas.size()) {
-                            ++i[0]; // Incrementa i solo si no se desborda de la lista
+                            ++i[0];
                             mostrarDestinoImg.setImage(cargarImagen(listaRutas.get(i[0])));
                         }
                     });
 
                     imagenAnteriorImg.setOnMouseClicked(mouseEvent -> {
                         if (i[0] > 0) {
-                            --i[0]; // Resta 1 a i solo si no se vuelve menor que 0
+                            --i[0];
                             mostrarDestinoImg.setImage(cargarImagen(listaRutas.get(i[0])));
                         }
                     });
@@ -441,7 +448,6 @@ public class HomeController {
     public void onConfiRegistrarClienteClick() throws RepeatedInformationException, AtributoVacioException {
         visibilitiesRegister(true, false);
         travelAgency.registrarCliente(idTF.getText(),passTF.getText(),nombreTF.getText(),mailTF.getText(),telefonoTF.getText(),residenciaTF.getText());
-        travelAgency.createAlertInfo("Registro de cliente","Informacion","se ha registrado el cliente con la ID" + idTF.getText());
     }
 
 
@@ -484,7 +490,7 @@ public class HomeController {
 
     public void onLogInButtonClick() throws UserNoExistingException, WrongPasswordException, IOException, AtributoVacioException {
 
-        String sesion = travelAgency.LogIn(txtFldID.getText(), txtFldPassword.getText());
+        String sesion = travelAgency.LogIn(txtFldID.getText(), passwordFldInicioSesion.getText());
 
 
         Optional<Client> optionalClient = travelAgency.getClients().stream().filter(client -> client.getUserId().equals(txtFldID.getText())).findFirst();
