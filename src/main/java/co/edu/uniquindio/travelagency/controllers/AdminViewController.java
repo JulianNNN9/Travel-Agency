@@ -393,7 +393,7 @@ public class AdminViewController {
 
         // Ordenar los guías por rating en orden descendente
 
-        guides.sort((g1, g2) -> Integer.compare(g2.getRating(), g1.getRating()));
+        guides.sort((g1, g2) -> Double.compare(g2.getRating(), g1.getRating()));
 
         // Tomar los 5 guías mejor puntuados o el número que desees
         List<TouristGuide> topGuides = guides.subList(0, Math.min(5, guides.size()));
@@ -811,7 +811,7 @@ public class AdminViewController {
                 .fullName(txtFldFullNameGuide.getText())
                 .languages(new ArrayList<>())
                 .experience(txtFldExperience.getText())
-                .rating(Integer.valueOf(txtFldRating.getText()))
+                .rating(Double.valueOf(txtFldRating.getText()))
                 .build();
 
         travelAgency.agregarGuia(touristGuideObservableList, nuevoGuia);
@@ -886,7 +886,7 @@ public class AdminViewController {
                     .id(txtFldGuideId.getText())
                     .fullName(txtFldFullNameGuide.getText())
                     .experience(txtFldExperience.getText())
-                    .rating(Integer.valueOf(txtFldRating.getText()))
+                    .rating(Double.valueOf(txtFldRating.getText()))
                     .build();
 
             travelAgency.agregarLeaguajeGuia(observableListLenguajes, txtFldLenguaje.getText(), nuevoGuia);

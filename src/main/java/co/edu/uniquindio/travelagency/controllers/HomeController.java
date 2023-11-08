@@ -35,6 +35,8 @@ public class HomeController {
     private final TravelAgency travelAgency = TravelAgency.getInstance();
 
 
+    //Calificar guia-----------------------------------
+
     @FXML
     public Label bienvenidoLabel;
     @FXML
@@ -47,7 +49,23 @@ public class HomeController {
     public RadioButton radioBtton1Estrella, radioBtton2Estrella, radioBtton3Estrella, radioBtton4Estrella, radioBtton5Estrella;
     @FXML
     public Button confirmarCalificacionGuiaButton;
-    ToggleGroup groupCalificacion = new ToggleGroup();
+    ToggleGroup groupCalificacionGuia = new ToggleGroup();
+
+    //Calificar destinos-----------------------------------
+
+    @FXML
+    public Pane calificarDestinosPane;
+    @FXML
+    public RadioButton radioBtton1EstrellaDestino, radioBtton2EstrellaDestino, radioBtton3EstrellaDestino, radioBtton4EstrellaDestino, radioBtton5EstrellaDestino;
+    @FXML
+    public ImageView cargaImagenDestinoCalificar;
+    @FXML
+    public Label cargarNombreDestinoCalificar;
+    @FXML
+    public Button calificarDestinoButton;
+    @FXML
+    public TextArea txtAreaComentario;
+    ToggleGroup groupCalificacionDestino = new ToggleGroup();
 
     //----------------------Modificar perfil----------------------
     @FXML
@@ -175,11 +193,17 @@ public class HomeController {
         radioBttonSI.setToggleGroup(group);
         radioBttonNO.setToggleGroup(group);
 
-        radioBtton1Estrella.setToggleGroup(groupCalificacion);
-        radioBtton2Estrella.setToggleGroup(groupCalificacion);
-        radioBtton3Estrella.setToggleGroup(groupCalificacion);
-        radioBtton4Estrella.setToggleGroup(groupCalificacion);
-        radioBtton5Estrella.setToggleGroup(groupCalificacion);
+        radioBtton1Estrella.setToggleGroup(groupCalificacionGuia);
+        radioBtton2Estrella.setToggleGroup(groupCalificacionGuia);
+        radioBtton3Estrella.setToggleGroup(groupCalificacionGuia);
+        radioBtton4Estrella.setToggleGroup(groupCalificacionGuia);
+        radioBtton5Estrella.setToggleGroup(groupCalificacionGuia);
+
+        radioBtton1EstrellaDestino.setToggleGroup(groupCalificacionDestino);
+        radioBtton2EstrellaDestino.setToggleGroup(groupCalificacionDestino);
+        radioBtton3EstrellaDestino.setToggleGroup(groupCalificacionDestino);
+        radioBtton4EstrellaDestino.setToggleGroup(groupCalificacionDestino);
+        radioBtton5EstrellaDestino.setToggleGroup(groupCalificacionDestino);
 
         radioBttonSI.setOnAction(event -> {
             choiceBoxGuias.setVisible(true);
@@ -252,6 +276,7 @@ public class HomeController {
                     .toList();
 
             for (LocalDate endDate : endDates) {
+
                 if (LocalDate.now().isAfter(endDate)) {
 
                     Reservation reservation = optionalClient.get().getReservationList().stream()
@@ -259,17 +284,22 @@ public class HomeController {
                             .findFirst()
                             .orElse(null);
 
-                    if (reservation != null && reservation.getTouristGuide() != null) {
+                    if (reservation != null && reservation.getReservationStatus().equals(ReservationStatus.CONFIRMED) && reservation.getTouristGuide() != null) {
 
-                        calificarGuiaPane.setVisible(true);
                         hboxCliente.setVisible(false);
-                        visibilitiesClient(false, false, false);
+                        visibilitiesClient(false, false, false, false, true);
 
                         calificarGuiaLabelPrincipal.setText("Califica a nuestro guía, " + Arrays.stream(reservation.getTouristGuide().getFullName().split(" ")).findFirst());
 
                         confirmarCalificacionGuiaButton.setOnAction(actionEvent -> {
+
                             try {
-                                travelAgency.calificarGuia(reservation.getTouristGuide(), groupCalificacion.getSelectedToggle(), radioBtton1Estrella, radioBtton2Estrella, radioBtton3Estrella, radioBtton4Estrella, radioBtton5Estrella);
+
+                                travelAgency.calificarGuia(reservation.getTouristGuide(), groupCalificacionGuia.getSelectedToggle(), radioBtton1Estrella, radioBtton2Estrella, radioBtton3Estrella, radioBtton4Estrella, radioBtton5Estrella);
+
+                                hboxCliente.setVisible(true);
+                                visibilitiesClient(true, false, false, false, false);
+
                             } catch (AtributoVacioException e) {
                                 throw new RuntimeException(e);
                             }
@@ -279,6 +309,51 @@ public class HomeController {
                 }
             }
         }
+    }
+
+    public void calificarDestinos(){
+
+        Optional<Client> optionalClient =  travelAgency.getClients().stream().filter(client -> client.getUserId().equals(clientID)).findFirst();
+
+        if (optionalClient.isPresent()){
+
+            for (Reservation reservation : optionalClient.get().getReservationList()){
+
+                if (LocalDate.now().isAfter(reservation.getEndDate()) && reservation.getReservationStatus().equals(ReservationStatus.CONFIRMED)){
+
+                    hboxCliente.setVisible(false);
+                    visibilitiesClient(false, false, false, true, false);
+
+                    for (String nombreDestinoCalificar : reservation.getTouristPackage().getDestinosName()) {
+
+                        Optional<Destino> optionalDestino = travelAgency.getDestinos()
+                                .stream()
+                                .filter(destino -> destino.getName().equals(nombreDestinoCalificar))
+                                .findFirst();
+
+                        cargarNombreDestinoCalificar.setText(nombreDestinoCalificar);
+                        cargaImagenDestinoCalificar.setImage(new Image(optionalDestino.get().getImagesHTTPS().get(0)));
+
+                        optionalDestino.ifPresent(destino -> calificarDestinoButton.setOnAction(actionEvent -> {
+                            try {
+                                travelAgency.calificarDestino(destino, txtAreaComentario.getText(), groupCalificacionDestino.getSelectedToggle(), radioBtton1EstrellaDestino, radioBtton2EstrellaDestino, radioBtton3EstrellaDestino, radioBtton4EstrellaDestino, radioBtton5EstrellaDestino);
+                            } catch (AtributoVacioException e) {
+                                throw new RuntimeException(e);
+                            }
+                        }));
+                    }
+
+                    hboxCliente.setVisible(true);
+                    visibilitiesClient(true, false, false, false, false);
+
+                }
+
+            }
+
+        }
+
+        calificarServicioGuia();
+
     }
 
     public void onHacerReservacionClick() throws AtributoVacioException, CuposInvalidosException {
@@ -382,7 +457,7 @@ public class HomeController {
             choiceBoxGuias.getItems().setAll(guiasName);
         }
 
-        visibilitiesClient(false, false, true);
+        visibilitiesClient(false, false, true, false, false);
     }
 
     private void seleccionDestinos() {
@@ -497,7 +572,7 @@ public class HomeController {
 
     public void onPerfilClick() {
         cargarTablaHistoricoReservas();
-        visibilitiesClient(false, true, false);
+        visibilitiesClient(false, true, false, false, false);
     }
 
     public void onConfiRegistrarClienteClick() throws RepeatedInformationException, AtributoVacioException {
@@ -527,10 +602,12 @@ public class HomeController {
         iniciarsesionPane.setVisible(pane5);
     }
 
-    public void visibilitiesClient(boolean pane1,boolean pane2, boolean pane3){
+    public void visibilitiesClient(boolean pane1,boolean pane2, boolean pane3, boolean pane4, boolean pane5){
         bienvenidoPane.setVisible(pane1);
         perfilPane.setVisible(pane2);
         reservarPane.setVisible(pane3);
+        calificarDestinosPane.setVisible(pane4);
+        calificarGuiaPane.setVisible(pane5);
     }
 
     public void visibilitiesRegister(boolean pan1, boolean pan2){
@@ -554,12 +631,12 @@ public class HomeController {
 
             hboxPanePrincipal.setVisible(false);
             hboxCliente.setVisible(true);
-            visibilitiesClient(true, false, false);
+            visibilitiesClient(true, false, false, false, false);
 
             optionalClient.ifPresent(this::sesionIniciada);
 
             cargarDatos();
-            calificarServicioGuia();
+            calificarDestinos();
 
             String[] firstName = fullName.split(" ");
 
