@@ -27,10 +27,8 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.time.LocalDate;
+import java.util.*;
 
 public class HomeController {
 
@@ -41,6 +39,15 @@ public class HomeController {
     public Label bienvenidoLabel;
     @FXML
     public Pane bienvenidoPane;
+    @FXML
+    public Pane calificarGuiaPane;
+    @FXML
+    public Label calificarGuiaLabelPrincipal;
+    @FXML
+    public RadioButton radioBtton1Estrella, radioBtton2Estrella, radioBtton3Estrella, radioBtton4Estrella, radioBtton5Estrella;
+    @FXML
+    public Button confirmarCalificacionGuiaButton;
+    ToggleGroup groupCalificacion = new ToggleGroup();
 
     //----------------------Modificar perfil----------------------
     @FXML
@@ -168,6 +175,12 @@ public class HomeController {
         radioBttonSI.setToggleGroup(group);
         radioBttonNO.setToggleGroup(group);
 
+        radioBtton1Estrella.setToggleGroup(groupCalificacion);
+        radioBtton2Estrella.setToggleGroup(groupCalificacion);
+        radioBtton3Estrella.setToggleGroup(groupCalificacion);
+        radioBtton4Estrella.setToggleGroup(groupCalificacion);
+        radioBtton5Estrella.setToggleGroup(groupCalificacion);
+
         radioBttonSI.setOnAction(event -> {
             choiceBoxGuias.setVisible(true);
             seleccionarGuiaLabel.setVisible(true);
@@ -226,6 +239,58 @@ public class HomeController {
             }
         });
 
+    }
+
+    public void calificarServicioGuia(){
+
+        Optional<Client> optionalClient = travelAgency.getClients().stream().filter(client ->  client.getUserId().equals(clientID)).findFirst();
+
+        if (optionalClient.isPresent()){
+
+            List<LocalDate> endDates = optionalClient.get().getReservationList().stream()
+                    .map(Reservation::getEndDate)
+                    .toList();
+
+            for (LocalDate endDate : endDates) {
+                if (LocalDate.now().isAfter(endDate)) {
+
+                    Reservation reservation = optionalClient.get().getReservationList().stream()
+                            .filter(r -> r.getEndDate().equals(endDate))
+                            .findFirst()
+                            .orElse(null);
+
+                    if (reservation != null && reservation.getTouristGuide() != null) {
+
+                        calificarGuiaPane.setVisible(true);
+                        hboxCliente.setVisible(false);
+                        visibilitiesClient(false, false, false);
+
+                        calificarGuiaLabelPrincipal.setText("Califica a nuestro guía, " + Arrays.stream(reservation.getTouristGuide().getFullName().split(" ")).findFirst());
+
+                        confirmarCalificacionGuiaButton.setOnAction(actionEvent -> {
+                            try {
+                                travelAgency.calificarGuia(reservation.getTouristGuide(), groupCalificacion.getSelectedToggle(), radioBtton1Estrella, radioBtton2Estrella, radioBtton3Estrella, radioBtton4Estrella, radioBtton5Estrella);
+                            } catch (AtributoVacioException e) {
+                                throw new RuntimeException(e);
+                            }
+                        });
+
+                    }
+                }
+            }
+        }
+    }
+
+    public void onHacerReservacionClick() throws AtributoVacioException, CuposInvalidosException {
+
+        travelAgency.hacerReservacion(clientID, mail, group.getSelectedToggle(), radioBttonSI, radioBttonNO, choiceBoxGuias.getSelectionModel().getSelectedItem(), txtFldCuposDeseados.getText(), txtFldNombrePaquete.getText());
+
+        group.getSelectedToggle().setSelected(false);
+        choiceBoxGuias.getSelectionModel().clearSelection();
+        txtFldCuposDeseados.clear();
+        txtFldNombrePaquete.clear();
+        seleccionarGuiaLabel.setVisible(false);
+        choiceBoxGuias.setVisible(false);
     }
 
     private void cargarTablaHistoricoReservas() {
@@ -305,16 +370,6 @@ public class HomeController {
                 }
             }
         }
-    }
-
-    public void onHacerReservacionClick() throws AtributoVacioException, CuposInvalidosException {
-        travelAgency.hacerReservacion(clientID, mail, group.getSelectedToggle(), radioBttonSI, radioBttonNO, choiceBoxGuias.getSelectionModel().getSelectedItem(), txtFldCuposDeseados.getText(), txtFldNombrePaquete.getText());
-        group.getSelectedToggle().setSelected(false);
-        choiceBoxGuias.getSelectionModel().clearSelection();
-        txtFldCuposDeseados.clear();
-        txtFldNombrePaquete.clear();
-        seleccionarGuiaLabel.setVisible(false);
-        choiceBoxGuias.setVisible(false);
     }
 
     public void onReservarClick() {
@@ -504,6 +559,7 @@ public class HomeController {
             optionalClient.ifPresent(this::sesionIniciada);
 
             cargarDatos();
+            calificarServicioGuia();
 
             String[] firstName = fullName.split(" ");
 

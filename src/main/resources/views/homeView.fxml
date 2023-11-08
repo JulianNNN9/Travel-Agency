@@ -343,5 +343,29 @@
     <Pane fx:id="bienvenidoPane" layoutY="66.0" prefHeight="615.0" prefWidth="950.0" style="-fx-background-color: #383838; -fx-background-radius: 15;" visible="false">
         <Label fx:id="bienvenidoLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="66.0" layoutY="77.0" prefHeight="73.0" prefWidth="828.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'; -fx-font-size: 50" textAlignment="CENTER" />
     </Pane>
+   <Pane layoutY="66.0" prefHeight="615.0" prefWidth="950.0" style="-fx-background-color: #383838; -fx-background-radius: 15;" visible="false">
+      <children>
+         <Pane fx:id="calificarGuiaPane" layoutX="234.0" layoutY="172.0" prefHeight="272.0" prefWidth="483.0" style="-fx-background-color: #6e6e6e; -fx-background-radius: 15;">
+            <children>
+               <Label fx:id="calificarGuiaLabelPrincipal" alignment="CENTER" contentDisplay="CENTER" layoutX="105.0" layoutY="29.0" prefHeight="17.0" prefWidth="271.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="-----" textAlignment="CENTER" />
+                <Label alignment="CENTER" contentDisplay="CENTER" layoutX="63.0" layoutY="65.0" prefHeight="17.0" prefWidth="358.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="De 1 estrella (mal servicio) a 5 estrellas (excelente servicio)" textAlignment="CENTER" />
+               <RadioButton fx:id="radioBtton1Estrella" layoutX="122.0" layoutY="116.0" mnemonicParsing="false" text="1" textFill="transparent" />
+               <RadioButton fx:id="radioBtton2Estrella" layoutX="177.0" layoutY="116.0" mnemonicParsing="false" text="2" textFill="transparent" />
+               <RadioButton fx:id="radioBtton3Estrella" layoutX="232.0" layoutY="116.0" mnemonicParsing="false" text="3" textFill="transparent" />
+               <RadioButton fx:id="radioBtton4Estrella" layoutX="287.0" layoutY="116.0" mnemonicParsing="false" text="4" textFill="transparent" />
+               <RadioButton fx:id="radioBtton5Estrella" layoutX="342.0" layoutY="116.0" mnemonicParsing="false" text="5" textFill="transparent" />
+               <Label alignment="CENTER" contentDisplay="CENTER" layoutX="122.0" layoutY="145.0" prefHeight="17.0" prefWidth="16.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="1" textAlignment="CENTER" />
+               <Label alignment="CENTER" contentDisplay="CENTER" layoutX="177.0" layoutY="145.0" prefHeight="17.0" prefWidth="16.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="2" textAlignment="CENTER" />
+               <Label alignment="CENTER" contentDisplay="CENTER" layoutX="232.0" layoutY="145.0" prefHeight="17.0" prefWidth="16.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="3" textAlignment="CENTER" />
+               <Label alignment="CENTER" contentDisplay="CENTER" layoutX="287.0" layoutY="145.0" prefHeight="17.0" prefWidth="16.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="4" textAlignment="CENTER" />
+               <Label alignment="CENTER" contentDisplay="CENTER" layoutX="342.0" layoutY="145.0" prefHeight="17.0" prefWidth="16.0" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'" text="5" textAlignment="CENTER" />
+               <Button fx:id="confirmarCalificacionGuiaButton" layoutX="172.0" layoutY="206.0" mnemonicParsing="false" style="-fx-border-radius: 35; -fx-background-radius: 35; -fx-border-style: none; -fx-border-color: #a26740; -fx-background-color: #d07943; -fx-font-family: 'Segoe UI Semibold';" text="Confirmar calificación">
+                  <cursor>
+                     <Cursor fx:constant="HAND" />
+                  </cursor>
+               </Button>
+            </children>
+         </Pane>
+      </children></Pane>
 
 </AnchorPane>

@@ -8,7 +8,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.RadioButton;
-import javafx.scene.control.TableView;
 import javafx.scene.control.Toggle;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
@@ -150,16 +149,6 @@ public class TravelAgency {
 
     public void serializarReservaciones(){
         archiveUtils.serializerObjet("src/main/resources/persistencia/reservations.ser", reservations);
-    }
-
-    public void calificarServicioGuia(Client client){
-        List<LocalDate> endDates = client.getReservationList().stream().map(Reservation::getEndDate).toList();
-
-        for (LocalDate localDate : endDates){
-            if (LocalDate.now().isAfter(localDate)){
-                /* TODO implementar un metodo que permita calificar el servicio del guia */
-            }
-        }
     }
 
     public void calificarDestino(Client client){
@@ -326,6 +315,41 @@ public class TravelAgency {
 
         serizalizarClientes();
         serializarReservaciones();
+    }
+
+    public void calificarGuia(TouristGuide touristGuide, Toggle calificacionSelectedToggle, RadioButton radioBtton1Estrella, RadioButton radioBtton2Estrella, RadioButton radioBtton3Estrella, RadioButton radioBtton4Estrella, RadioButton radioBtton5Estrella) throws AtributoVacioException {
+
+        if (calificacionSelectedToggle == null){
+
+            createAlertError("Campos obligatorios", "Los campos marcados con (*) son oblogatorios");
+            log.info("Se ha intentado agregar un destino con campos vacios.");
+            throw new AtributoVacioException("Se ha intentado agregar un destino con campos vacios.");
+        }
+
+        if (calificacionSelectedToggle.equals(radioBtton1Estrella)){
+            touristGuide.getRatingList().add(1);
+        }
+        if (calificacionSelectedToggle.equals(radioBtton2Estrella)){
+            touristGuide.getRatingList().add(2);
+        }
+        if (calificacionSelectedToggle.equals(radioBtton3Estrella)){
+            touristGuide.getRatingList().add(3);
+        }
+        if (calificacionSelectedToggle.equals(radioBtton4Estrella)){
+            touristGuide.getRatingList().add(4);
+        }
+        if (calificacionSelectedToggle.equals(radioBtton5Estrella)){
+            touristGuide.getRatingList().add(5);
+        }
+
+        Double promedioCalificaciones = touristGuide.getRatingList().stream()
+                .mapToInt(Integer::intValue)
+                .average()
+                .orElse(0.0);
+
+        touristGuide.setRating(promedioCalificaciones);
+
+        serializarGuias();
     }
 
     public void modificarDestino(Destino selectedDestino, String nuevoNombre, String nuevaCiudad, String nuevaDescrpcion, String nuevaLocalDate) throws AtributoVacioException {
@@ -807,4 +831,5 @@ public class TravelAgency {
         reserva.setReservationStatus(ReservationStatus.CONFIRMED);
         serizalizarClientes();
     }
+
 }
