@@ -196,6 +196,7 @@ public class TravelAgency {
     /**
      * Segundo método adicinal
      */
+
     public void alertaOfertasEspeciales(){
         /* TODO implementar un metodo que avise al cliente pos descuentos (Fin de año, navidad, semana santa)*/
     }
