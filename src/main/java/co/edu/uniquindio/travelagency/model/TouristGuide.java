@@ -17,6 +17,7 @@ public class TouristGuide implements Serializable {
     private String fullName;
     private List<String> languages = new ArrayList<>();
     private String experience;
-    private Integer rating;
+    private List<Integer> ratingList;
+    private Double rating;
 
 }
