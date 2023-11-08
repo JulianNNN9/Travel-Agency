@@ -18,5 +18,8 @@ public class Destino implements Serializable {
     private String description;
     private List<String> imagesHTTPS = new ArrayList<>();
     private String weather;
+    private List<String> comentarios;
+    private List<Integer> ratingList = new ArrayList<>();
+    private Double rating;
 
 }

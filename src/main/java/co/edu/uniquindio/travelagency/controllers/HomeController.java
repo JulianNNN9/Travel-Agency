@@ -35,6 +35,8 @@ public class HomeController {
     private final TravelAgency travelAgency = TravelAgency.getInstance();
 
 
+    //Calificar guia-----------------------------------
+
     @FXML
     public Label bienvenidoLabel;
     @FXML
@@ -48,6 +50,19 @@ public class HomeController {
     @FXML
     public Button confirmarCalificacionGuiaButton;
     ToggleGroup groupCalificacion = new ToggleGroup();
+
+    //Calificar destinos-----------------------------------
+
+    @FXML
+    public Pane calificarDestinosPane;
+    @FXML
+    public RadioButton radioBtton1EstrellaDestino, radioBtton2EstrellaDestino, radioBtton3EstrellaDestino, radioBtton4EstrellaDestino, radioBtton5EstrellaDestino;
+    @FXML
+    public ImageView cargaImagenDestinoCalificar;
+    @FXML
+    public Label cargarNombreDestinoCalificar;
+    @FXML
+    public Button calificarDestinoButton, siguienteDestinoButton;
 
     //----------------------Modificar perfil----------------------
     @FXML
@@ -259,7 +274,7 @@ public class HomeController {
                             .findFirst()
                             .orElse(null);
 
-                    if (reservation != null && reservation.getTouristGuide() != null) {
+                    if (reservation != null && reservation.getReservationStatus().equals(ReservationStatus.CONFIRMED) && reservation.getTouristGuide() != null) {
 
                         calificarGuiaPane.setVisible(true);
                         hboxCliente.setVisible(false);
@@ -268,8 +283,15 @@ public class HomeController {
                         calificarGuiaLabelPrincipal.setText("Califica a nuestro guía, " + Arrays.stream(reservation.getTouristGuide().getFullName().split(" ")).findFirst());
 
                         confirmarCalificacionGuiaButton.setOnAction(actionEvent -> {
+
                             try {
+
                                 travelAgency.calificarGuia(reservation.getTouristGuide(), groupCalificacion.getSelectedToggle(), radioBtton1Estrella, radioBtton2Estrella, radioBtton3Estrella, radioBtton4Estrella, radioBtton5Estrella);
+
+                                calificarGuiaPane.setVisible(false);
+                                hboxCliente.setVisible(true);
+                                visibilitiesClient(true, false, false);
+
                             } catch (AtributoVacioException e) {
                                 throw new RuntimeException(e);
                             }
@@ -279,6 +301,30 @@ public class HomeController {
                 }
             }
         }
+    }
+
+    public void calificarDestino(){
+
+        Optional<Client> optionalClient =  travelAgency.getClients().stream().filter(client -> client.getUserId().equals(clientID)).findFirst();
+
+        if (optionalClient.isPresent()){
+
+            for (Reservation reservation : optionalClient.get().getReservationList()){
+
+                if (LocalDate.now().isAfter(reservation.getEndDate()) && reservation.getReservationStatus().equals(ReservationStatus.CONFIRMED)){
+
+                    for (String destino : reservation.getTouristPackage().getDestinosName()){
+
+
+
+                    }
+
+                }
+
+            }
+
+        }
+
     }
 
     public void onHacerReservacionClick() throws AtributoVacioException, CuposInvalidosException {

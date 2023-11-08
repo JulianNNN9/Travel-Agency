@@ -151,16 +151,6 @@ public class TravelAgency {
         archiveUtils.serializerObjet("src/main/resources/persistencia/reservations.ser", reservations);
     }
 
-    public void calificarDestino(Client client){
-        List<LocalDate> endDates = client.getReservationList().stream().map(Reservation::getEndDate).toList();
-
-        for (LocalDate localDate : endDates){
-            if (LocalDate.now().isAfter(localDate)){
-                /* TODO implementar un metodo que permita calificar los destinos visitados en el paquete con estrellas y comentarios */
-            }
-        }
-    }
-
     /**
      * Primer método adicional
      * @param client
@@ -410,7 +400,7 @@ public class TravelAgency {
         selectedGuia.setId(nuevoGuideID);
         selectedGuia.setFullName(nuevoGuideName);
         selectedGuia.setExperience(nuevaExperiencia);
-        selectedGuia.setRating(Integer.valueOf(nuevoRating));
+        selectedGuia.setRating(Double.valueOf(nuevoRating));
 
         serializarGuias();
     }
@@ -529,6 +519,13 @@ public class TravelAgency {
     }
 
     public void agregarPaquete(ObservableList<TouristPackage> packageObservableList, TouristPackage nuevoPaquete) throws AtributoVacioException, RepeatedInformationException, ErrorEnIngresoFechasException {
+
+        if (LocalDate.now().isAfter(nuevoPaquete.getStartDate())){
+
+            createAlertError("Error en el ingreso de fechas", "Las fechas que desea ingresar son inválidas, verifiquelas.");
+            log.info("Las fechas fueron incorrectamente colocadas.");
+            throw new ErrorEnIngresoFechasException("Las fechas fueron incorrectamente colocadas.");
+        }
 
         if ( nuevoPaquete.getName() == null || nuevoPaquete.getName().isEmpty() ||
                 nuevoPaquete.getPrice() == null || nuevoPaquete.getPrice().isNaN() ||
