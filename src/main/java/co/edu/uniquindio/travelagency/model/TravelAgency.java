@@ -342,6 +342,45 @@ public class TravelAgency {
         serializarGuias();
     }
 
+    public void calificarDestino(Destino destino, String comentario, Toggle selectedToggle, RadioButton radioBtton1EstrellaDestino, RadioButton radioBtton2EstrellaDestino, RadioButton radioBtton3EstrellaDestino, RadioButton radioBtton4EstrellaDestino, RadioButton radioBtton5EstrellaDestino) throws AtributoVacioException {
+
+        if (selectedToggle == null){
+            createAlertError("Campos obligatorios", "Los campos marcados con (*) son oblogatorios");
+            log.info("Se ha intentado agregar un destino con campos vacios.");
+            throw new AtributoVacioException("Se ha intentado agregar un destino con campos vacios.");
+        }
+
+        if (comentario != null){
+            destino.getComentarios().add(comentario);
+        }
+
+        if (selectedToggle.equals(radioBtton1EstrellaDestino)){
+            destino.getRatingList().add(1);
+        }
+        if (selectedToggle.equals(radioBtton2EstrellaDestino)){
+            destino.getRatingList().add(2);
+        }
+        if (selectedToggle.equals(radioBtton3EstrellaDestino)){
+            destino.getRatingList().add(3);
+        }
+        if (selectedToggle.equals(radioBtton4EstrellaDestino)){
+            destino.getRatingList().add(4);
+        }
+        if (selectedToggle.equals(radioBtton5EstrellaDestino)){
+            destino.getRatingList().add(5);
+        }
+
+        Double promedioCalificaciones = destino.getRatingList().stream()
+                .mapToInt(Integer::intValue)
+                .average()
+                .orElse(0.0);
+
+        destino.setRating(promedioCalificaciones);
+
+        serializarDestinos();
+
+    }
+
     public void modificarDestino(Destino selectedDestino, String nuevoNombre, String nuevaCiudad, String nuevaDescrpcion, String nuevaLocalDate) throws AtributoVacioException {
 
         if (nuevoNombre.isEmpty() ||
@@ -828,5 +867,4 @@ public class TravelAgency {
         reserva.setReservationStatus(ReservationStatus.CONFIRMED);
         serizalizarClientes();
     }
-
 }
